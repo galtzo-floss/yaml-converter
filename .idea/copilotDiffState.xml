@@ -12,15 +12,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/sig/yaml/converter.rbs">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/sig/yaml/converter.rbs" />
-              <option name="originalContent" value="module Yaml&#10;  module Converter&#10;    VERSION: String&#10;&#10;    class Error &lt; ::StandardError; end&#10;    class InvalidArgumentsError &lt; Error; end&#10;    class RendererUnavailableError &lt; Error; end&#10;&#10;    def self.to_markdown: (String yaml_string, ?options: Hash[Symbol, untyped]) -&gt; String&#10;    def self.validate: (String yaml_string) -&gt; { status: Symbol, error: Exception? }&#10;    def self.convert: (input_path: String, output_path: String, ?options: Hash[Symbol, untyped]) -&gt; { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }&#10;  end&#10;end&#10;" />
-              <option name="updatedContent" value="module Yaml&#10;  module Converter&#10;    VERSION: String&#10;&#10;    class Error &lt; ::StandardError; end&#10;    class InvalidArgumentsError &lt; Error; end&#10;    class RendererUnavailableError &lt; Error; end&#10;&#10;    def self.to_markdown: (String yaml_string, ?options: Hash[Symbol, untyped]) -&gt; String&#10;    def self.validate: (String yaml_string) -&gt; { status: Symbol, error: Exception? }&#10;    def self.convert: (input_path: String, output_path: String, ?options: Hash[Symbol, untyped]) -&gt; { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }&#10;  end&#10;end" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
       </map>
     </option>
   </component>

@@ -5,6 +5,7 @@ module Yaml
     class Error < ::StandardError; end
     class InvalidArgumentsError < Error; end
     class RendererUnavailableError < Error; end
+    class PandocNotFoundError < Error; end
 
     def self.to_markdown: (String yaml_string, ?options: Hash[Symbol, untyped]) -> String
     def self.validate: (String yaml_string) -> { status: Symbol, error: Exception? }

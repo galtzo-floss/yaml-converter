@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# External dependencies
+require 'version_gem'
+
+# This library
 require_relative "converter/version"
 require_relative "converter/config"
 require_relative "converter/validation"
@@ -10,6 +14,7 @@ module Yaml
     class Error < StandardError; end
     class InvalidArgumentsError < Error; end
     class RendererUnavailableError < Error; end
+    class PandocNotFoundError < Error; end
 
     module_function
 
@@ -78,11 +83,17 @@ module Yaml
         File.write(output_path, html)
         { status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : { status: :ok, error: nil }) }
       else
-        # For now, write intermediate .md next to output and rely on pandoc if configured later.
         tmp_md = output_path + ".md"
         File.write(tmp_md, markdown)
-        # Phase 1: we do not execute pandoc yet; return a clear error to guide usage.
-        raise RendererUnavailableError, "Renderer for #{ext} not implemented in Phase 1. Use .md or .html for now."
+        if opts[:use_pandoc]
+          require_relative "converter/renderer/pandoc_shell"
+          ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: opts[:pandoc_path], args: opts[:pandoc_args])
+          File.delete(tmp_md) if File.exist?(tmp_md)
+          raise PandocNotFoundError, "pandoc not found in PATH" unless ok
+          { status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : { status: :ok, error: nil }) }
+        else
+          raise RendererUnavailableError, "Renderer for #{ext} not implemented. Pass use_pandoc: true or use .md/.html."
+        end
       end
     end
   end

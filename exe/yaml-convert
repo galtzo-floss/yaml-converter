@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'optparse'
+require_relative '../lib/yaml/converter'
+
+options = {
+  max_line_length: nil,
+  truncate: nil,
+  margin_notes: nil,
+  validate: nil,
+  use_pandoc: nil,
+  pandoc_args: nil
+}
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: yaml-convert INPUT.yaml OUTPUT.(md|html|pdf|docx) [options]"
+
+  opts.on('--max-line-length N', Integer, 'Set maximum line length (default 70)') { |v| options[:max_line_length] = v }
+  opts.on('--no-truncate', 'Disable line truncation') { options[:truncate] = false }
+  opts.on('--no-validate', 'Disable YAML validation') { options[:validate] = false }
+  opts.on('--margin-notes MODE', 'Set margin notes mode (auto|inline|ignore)') { |v| options[:margin_notes] = v.to_sym }
+  opts.on('--use-pandoc', 'Use pandoc for non-md/html output formats') { options[:use_pandoc] = true }
+  opts.on('--pandoc-args STRING', 'Extra args for pandoc (split on spaces)') { |v| options[:pandoc_args] = v.split(/\s+/) }
+  opts.on('--version', 'Show version') { puts Yaml::Converter::VERSION; exit 0 }
+  opts.on('--help', 'Show help') { puts opts; exit 0 }
+end
+
+begin
+  parser.parse!(ARGV)
+rescue OptionParser::InvalidOption => e
+  warn e.message
+  puts parser
+  exit 2
+end
+
+if ARGV.length != 2
+  warn 'Error: require INPUT.yaml and OUTPUT.<ext>'
+  puts parser
+  exit 2
+end
+
+input, output = ARGV
+
+begin
+  result = Yaml::Converter.convert(input_path: input, output_path: output, options: options.compact)
+  puts "Converted: #{result[:output_path]}" unless ENV['KETTLE_TEST_SILENT'] == 'true'
+  exit 0
+rescue Yaml::Converter::InvalidArgumentsError => e
+  warn e.message
+  exit 2
+rescue Yaml::Converter::PandocNotFoundError => e
+  warn e.message
+  exit 5
+rescue Yaml::Converter::RendererUnavailableError => e
+  warn e.message
+  exit 5
+rescue StandardError => e
+  warn "Unexpected error: #{e.class}: #{e.message}"
+  exit 9
+end
+

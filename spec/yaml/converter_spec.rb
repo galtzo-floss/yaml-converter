@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Yaml::Converter do
+  let(:project_root) { File.expand_path("../..", __dir__) }
+  let(:exe_path) { File.join(project_root, "exe", "yaml-convert") }
+
   let(:yaml_input) do
     <<~YAML
       # Title Line
@@ -72,6 +75,36 @@ RSpec.describe Yaml::Converter do
         expect do
           described_class.convert(input_path: f.path, output_path: f.path + ".pdf", options: {})
         end.to raise_error(Yaml::Converter::RendererUnavailableError)
+      end
+    end
+  end
+
+  describe "CLI", :check_output do
+    it "converts YAML to markdown via cli" do
+      Tempfile.create(["test", ".yaml"]) do |f|
+        f.write("foo: bar")
+        f.flush
+        out = Tempfile.create(["out", ".md"]) { |tf| tf.path }
+        output = capture(:stdout) do
+          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, f.path, out)
+        end
+        expect($?.exitstatus).to eq(0)
+        expect(output).to include("Converted:")
+        expect(File.read(out)).to include("foo: bar")
+      end
+    end
+
+    it "converts YAML to html via cli" do
+      Tempfile.create(["test", ".yaml"]) do |f|
+        f.write("foo: bar")
+        f.flush
+        out = Tempfile.create(["out", ".html"]) { |tf| tf.path }
+        output = capture(:stdout) do
+          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, f.path, out)
+        end
+        expect($?.exitstatus).to eq(0)
+        expect(output).to include("Converted:")
+        expect(File.read(out)).to include("<html>")
       end
     end
   end
