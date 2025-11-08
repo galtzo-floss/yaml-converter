@@ -8,3 +8,8 @@ module Yaml
     # Your code goes here...
   end
 end
+
+# Extend the Version with VersionGem::Basic to provide semantic version helpers.
+Yaml::Converter::Version.class_eval do
+  extend VersionGem::Basic
+end
