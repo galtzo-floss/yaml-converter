@@ -14,9 +14,9 @@ RSpec.describe Yaml::Converter do
   end
 
   describe "::to_markdown" do
-    it "includes validation status line" do
-      md = described_class.to_markdown(yaml_input, options: {validate: true})
-      expect(md).to include("YAML validation:*OK* ")
+    it "includes validation status line", freeze: Time.new(2025, 11, 8, 12, 0, 0, 0) do
+      md = described_class.to_markdown(yaml_input, options: { validate: true })
+      expect(md).to include("YAML validation:*OK* on 08/11/2025")
     end
 
     it "wraps YAML content in fenced code blocks" do
