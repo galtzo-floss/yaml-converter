@@ -12,7 +12,7 @@ module Yaml
         use_pandoc: false,
         pandoc_args: ["-N", "--toc"],
         pandoc_path: nil,
-        html_theme: :basic
+        html_theme: :basic,
       }.freeze
 
       ENV_MAP = {
@@ -20,7 +20,7 @@ module Yaml
         truncate: "YAML_CONVERTER_TRUNCATE",
         margin_notes: "YAML_CONVERTER_MARGIN_NOTES",
         validate: "YAML_CONVERTER_VALIDATE",
-        use_pandoc: "YAML_CONVERTER_USE_PANDOC"
+        use_pandoc: "YAML_CONVERTER_USE_PANDOC",
       }.freeze
 
       BOOLEAN_KEYS = %i[truncate validate use_pandoc].freeze
@@ -29,9 +29,10 @@ module Yaml
         def resolve(options = {})
           opts = DEFAULTS.dup
           ENV_MAP.each do |key, env_key|
-            next unless ENV.key?(env_key)
+            val = ENV[env_key]
+            next if val.nil?
 
-            opts[key] = coerce_env_value(key, ENV[env_key])
+            opts[key] = coerce_env_value(key, val)
           end
           options.each do |k, v|
             opts[k] = v unless v.nil?

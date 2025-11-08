@@ -1,0 +1,13 @@
+{
+  "sig/yaml/converter.rbs:1396606762": [
+    [5, 34, 1, "RBS/Lint/Syntax: unexpected token for class/module declaration member, token=`;` (ErrorToken)", 177566]
+  ],
+  "spec/yaml/converter_spec.rb:2610071057": [
+    [114, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
+    [115, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
+    [116, 35, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785]
+  ],
+  "spec/yaml/validation_spec.rb:2617750190": [
+    [3, 1, 42, "RSpec/SpecFilePathFormat: Spec path should end with `yaml/converter/validation*_spec.rb`.", 1185126307]
+  ]
+}

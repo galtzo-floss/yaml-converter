@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'open3'
+require "open3"
 
 module Yaml
   module Converter
@@ -23,9 +23,9 @@ module Yaml
         # @param args [Array<String>] extra pandoc arguments
         # @return [Boolean] true if successful
         def render(md_path:, out_path:, pandoc_path: nil, args: [])
-          bin = pandoc_path || which('pandoc')
+          bin = pandoc_path || which("pandoc")
           return false unless bin
-          cmd = [bin] + args + ['-o', out_path, md_path]
+          cmd = [bin] + args + ["-o", out_path, md_path]
           _stdout, stderr, status = Open3.capture3(*cmd)
           unless status.success?
             warn("pandoc failed: #{stderr}")
@@ -37,4 +37,3 @@ module Yaml
     end
   end
 end
-

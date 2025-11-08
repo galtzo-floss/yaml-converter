@@ -15,14 +15,15 @@ RSpec.describe Yaml::Converter do
 
   describe "::to_markdown" do
     it "includes validation status line" do
-      md = described_class.to_markdown(yaml_input, options: { validate: true })
+      md = described_class.to_markdown(yaml_input, options: {validate: true})
       expect(md).to include("YAML validation:*OK* ")
     end
 
     it "wraps YAML content in fenced code blocks" do
       md = described_class.to_markdown(yaml_input, options: {})
       expect(md).to include("```yaml")
-      expect(md).to include("```\n---- ")
+      expect(md).to include("```
+---- ")
     end
 
     it "emits note outside YAML block" do
@@ -64,7 +65,7 @@ RSpec.describe Yaml::Converter do
         out = Tempfile.create(["out", ".html"]) { |tf| tf.path }
         result = described_class.convert(input_path: f.path, output_path: out, options: {})
         expect(result[:status]).to eq(:ok)
-        expect(File.read(out)).to include("<html") # kramdown wraps in HTML root
+        expect(File.read(out)).to include("<html")
       end
     end
 
@@ -79,6 +80,43 @@ RSpec.describe Yaml::Converter do
     end
   end
 
+  describe "errors" do
+    it "raises InvalidArgumentsError for missing input" do
+      expect do
+        described_class.convert(input_path: "/no/such/file.yaml", output_path: "/tmp/out.md")
+      end.to raise_error(Yaml::Converter::InvalidArgumentsError)
+    end
+
+    it "raises RendererUnavailableError for unsupported extension without pandoc" do
+      Tempfile.create(["in", ".yaml"]) do |f|
+        f.write("foo: bar")
+        f.flush
+        expect do
+          described_class.convert(input_path: f.path, output_path: f.path + ".pdf", options: {use_pandoc: false})
+        end.to raise_error(Yaml::Converter::RendererUnavailableError)
+      end
+    end
+  end
+
+  describe "config" do
+    include_context "with stubbed env"
+
+    it "uses ENV to override max_line_length and booleans" do
+      stub_env(
+        "YAML_CONVERTER_MAX_LINE_LEN" => "80",
+        "YAML_CONVERTER_TRUNCATE" => "false",
+        "YAML_CONVERTER_VALIDATE" => "0",
+        "YAML_CONVERTER_USE_PANDOC" => "1",
+      )
+      expect(ENV["YAML_CONVERTER_MAX_LINE_LEN"]).to eq("80")
+      cfg = Yaml::Converter::Config.resolve({})
+      expect(cfg[:max_line_length]).to eq(80)
+      expect(cfg[:truncate]).to eq(false)
+      expect(cfg[:validate]).to eq(false)
+      expect(cfg[:use_pandoc]).to eq(true)
+    end
+  end
+
   describe "CLI", :check_output do
     it "converts YAML to markdown via cli" do
       Tempfile.create(["test", ".yaml"]) do |f|
@@ -86,7 +124,7 @@ RSpec.describe Yaml::Converter do
         f.flush
         out = Tempfile.create(["out", ".md"]) { |tf| tf.path }
         output = capture(:stdout) do
-          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, f.path, out)
+          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
         end
         expect($?.exitstatus).to eq(0)
         expect(output).to include("Converted:")
@@ -100,7 +138,7 @@ RSpec.describe Yaml::Converter do
         f.flush
         out = Tempfile.create(["out", ".html"]) { |tf| tf.path }
         output = capture(:stdout) do
-          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, f.path, out)
+          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
         end
         expect($?.exitstatus).to eq(0)
         expect(output).to include("Converted:")

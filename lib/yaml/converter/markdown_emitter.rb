@@ -5,10 +5,10 @@ require "date"
 module Yaml
   module Converter
     class MarkdownEmitter
-      START_YAML = "```yaml".freeze
-      END_YAML = "```".freeze
-      VALIDATED_STR = "YAML validation:".freeze
-      NOTE_STR = "note:".freeze
+      START_YAML = "```yaml"
+      END_YAML = "```"
+      VALIDATED_STR = "YAML validation:"
+      NOTE_STR = "note:"
 
       def initialize(options)
         @max_len = options.fetch(:max_line_length)
@@ -39,10 +39,10 @@ module Yaml
 
           if line.start_with?("# ") || line == "#"
             out << END_YAML if state != :text
-            content = line == "#" ? "" : line[2..]
+            content = (line == "#") ? "" : line[2..]
             if content.start_with?(VALIDATED_STR)
               date = Date.today.strftime("%d/%m/%Y")
-              status_str = (@validation_status == :ok ? "OK" : "Fail")
+              status_str = ((@validation_status == :ok) ? "OK" : "Fail")
               out << "#{VALIDATED_STR}*#{status_str}* on #{date}"
             else
               out << content
@@ -52,13 +52,13 @@ module Yaml
           end
 
           # skip document separator
-          if line == '---'
+          if line == "---"
             next
           end
 
           # Leading dash at column 0 becomes a markdown heading line per python behavior
           if line.start_with?("-")
-            out << "# #{line[1..-1].strip.gsub(/\s+$/,'')}"
+            out << "# #{line[1..-1].strip.gsub(/\s+$/, "")}"
           end
 
           # transition to YAML state if needed
@@ -96,4 +96,3 @@ module Yaml
     end
   end
 end
-
