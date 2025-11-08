@@ -1,0 +1,14 @@
+module Yaml
+  module Converter
+    module Config
+      DEFAULTS: { max_line_length: Integer, truncate: bool, margin_notes: Symbol, validate: bool, use_pandoc: bool, pandoc_args: Array[String], pandoc_path: String? , html_theme: Symbol }
+      ENV_MAP: { max_line_length: String, truncate: String, margin_notes: String, validate: String, use_pandoc: String }
+      BOOLEAN_KEYS: Array[Symbol]
+
+      def self.resolve: (?Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def self.normalize: (Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def self.coerce_env_value: (Symbol, String) -> untyped
+    end
+  end
+end
+

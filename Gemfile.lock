@@ -14,6 +14,7 @@ PATH
   remote: .
   specs:
     yaml-converter (0.1.0)
+      kramdown (>= 2.4, < 3)
       version_gem (~> 1.1, >= 1.1.9)
 
 GEM

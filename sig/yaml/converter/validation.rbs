@@ -1,0 +1,9 @@
+module Yaml
+  module Converter
+    module Validation
+      def self.validate_string: (String) -> { status: Symbol, error: Exception? }
+      def self.validate_file: (String) -> { status: Symbol, error: Exception? }
+    end
+  end
+end
+

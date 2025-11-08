@@ -1,0 +1,15 @@
+module Yaml
+  module Converter
+    class MarkdownEmitter
+      START_YAML: String
+      END_YAML: String
+      VALIDATED_STR: String
+      NOTE_STR: String
+
+      def initialize: (options: { max_line_length: Integer, truncate: bool, margin_notes: Symbol, validate: bool }) -> void
+      def set_validation_status: (Symbol) -> void
+      def emit: (Array[String]) -> Array[String]
+    end
+  end
+end
+

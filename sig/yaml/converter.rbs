@@ -1,6 +1,13 @@
 module Yaml
   module Converter
     VERSION: String
-    # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+    class Error < ::StandardError; end
+    class InvalidArgumentsError < Error; end
+    class RendererUnavailableError < Error; end
+
+    def self.to_markdown: (String yaml_string, ?options: Hash[Symbol, untyped]) -> String
+    def self.validate: (String yaml_string) -> { status: Symbol, error: Exception? }
+    def self.convert: (input_path: String, output_path: String, ?options: Hash[Symbol, untyped]) -> { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }
   end
 end
