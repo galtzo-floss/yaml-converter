@@ -169,7 +169,89 @@ NOTE: Be prepared to track down certs for signed gems and add them the same way 
 
 ## 🔧 Basic Usage
 
+### Library API
 
+Minimal conversion to Markdown:
+
+```ruby
+require 'yaml/converter'
+markdown = Yaml::Converter.to_markdown(File.read('spec/fixtures/example.yaml'))
+puts markdown
+```
+
+Convert directly to a file (extension decides behavior):
+
+```ruby
+Yaml::Converter.convert(
+  input_path: 'spec/fixtures/example.yaml',
+  output_path: 'doc/example.html',
+  options: { validate: true }
+)
+```
+
+### CLI
+
+Install gem (development checkout already has exe script):
+
+```bash
+bundle exec ruby exe/yaml-convert input.yaml output.md
+bundle exec ruby exe/yaml-convert input.yaml output.html
+bundle exec ruby exe/yaml-convert input.yaml output.pdf --use-pandoc
+```
+
+Options:
+- `--max-line-length N` (default 70)
+- `--no-truncate` disable line truncation
+- `--no-validate` skip YAML validation status line
+- `--margin-notes auto|inline|ignore` control note rendering
+- `--use-pandoc` enable pandoc for non-md/html formats
+- `--pandoc-args "--toc -N"` additional pandoc flags
+
+Exit Codes:
+- 0 success
+- 2 invalid arguments
+- 5 renderer/pandoc not available
+- 9 unexpected internal error
+
+### Supported Formats (Phase 1)
+- Markdown (.md)
+- HTML (.html)
+- Others (.pdf, .docx, etc.) via pandoc when `--use-pandoc` (error if pandoc absent)
+
+### Notes Handling
+Inline `#note:` at end of a YAML line:
+
+```yaml
+key: value #note: important detail
+```
+
+Will produce a blockquote note just after the YAML fenced block.
+
+### ENV Configuration
+Override defaults using ENV (before process start):
+
+```bash
+export YAML_CONVERTER_MAX_LINE_LEN=120
+export YAML_CONVERTER_TRUNCATE=false
+export YAML_CONVERTER_VALIDATE=false
+```
+
+### Validation Status Line
+Any comment line that begins with `# YAML validation:` will be replaced with a status and date:
+
+```
+YAML validation:*OK* on dd/mm/YYYY
+```
+
+### Footer
+A production footer is always appended:
+```
+----
+Produced by yaml-converter
+```
+
+### Future Enhancements
+See `IMPLEMENTATION_PLAN.md` for upcoming phases (native PDF, streaming, plugin renderers).
 
 ## 🦷 FLOSS Funding
 
