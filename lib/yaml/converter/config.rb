@@ -23,6 +23,7 @@ module Yaml
         pdf_yaml_font_size: 9,
         pdf_two_column_notes: false,
         current_date: Date.today, # allows injection for deterministic tests
+        emit_footer: true,
       }.freeze
 
       ENV_MAP = {
@@ -36,9 +37,10 @@ module Yaml
         pdf_body_font_size: "YAML_CONVERTER_PDF_BODY_FONT_SIZE",
         pdf_yaml_font_size: "YAML_CONVERTER_PDF_YAML_FONT_SIZE",
         pdf_two_column_notes: "YAML_CONVERTER_PDF_TWO_COLUMN_NOTES",
+        emit_footer: "YAML_CONVERTER_EMIT_FOOTER",
       }.freeze
 
-      BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes].freeze
+      BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes emit_footer].freeze
 
       class << self
         # Merge caller options with environment overrides and defaults.

@@ -1,11 +1,21 @@
 {
-  "sig/yaml/converter.rbs:1396606762": [
-    [5, 34, 1, "RBS/Lint/Syntax: unexpected token for class/module declaration member, token=`;` (ErrorToken)", 177566]
+  "exe/yaml-convert:203079901": [
+    [59, 10, 34, "Style/SafeNavigation: Use safe navigation (`&.`) instead of checking if an object exists before calling the method.", 3135175708]
   ],
-  "spec/yaml/converter_spec.rb:2610071057": [
-    [114, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
-    [115, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
-    [116, 35, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785]
+  "lib/yaml/converter.rb:174532823": [
+    [126, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982],
+    [132, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982]
+  ],
+  "spec/yaml/converter/renderer/pandoc_shell_spec.rb:231507547": [
+    [26, 5, 13, "RSpec/StubbedMock: Prefer `allow` over `expect` when configuring a response.", 2024371388]
+  ],
+  "spec/yaml/converter_spec.rb:367000414": [
+    [164, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
+    [165, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
+    [166, 35, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785]
+  ],
+  "spec/yaml/html_renderer_spec.rb:2719870233": [
+    [5, 16, 30, "RSpec/DescribeClass: The first argument to describe should be the class or module being tested.", 758299981]
   ],
   "spec/yaml/validation_spec.rb:2617750190": [
     [3, 1, 42, "RSpec/SpecFilePathFormat: Spec path should end with `yaml/converter/validation*_spec.rb`.", 1185126307]

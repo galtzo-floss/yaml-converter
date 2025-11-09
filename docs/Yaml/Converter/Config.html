@@ -122,7 +122,8 @@ Use <span class='object_link'><a href="#resolve-class_method" title="Yaml::Conve
   <span class='label'>pdf_yaml_font_size:</span> <span class='int'>9</span><span class='comma'>,</span>
   <span class='label'>pdf_two_column_notes:</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='label'>current_date:</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span><span class='comma'>,</span> <span class='comment'># allows injection for deterministic tests
-</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+</span>  <span class='label'>emit_footer:</span> <span class='kw'>true</span><span class='comma'>,</span>
+<span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="ENV_MAP-constant" class="">ENV_MAP =
           
@@ -138,12 +139,13 @@ Use <span class='object_link'><a href="#resolve-class_method" title="Yaml::Conve
   <span class='label'>pdf_body_font_size:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YAML_CONVERTER_PDF_BODY_FONT_SIZE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>pdf_yaml_font_size:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YAML_CONVERTER_PDF_YAML_FONT_SIZE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>pdf_two_column_notes:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YAML_CONVERTER_PDF_TWO_COLUMN_NOTES</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>emit_footer:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YAML_CONVERTER_EMIT_FOOTER</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="BOOLEAN_KEYS-constant" class="">BOOLEAN_KEYS =
           
         </dt>
-        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>truncate</span><span class='words_sep'> </span><span class='tstring_content'>validate</span><span class='words_sep'> </span><span class='tstring_content'>use_pandoc</span><span class='words_sep'> </span><span class='tstring_content'>pdf_two_column_notes</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>truncate</span><span class='words_sep'> </span><span class='tstring_content'>validate</span><span class='words_sep'> </span><span class='tstring_content'>use_pandoc</span><span class='words_sep'> </span><span class='tstring_content'>pdf_two_column_notes</span><span class='words_sep'> </span><span class='tstring_content'>emit_footer</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
   
@@ -304,18 +306,18 @@ Use <span class='object_link'><a href="#resolve-class_method" title="Yaml::Conve
       <pre class="lines">
 
 
-76
-77
 78
 79
 80
 81
 82
 83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/config.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/config.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_coerce_env_value'>coerce_env_value</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="#BOOLEAN_KEYS-constant" title="Yaml::Converter::Config::BOOLEAN_KEYS (constant)">BOOLEAN_KEYS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -384,14 +386,14 @@ Use <span class='object_link'><a href="#resolve-class_method" title="Yaml::Conve
       <pre class="lines">
 
 
-66
-67
 68
 69
-70</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/config.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/config.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize'>normalize</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:margin_notes</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:margin_notes</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:margin_notes</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span>
@@ -463,8 +465,6 @@ Environment bools accept values: 1, true, yes, on (case-insensitive).</p>
       <pre class="lines">
 
 
-49
-50
 51
 52
 53
@@ -475,10 +475,12 @@ Environment bools accept values: 1, true, yes, on (case-insensitive).</p>
 58
 59
 60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/config.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/config.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resolve'>resolve</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#DEFAULTS-constant" title="Yaml::Converter::Config::DEFAULTS (constant)">DEFAULTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -503,7 +505,7 @@ Environment bools accept values: 1, true, yes, on (case-insensitive).</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Nov  8 22:45:05 2025 by
+  Generated on Sat Nov  8 22:59:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>

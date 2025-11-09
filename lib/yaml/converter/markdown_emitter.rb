@@ -40,7 +40,9 @@ module Yaml
         tokens = parser.tokenize(lines)
         sm = StateMachine.new(validation_status: @validation_status, max_line_length: @max_len, truncate: @truncate, margin_notes: @margin_notes, current_date: @options[:current_date])
         body = sm.apply(tokens)
-        body << "---- \n\nProduced by [yaml-converter](https://github.com/kettle-rb/yaml-converter)"
+        if @options[:emit_footer]
+          body << "---- \n\nProduced by [yaml-converter](https://github.com/kettle-rb/yaml-converter)"
+        end
         body
       end
     end

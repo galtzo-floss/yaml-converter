@@ -19,6 +19,20 @@ RSpec.describe Yaml::Converter do
       expect(md).to include("YAML validation:*OK* on 08/11/2025")
     end
 
+    it "includes footer by default" do
+      md = described_class.to_markdown(yaml_input, options: {})
+      expect(md).to include("Produced by [yaml-converter]")
+    end
+
+    it "omits footer when YAML_CONVERTER_EMIT_FOOTER=false" do
+      old = ENV["YAML_CONVERTER_EMIT_FOOTER"]
+      ENV["YAML_CONVERTER_EMIT_FOOTER"] = "false"
+      md = described_class.to_markdown(yaml_input, options: {})
+      expect(md).not_to include("Produced by [yaml-converter]")
+    ensure
+      ENV["YAML_CONVERTER_EMIT_FOOTER"] = old
+    end
+
     it "wraps YAML content in fenced code blocks" do
       md = described_class.to_markdown(yaml_input, options: {})
       expect(md).to include("```yaml")
