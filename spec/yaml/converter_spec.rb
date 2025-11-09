@@ -69,12 +69,24 @@ RSpec.describe Yaml::Converter do
       end
     end
 
+    it "writes pdf output when .pdf extension (native)" do
+      Tempfile.create(["test", ".yaml"]) do |f|
+        f.write("foo: bar")
+        f.flush
+        out = Tempfile.create(["out", ".pdf"]) { |tf| tf.path }
+        result = described_class.convert(input_path: f.path, output_path: out, options: { use_pandoc: false })
+        expect(result[:status]).to eq(:ok)
+        expect(File).to exist(out)
+        expect(File.size(out)).to be > 0
+      end
+    end
+
     it "raises for unsupported extension" do
       Tempfile.create(["test", ".yaml"]) do |f|
         f.write("foo: bar")
         f.flush
         expect do
-          described_class.convert(input_path: f.path, output_path: f.path + ".pdf", options: {})
+          described_class.convert(input_path: f.path, output_path: f.path + ".docx", options: {})
         end.to raise_error(Yaml::Converter::RendererUnavailableError)
       end
     end
@@ -92,7 +104,7 @@ RSpec.describe Yaml::Converter do
         f.write("foo: bar")
         f.flush
         expect do
-          described_class.convert(input_path: f.path, output_path: f.path + ".pdf", options: {use_pandoc: false})
+          described_class.convert(input_path: f.path, output_path: f.path + ".docx", options: {use_pandoc: false})
         end.to raise_error(Yaml::Converter::RendererUnavailableError)
       end
     end

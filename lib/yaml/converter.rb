@@ -82,6 +82,22 @@ module Yaml
         HTML
         File.write(output_path, html)
         {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+      when ".pdf"
+        opts = Config.resolve(options)
+        if opts[:use_pandoc]
+          tmp_md = output_path + ".md"
+          File.write(tmp_md, markdown)
+          require_relative "converter/renderer/pandoc_shell"
+          ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: opts[:pandoc_path], args: opts[:pandoc_args])
+          File.delete(tmp_md) if File.exist?(tmp_md)
+          raise PandocNotFoundError, "pandoc not found in PATH" unless ok
+          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+        else
+          require_relative "converter/renderer/pdf_prawn"
+          ok = Renderer::PdfPrawn.render(markdown: markdown, out_path: output_path, options: opts)
+          raise RendererUnavailableError, "PDF rendering failed" unless ok
+          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+        end
       else
         tmp_md = output_path + ".md"
         File.write(tmp_md, markdown)
@@ -92,7 +108,7 @@ module Yaml
           raise PandocNotFoundError, "pandoc not found in PATH" unless ok
           {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
         else
-          raise RendererUnavailableError, "Renderer for #{ext} not implemented. Pass use_pandoc: true or use .md/.html."
+          raise RendererUnavailableError, "Renderer for #{ext} not implemented. Pass use_pandoc: true or use .md/.html/.pdf."
         end
       end
     end
