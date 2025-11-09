@@ -475,32 +475,75 @@ Produced by yaml-converter
   <li>Appends standard footer when enabled</li>
 </ul>
 
-<p>Enable streaming:</p>
+<p>When streaming is used:</p>
 <ul>
-  <li>API: pass <code>streaming: true</code> in <code>options</code> to <code>Yaml::Converter.convert</code>
-</li>
-  <li>CLI: add <code>--streaming</code> when producing <code>.md</code>
-</li>
-  <li>ENV: <code>YAML_CONVERTER_STREAMING=1</code>
-</li>
+  <li>Streaming is applied only to direct <code>.md</code> outputs. Other formats still render via an intermediate Markdown string.</li>
+  <li>The output is intended to be byte-for-byte equivalent to the non-streaming path (see tests).</li>
 </ul>
 
-<p>Auto streaming by size:</p>
-<ul>
-  <li>Set a threshold in bytes; files at or above this size stream automatically.</li>
-  <li>Default threshold: <code>5_000_000</code> (≈5 MB)</li>
-  <li>API: <code>streaming_threshold_bytes: 10_000_000</code>
-</li>
-  <li>CLI: <code>--streaming-threshold 10000000</code>
-</li>
-  <li>ENV: <code>YAML_CONVERTER_STREAMING_THRESHOLD_BYTES=10000000</code>
-</li>
-</ul>
+<p>Quick start (API):</p>
+
+<pre class="code language-ruby"><code class="language-ruby">require &quot;yaml/converter&quot;
+
+# Force streaming regardless of file size
+Yaml::Converter.convert(
+  input_path: &quot;big.yaml&quot;,
+  output_path: &quot;big.md&quot;,
+  options: { streaming: true, validate: true }
+)
+
+# Auto-stream based on file size threshold (bytes)
+Yaml::Converter.convert(
+  input_path: &quot;maybe_big.yaml&quot;,
+  output_path: &quot;maybe_big.md&quot;,
+  options: { streaming_threshold_bytes: 10_000_000 } # 10 MB (default is 5 MB)
+)
+</code></pre>
+
+<p>Quick start (CLI):</p>
+
+<pre class="code language-bash"><code class="language-bash"># Force streaming for markdown output
+yaml-convert big.yaml big.md --streaming
+
+# Auto-stream for inputs &gt;= 10MB
+yaml-convert big.yaml big.md --streaming-threshold 10000000
+
+# Batch + streaming to .md
+yaml-convert \
+  --glob &#39;docs/**/*.yaml&#39; \
+  --out-ext md \
+  --out-dir out/ \
+  --streaming
+</code></pre>
+
+<p>Environment variables:</p>
+
+<pre class="code language-bash"><code class="language-bash"># Enable streaming globally
+export YAML_CONVERTER_STREAMING=1
+
+# Default size threshold for auto streaming (bytes)
+export YAML_CONVERTER_STREAMING_THRESHOLD_BYTES=5000000   # 5 MB default
+</code></pre>
+
+<p>Advanced: custom IO target (pure streaming):</p>
+
+<p>If you want to stream directly to any IO (file/socket/StringIO), use the low-level streaming API:</p>
+
+<pre class="code language-ruby"><code class="language-ruby">require &quot;yaml/converter&quot;
+
+File.open(&quot;big.md&quot;, &quot;w&quot;) do |io|
+  Yaml::Converter.to_markdown_streaming(
+    &quot;big.yaml&quot;,
+    io,
+    options: { validate: true } # same options as non-streaming
+  )
+end
+</code></pre>
 
 <p>Notes:</p>
 <ul>
-  <li>Streaming is applied only to direct <code>.md</code> outputs. Other formats still render via an intermediate Markdown string.</li>
-  <li>The output is intended to be byte-for-byte equivalent to the non-streaming path.</li>
+  <li>For <code>.html</code>, <code>.pdf</code>, <code>.docx</code> (and other pandoc-driven formats), the implementation first produces a full Markdown string, so streaming is not applied to those outputs.</li>
+  <li>If the destination file already exists, you’ll see: “Overwriting existing file” (suppress with <code>KETTLE_TEST_SILENT=true</code>).</li>
 </ul>
 
 <h2 id="-basic-usage">🔧 Basic Usage</h2>
@@ -558,21 +601,21 @@ Yaml::Converter.convert(
 
 <p>Install gem (development checkout already has exe script):</p>
 
-<pre class="code language-bash"><code class="language-bash">bundle exec ruby exe/yaml-convert input.yaml output.md
-bundle exec ruby exe/yaml-convert input.yaml output.html
-bundle exec ruby exe/yaml-convert input.yaml output.pdf --use-pandoc
+<pre class="code language-bash"><code class="language-bash">yaml-convert input.yaml output.md
+yaml-convert input.yaml output.html
+yaml-convert input.yaml output.pdf --use-pandoc
 </code></pre>
 
 <p>If pandoc is not installed, the command will exit with code 5 and a helpful message.</p>
 
 <p>DOCX example (CLI):</p>
 
-<pre class="code language-bash"><code class="language-bash">bundle exec ruby exe/yaml-convert blueprint.yaml output.docx --use-pandoc
+<pre class="code language-bash"><code class="language-bash">yaml-convert blueprint.yaml output.docx --use-pandoc
 </code></pre>
 
 <p>Batch mode with glob:</p>
 
-<pre class="code language-bash"><code class="language-bash">bundle exec ruby exe/yaml-convert --glob &#39;docs/**/*.yaml&#39; --out-ext md --out-dir out/
+<pre class="code language-bash"><code class="language-bash">yaml-convert --glob &#39;docs/**/*.yaml&#39; --out-ext md --out-dir out/
 </code></pre>
 
 <h2 id="-floss-funding">🦷 FLOSS Funding</h2>
@@ -775,7 +818,7 @@ Please consider sponsoring me or the project.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Nov  9 01:23:39 2025 by
+  Generated on Sun Nov  9 01:50:21 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
