@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   # See: https://github.com/panorama-ed/memo_wise/pull/397
   spec.version = Module.new.tap { |mod| Kernel.load("#{__dir__}/lib/yaml/converter/version.rb", mod) }::Yaml::Converter::Version::VERSION
   spec.authors = ["Peter H. Boling"]
-  spec.email = ["peter.boling@gmail.com"]
+  spec.email = ["floss@galtzo.com"]
 
   spec.summary = "🥨 Convert annotated YAML blueprints into readable Markdown, HTML, PDF, or DOCX with validation status and notes extraction."
   spec.description = "🥨 yaml-converter parses YAML files (with inline #note: annotations and validation markers) and emits polished Markdown, HTML, and PDF/DOCX (via pandoc) outputs including a validation status line, fenced YAML blocks, and extracted notes."
