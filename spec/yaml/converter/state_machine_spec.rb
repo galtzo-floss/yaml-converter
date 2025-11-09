@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml/converter/parser"
-require "yaml/converter/state_machine"
 require "date"
 
 RSpec.describe Yaml::Converter::StateMachine do

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml/converter"
-
 RSpec.describe Yaml::Converter do
   let(:input) do
     <<~YAML
@@ -20,11 +18,9 @@ RSpec.describe Yaml::Converter do
       out_stream = File.join(dir, "out_stream.md")
       out_normal = File.join(dir, "out_normal.md")
 
-      # Non-streaming
       res1 = described_class.convert(input_path: in_path, output_path: out_normal, options: {streaming: false})
       expect(res1[:status]).to be(:ok)
 
-      # Streaming forced
       res2 = described_class.convert(input_path: in_path, output_path: out_stream, options: {streaming: true})
       expect(res2[:status]).to be(:ok)
 
@@ -37,3 +33,4 @@ RSpec.describe Yaml::Converter do
     end
   end
 end
+

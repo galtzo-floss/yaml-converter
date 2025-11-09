@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml/converter/validation"
-
 RSpec.describe Yaml::Converter::Validation do
   it "returns ok for valid YAML" do
     result = described_class.validate_string("foo: bar")

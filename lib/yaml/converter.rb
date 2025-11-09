@@ -161,7 +161,6 @@ module Yaml
           </html>
         HTML
         File.write(output_path, html)
-        success.call
       when ".pdf"
         if opts[:use_pandoc]
           tmp_md = output_path + ".md"
@@ -170,13 +169,12 @@ module Yaml
           ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: opts[:pandoc_path], args: opts[:pandoc_args])
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise PandocNotFoundError, "pandoc not found in PATH" unless ok
-          success.call
         else
           require_relative "converter/renderer/pdf_prawn"
           ok = Renderer::PdfPrawn.render(markdown: markdown, out_path: output_path, options: opts)
           raise RendererUnavailableError, "PDF rendering failed" unless ok
-          success.call
         end
+        success.call
       when ".docx"
         tmp_md = output_path + ".md"
         File.write(tmp_md, markdown)

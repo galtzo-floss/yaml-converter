@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml/converter"
-
 RSpec.describe Yaml::Converter do
   it "wraps markdown into an HTML document with note class when notes present" do
     input = <<~YAML
@@ -23,3 +21,4 @@ RSpec.describe Yaml::Converter do
     end
   end
 end
+

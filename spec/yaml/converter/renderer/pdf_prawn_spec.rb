@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml/converter"
 require "yaml/converter/renderer/pdf_prawn"
 
 RSpec.describe Yaml::Converter::Renderer::PdfPrawn do

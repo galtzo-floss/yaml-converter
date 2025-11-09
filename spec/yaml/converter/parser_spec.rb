@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml/converter/parser"
-
 RSpec.describe Yaml::Converter::Parser do
   subject(:parser) { described_class.new }
 

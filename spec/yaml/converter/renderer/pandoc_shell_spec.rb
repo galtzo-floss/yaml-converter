@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "yaml/converter"
 require "yaml/converter/renderer/pandoc_shell"
-require "open3"
 
 RSpec.describe Yaml::Converter::Renderer::PandocShell do
   let(:tmp_md) { Tempfile.create(["pandoc_test", ".md"]) { |f| f.path } }
