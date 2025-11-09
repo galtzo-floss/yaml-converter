@@ -1,11 +1,18 @@
 {
-  "exe/yaml-convert:203079901": [
-    [59, 10, 34, "Style/SafeNavigation: Use safe navigation (`&.`) instead of checking if an object exists before calling the method.", 3135175708]
+  "exe/yaml-convert:1393717282": [
+    [63, 10, 34, "Style/SafeNavigation: Use safe navigation (`&.`) instead of checking if an object exists before calling the method.", 3135175708]
   ],
-  "lib/yaml/converter.rb:372198577": [
-    [128, 9, 3, "Layout/EndAlignment: `end` at 128, 8 is not aligned with `if` at 124, 29.", 193405706],
-    [167, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982],
-    [173, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982]
+  "lib/yaml/converter.rb:3777655787": [
+    [124, 9, 350, "Style/ConditionalAssignment: Use the return of the conditional for variable assignment and comparison.", 2938339792],
+    [126, 11, 21, "Layout/IndentationWidth: Use 2 (not 21) spaces for indentation.", 3973078917],
+    [127, 30, 4, "Layout/ElseAlignment: Align `else` with `validation_result`.", 2087423834],
+    [129, 30, 3, "Layout/EndAlignment: `end` at 129, 29 is not aligned with `validation_result = if` at 125, 10.", 193405706],
+    [173, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982],
+    [179, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982]
+  ],
+  "lib/yaml/converter/renderer/pdf_prawn.rb:1136374992": [
+    [74, 1, 1, "Layout/EmptyLines: Extra blank line detected.", 177583],
+    [78, 9, 16, "Layout/EmptyLineBetweenDefs: Expected 1 empty line between method definitions; found 2.", 1713629919]
   ],
   "spec/yaml/converter/renderer/pandoc_shell_spec.rb:231507547": [
     [26, 5, 13, "RSpec/StubbedMock: Prefer `allow` over `expect` when configuring a response.", 2024371388]
