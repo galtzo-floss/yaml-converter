@@ -140,6 +140,8 @@ module Yaml
       case ext
       when ".html"
         require "kramdown"
+        require "kramdown-parser-gfm"
+
         body_html = Kramdown::Document.new(markdown, input: "GFM").to_html
         note_style = ""
         if markdown.include?("> NOTE:")
