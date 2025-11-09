@@ -81,12 +81,36 @@ RSpec.describe Yaml::Converter do
       end
     end
 
+    it "handles docx: converts if pandoc present, else raises" do
+      Tempfile.create(["test", ".yaml"]) do |f|
+        f.write("foo: bar")
+        f.flush
+        out = Tempfile.create(["out", ".docx"]) { |tf| tf.path }
+        pandoc_path = begin
+          require_relative '../../lib/yaml/converter/renderer/pandoc_shell'
+          Yaml::Converter::Renderer::PandocShell.which('pandoc')
+        rescue LoadError
+          nil
+        end
+        if pandoc_path
+          result = described_class.convert(input_path: f.path, output_path: out, options: {})
+          expect(result[:status]).to eq(:ok)
+          expect(File).to exist(out)
+          expect(File.size(out)).to be > 0
+        else
+          expect do
+            described_class.convert(input_path: f.path, output_path: out, options: {})
+          end.to raise_error(Yaml::Converter::RendererUnavailableError)
+        end
+      end
+    end
+
     it "raises for unsupported extension" do
       Tempfile.create(["test", ".yaml"]) do |f|
         f.write("foo: bar")
         f.flush
         expect do
-          described_class.convert(input_path: f.path, output_path: f.path + ".docx", options: {})
+          described_class.convert(input_path: f.path, output_path: f.path + ".rtf", options: {})
         end.to raise_error(Yaml::Converter::RendererUnavailableError)
       end
     end
@@ -104,7 +128,7 @@ RSpec.describe Yaml::Converter do
         f.write("foo: bar")
         f.flush
         expect do
-          described_class.convert(input_path: f.path, output_path: f.path + ".docx", options: {use_pandoc: false})
+          described_class.convert(input_path: f.path, output_path: f.path + ".rtf", options: {use_pandoc: false})
         end.to raise_error(Yaml::Converter::RendererUnavailableError)
       end
     end

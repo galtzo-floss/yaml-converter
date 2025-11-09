@@ -98,6 +98,21 @@ module Yaml
           raise RendererUnavailableError, "PDF rendering failed" unless ok
           {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
         end
+      when ".docx"
+        # Prefer pandoc for DOCX; auto-detect without requiring use_pandoc flag
+        tmp_md = output_path + ".md"
+        File.write(tmp_md, markdown)
+        require_relative "converter/renderer/pandoc_shell"
+        pandoc_path = Renderer::PandocShell.which("pandoc")
+        if pandoc_path
+          ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: pandoc_path, args: [])
+          File.delete(tmp_md) if File.exist?(tmp_md)
+          raise RendererUnavailableError, "pandoc failed to generate DOCX" unless ok
+          return {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+        else
+          File.delete(tmp_md) if File.exist?(tmp_md)
+          raise RendererUnavailableError, "DOCX requires pandoc; install pandoc or use .md/.html/.pdf"
+        end
       else
         tmp_md = output_path + ".md"
         File.write(tmp_md, markdown)
