@@ -198,57 +198,24 @@ bundle exec ruby exe/yaml-convert input.yaml output.md
 bundle exec ruby exe/yaml-convert input.yaml output.html
 bundle exec ruby exe/yaml-convert input.yaml output.pdf --use-pandoc
 ```
-
-Options:
-- `--max-line-length N` (default 70)
-- `--no-truncate` disable line truncation
-- `--no-validate` skip YAML validation status line
-- `--margin-notes auto|inline|ignore` control note rendering
-- `--use-pandoc` enable pandoc for non-md/html formats
-- `--pandoc-args "--toc -N"` additional pandoc flags
-
-Exit Codes:
-- 0 success
-- 2 invalid arguments
-- 5 renderer/pandoc not available
-- 9 unexpected internal error
-
-### Pandoc Integration (Optional)
-
-To enable PDF (and other formats like docx, rst, man) conversions, install Pandoc:
-
-macOS (Homebrew):
-```bash
-brew install pandoc
-```
-
-Debian/Ubuntu:
-```bash
-sudo apt-get update && sudo apt-get install -y pandoc
-```
-
-Fedora:
-```bash
-dnf install pandoc
-```
-
-Verify installation:
-```bash
-which pandoc
-pandoc --version
-```
-
-Use the CLI with pandoc:
-```bash
-bundle exec ruby exe/yaml-convert blueprint.yaml output.pdf --use-pandoc
-```
 If pandoc is not installed, the command will exit with code 5 and a helpful message.
+
+DOCX example (CLI):
+```bash
+bundle exec ruby exe/yaml-convert blueprint.yaml output.docx --use-pandoc
+```
 
 Programmatic usage with pandoc fallback:
 ```ruby
 Yaml::Converter.convert(
   input_path: 'blueprint.yaml',
   output_path: 'blueprint.pdf',
+  options: { use_pandoc: true }
+)
+
+Yaml::Converter.convert(
+  input_path: 'blueprint.yaml',
+  output_path: 'blueprint.docx',
   options: { use_pandoc: true }
 )
 ```
