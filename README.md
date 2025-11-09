@@ -65,7 +65,7 @@ Ideal for design documents stored as YAML, making them consumable in multiple fo
 Alternatives (none in Ruby, send a PR if you know of one):
 
 - [yaml2rst](https://pypi.org/project/yaml2rst) (Python, GPLv3+)
-- [yaml2doc](https://github.com/ted-dunstone/yaml2doc) (Python, [commercial license](https://github.com/ted-dunstone/yaml2doc/blob/master/licence.txt), not FOSS, but also [accidentally(?) left in](https://github.com/ted-dunstone/yaml2doc/issues/1#issuecomment-3507567579) the GPLv3 LICENSE)
+- [yaml2doc](https://github.com/ted-dunstone/yaml2doc) (Python, [GPLv3](https://github.com/ted-dunstone/yaml2doc/blob/master/LICENSE))
 
 ## 💡 Info you can shake a stick at
 
