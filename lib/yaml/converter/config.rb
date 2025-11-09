@@ -13,6 +13,12 @@ module Yaml
         pandoc_args: ["-N", "--toc"],
         pandoc_path: nil,
         html_theme: :basic,
+        pdf_page_size: 'LETTER',
+        pdf_margin: [36, 36, 36, 36], # top,right,bottom,left points (0.5")
+        pdf_title_font_size: 14,
+        pdf_body_font_size: 11,
+        pdf_yaml_font_size: 9,
+        pdf_two_column_notes: false,
       }.freeze
 
       ENV_MAP = {
@@ -21,9 +27,14 @@ module Yaml
         margin_notes: "YAML_CONVERTER_MARGIN_NOTES",
         validate: "YAML_CONVERTER_VALIDATE",
         use_pandoc: "YAML_CONVERTER_USE_PANDOC",
+        pdf_page_size: "YAML_CONVERTER_PDF_PAGE_SIZE",
+        pdf_title_font_size: "YAML_CONVERTER_PDF_TITLE_FONT_SIZE",
+        pdf_body_font_size: "YAML_CONVERTER_PDF_BODY_FONT_SIZE",
+        pdf_yaml_font_size: "YAML_CONVERTER_PDF_YAML_FONT_SIZE",
+        pdf_two_column_notes: "YAML_CONVERTER_PDF_TWO_COLUMN_NOTES",
       }.freeze
 
-      BOOLEAN_KEYS = %i[truncate validate use_pandoc].freeze
+      BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes].freeze
 
       class << self
         def resolve(options = {})
