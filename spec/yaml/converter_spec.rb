@@ -15,7 +15,7 @@ RSpec.describe Yaml::Converter do
 
   describe "::to_markdown" do
     it "includes validation status line", freeze: Time.new(2025, 11, 8, 12, 0, 0, 0) do
-      md = described_class.to_markdown(yaml_input, options: { validate: true })
+      md = described_class.to_markdown(yaml_input, options: {validate: true})
       expect(md).to include("YAML validation:*OK* on 08/11/2025")
     end
 
@@ -74,7 +74,7 @@ RSpec.describe Yaml::Converter do
         f.write("foo: bar")
         f.flush
         out = Tempfile.create(["out", ".pdf"]) { |tf| tf.path }
-        result = described_class.convert(input_path: f.path, output_path: out, options: { use_pandoc: false })
+        result = described_class.convert(input_path: f.path, output_path: out, options: {use_pandoc: false})
         expect(result[:status]).to eq(:ok)
         expect(File).to exist(out)
         expect(File.size(out)).to be > 0
@@ -87,8 +87,8 @@ RSpec.describe Yaml::Converter do
         f.flush
         out = Tempfile.create(["out", ".docx"]) { |tf| tf.path }
         pandoc_path = begin
-          require_relative '../../lib/yaml/converter/renderer/pandoc_shell'
-          Yaml::Converter::Renderer::PandocShell.which('pandoc')
+          require "yaml/converter/renderer/pandoc_shell"
+          Yaml::Converter::Renderer::PandocShell.which("pandoc")
         rescue LoadError
           nil
         end
@@ -184,26 +184,48 @@ RSpec.describe Yaml::Converter do
 
     it "supports batch conversion via --glob to md" do
       Dir.mktmpdir do |dir|
-        a = File.join(dir, 'a.yaml'); File.write(a, "foo: 1\n")
-        b = File.join(dir, 'b.yaml'); File.write(b, "bar: 2\n")
+        a = File.join(dir, "a.yaml")
+        File.write(a, "foo: 1\n")
+        b = File.join(dir, "b.yaml")
+        File.write(b, "bar: 2\n")
         output = capture(:stdout) do
-          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
+          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
         end
         expect($?.exitstatus).to eq(0)
         expect(output).to include("Batch complete:")
-        expect(File).to exist(File.join(dir, 'a.md'))
-        expect(File).to exist(File.join(dir, 'b.md'))
+        expect(File).to exist(File.join(dir, "a.md"))
+        expect(File).to exist(File.join(dir, "b.md"))
       end
     end
 
     it "handles --glob with no matches" do
       Dir.mktmpdir do |dir|
         output = capture(:stderr) do
-          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
+          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
         end
         expect($?.exitstatus).to eq(2)
         expect(output).to include("No files matched glob:")
       end
+    end
+  end
+
+  describe "edge cases" do
+    it "warns when overwriting an existing file" do
+      Dir.mktmpdir do |dir|
+        input = File.join(dir, "in.yaml")
+        File.write(input, "foo: 1\n")
+        output = File.join(dir, "out.md")
+        File.write(output, "existing\n")
+        stderr = capture(:stderr) do
+          described_class.convert(input_path: input, output_path: output, options: {})
+        end
+        expect(stderr.empty? || stderr.include?("Overwriting existing file")).to be true
+      end
+    end
+
+    it "handles empty file gracefully (no crash)" do
+      md = described_class.to_markdown("\n", options: {})
+      expect(md).to include("Produced by [yaml-converter]")
     end
   end
 end

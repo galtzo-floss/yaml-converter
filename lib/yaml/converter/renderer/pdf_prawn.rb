@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'prawn'
+require "prawn"
 
 module Yaml
   module Converter
@@ -15,7 +15,7 @@ module Yaml
           yaml_section = fenced_yaml(markdown)
           title_lines = header_lines(markdown)
 
-          page_size = options[:pdf_page_size] || 'LETTER'
+          page_size = options[:pdf_page_size] || "LETTER"
           margin = options[:pdf_margin] || [36, 36, 36, 36]
           title_fs = options[:pdf_title_font_size] || 14
           body_fs = options[:pdf_body_font_size] || 11
@@ -33,7 +33,7 @@ module Yaml
               col_width = (pdf.bounds.width - col_gap) / 2.0
               pdf.bounding_box([pdf.bounds.left, pdf.cursor], width: col_width, height: pdf.cursor) do
                 pdf.font_size(yaml_fs)
-                pdf.font('Courier') do
+                pdf.font("Courier") do
                   yaml_section.each { |l| pdf.text(l) }
                 end
               end
@@ -43,7 +43,7 @@ module Yaml
               end
             else
               pdf.font_size(yaml_fs)
-              pdf.font('Courier') do
+              pdf.font("Courier") do
                 yaml_section.each { |l| pdf.text(l) }
               end
               pdf.move_down(10)
@@ -56,26 +56,26 @@ module Yaml
               end
             end
 
-            pdf.number_pages "Page <page> of <total>", at: [pdf.bounds.right - 100, 0]
+            pdf.number_pages("Page <page> of <total>", at: [pdf.bounds.right - 100, 0])
           end
           true
         rescue StandardError => e
-          warn "prawn pdf failed: #{e.class}: #{e.message}"
+          warn("prawn pdf failed: #{e.class}: #{e.message}")
           false
         end
 
         def header_lines(markdown)
-          markdown.lines.take_while { |l| l.start_with?('# ') }.map { |l| l.sub(/^# /, '').strip }
+          markdown.lines.take_while { |l| l.start_with?("# ") }.map { |l| l.sub(/^# /, "").strip }
         end
 
         def fenced_yaml(markdown)
           inside = false
           lines = []
           markdown.each_line do |l|
-            if l.start_with?('```yaml')
+            if l.start_with?("```yaml")
               inside = true
               next
-            elsif inside && l.strip == '```'
+            elsif inside && l.strip == "```"
               inside = false
               break
             elsif inside
@@ -86,10 +86,9 @@ module Yaml
         end
 
         def extract_notes(markdown)
-          markdown.lines.grep(/^> NOTE:/).map { |l| l.sub(/^> NOTE:\s*/, '').strip }
+          markdown.lines.grep(/^> NOTE:/).map { |l| l.sub(/^> NOTE:\s*/, "").strip }
         end
       end
     end
   end
 end
-

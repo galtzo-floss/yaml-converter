@@ -55,6 +55,10 @@ module Yaml
       opts = Config.resolve(options)
       yaml_string = File.read(input_path)
 
+      if File.exist?(output_path) && ENV["KETTLE_TEST_SILENT"] != "true"
+        warn("Overwriting existing file: #{output_path}")
+      end
+
       markdown = to_markdown(yaml_string, options: opts)
 
       case ext
@@ -63,7 +67,7 @@ module Yaml
         {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
       when ".html"
         require "kramdown"
-        body_html = Kramdown::Document.new(markdown).to_html
+        body_html = Kramdown::Document.new(markdown, input: 'GFM').to_html
         note_style = ""
         if markdown.include?("> NOTE:")
           note_style = "<style>.yaml-note{font-style:italic;color:#555;margin-left:1em;}</style>\n"
@@ -108,7 +112,7 @@ module Yaml
           ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: pandoc_path, args: [])
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise RendererUnavailableError, "pandoc failed to generate DOCX" unless ok
-          return {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
         else
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise RendererUnavailableError, "DOCX requires pandoc; install pandoc or use .md/.html/.pdf"

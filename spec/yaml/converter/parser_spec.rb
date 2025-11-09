@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'yaml/converter/parser'
+require "yaml/converter/parser"
 
 RSpec.describe Yaml::Converter::Parser do
   subject(:parser) { described_class.new }
@@ -19,4 +19,3 @@ RSpec.describe Yaml::Converter::Parser do
     expect(tokens.map(&:type)).to include(:separator)
   end
 end
-

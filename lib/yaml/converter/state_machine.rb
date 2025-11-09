@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'date'
+require "date"
 
 module Yaml
   module Converter
@@ -15,6 +15,7 @@ module Yaml
         @max_len = options.fetch(:max_line_length, 70)
         @truncate = options.fetch(:truncate, true)
         @margin_notes = options.fetch(:margin_notes, :auto)
+        @current_date = options[:current_date] || Date.today
       end
 
       def apply(tokens)
@@ -27,18 +28,21 @@ module Yaml
           when :title
             close_yaml(out, state)
             out << t.text
+            out << ""
             state = :text
           when :validation
             close_yaml(out, state)
-            date = Date.today.strftime("%d/%m/%Y")
+            date = @current_date.strftime("%d/%m/%Y")
             status_str = (@validate_status == :ok ? "OK" : "Fail")
             out << "YAML validation:*#{status_str}* on #{date}"
+            out << ""
             state = :text
           when :separator
             # ignore
           when :dash_heading
             close_yaml(out, state)
             out << "# #{t.text}".strip
+            out << ""
             state = :text
           when :yaml_line
             state = open_yaml(out, state)
@@ -51,9 +55,13 @@ module Yaml
             if @margin_notes != :ignore
               was_yaml = (state == :yaml)
               close_yaml(out, state)
+              out << "" if out.last && out.last != ""
               out << "> NOTE: #{t.text}"
+              out << ""
               state = was_yaml ? open_yaml(out, :text) : :text
             end
+          else
+            # unknown token type: ignore gracefully
           end
         end
         close_yaml(out, state)
@@ -64,6 +72,7 @@ module Yaml
 
       def open_yaml(out, state)
         if state != :yaml
+          out << "" if out.last && out.last != ""
           out << START_YAML
           :yaml
         else
@@ -74,6 +83,7 @@ module Yaml
       def close_yaml(out, state)
         if state == :yaml
           out << END_YAML
+          # removed trailing blank line to keep legacy expected output pattern
         end
       end
     end

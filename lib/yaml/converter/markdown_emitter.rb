@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "date"
-require_relative 'parser'
-require_relative 'state_machine'
+require_relative "parser"
+require_relative "state_machine"
 
 module Yaml
   module Converter
@@ -31,7 +31,7 @@ module Yaml
         parser = Parser.new(@options)
         tokens = parser.tokenize(lines)
         # upgrade validation token text with status via state machine options
-        sm = StateMachine.new(validation_status: @validation_status, max_line_length: @max_len, truncate: @truncate, margin_notes: @margin_notes)
+        sm = StateMachine.new(validation_status: @validation_status, max_line_length: @max_len, truncate: @truncate, margin_notes: @margin_notes, current_date: @options[:current_date])
         body = sm.apply(tokens)
         body << "---- \n\nProduced by [yaml-converter](https://github.com/kettle-rb/yaml-converter)"
         body

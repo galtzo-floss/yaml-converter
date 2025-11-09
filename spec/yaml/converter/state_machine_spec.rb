@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require 'yaml/converter/parser'
-require 'yaml/converter/state_machine'
-require 'date'
+require "yaml/converter/parser"
+require "yaml/converter/state_machine"
+require "date"
 
 RSpec.describe Yaml::Converter::StateMachine do
-  let(:parser) { Yaml::Converter::Parser.new }
   subject(:sm) { described_class.new(validation_status: :ok, max_line_length: 50, truncate: true, margin_notes: :auto) }
+
+  let(:parser) { Yaml::Converter::Parser.new }
 
   it "produces fenced yaml and notes" do
     tokens = parser.tokenize([
@@ -26,4 +27,3 @@ RSpec.describe Yaml::Converter::StateMachine do
     expect(out.last).to eq("```")
   end
 end
-

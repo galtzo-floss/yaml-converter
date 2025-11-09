@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "date"
+
 module Yaml
   module Converter
     # Central configuration handling: merges explicit options with ENV and defaults.
@@ -13,12 +15,13 @@ module Yaml
         pandoc_args: ["-N", "--toc"],
         pandoc_path: nil,
         html_theme: :basic,
-        pdf_page_size: 'LETTER',
+        pdf_page_size: "LETTER",
         pdf_margin: [36, 36, 36, 36], # top,right,bottom,left points (0.5")
         pdf_title_font_size: 14,
         pdf_body_font_size: 11,
         pdf_yaml_font_size: 9,
         pdf_two_column_notes: false,
+        current_date: Date.today, # allows injection for deterministic tests
       }.freeze
 
       ENV_MAP = {

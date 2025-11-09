@@ -50,187 +50,53 @@
 
 ## 🌻 Synopsis
 
+Transform annotated YAML blueprints into human-friendly documentation. This gem:
 
+- Fences raw YAML content
+- Injects a validation status line with date (deterministic via current_date option)
+- Extracts inline `#note:` annotations into readable blockquotes (or PDF note sections)
+- Truncates overly long YAML lines (configurable)
+- Emits Markdown, HTML, PDF (native Prawn), DOCX/PDF/other via pandoc
 
-## 💡 Info you can shake a stick at
-
-| Tokens to Remember      | [![Gem name][⛳️name-img]][⛳️gem-name] [![Gem namespace][⛳️namespace-img]][⛳️gem-namespace]                                                                                                                                                                                                                                                                          |
-|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Works with JRuby        | ![JRuby 9.1 Compat][💎jruby-9.1i] ![JRuby 9.2 Compat][💎jruby-9.2i] ![JRuby 9.3 Compat][💎jruby-9.3i] <br/> [![JRuby 9.4 Compat][💎jruby-9.4i]][🚎10-j-wf] [![JRuby 10.0 Compat][💎jruby-c-i]][🚎11-c-wf] [![JRuby HEAD Compat][💎jruby-headi]][🚎3-hd-wf]                                                                                                          |
-| Works with Truffle Ruby | ![Truffle Ruby 22.3 Compat][💎truby-22.3i] ![Truffle Ruby 23.0 Compat][💎truby-23.0i] <br/> [![Truffle Ruby 23.1 Compat][💎truby-23.1i]][🚎9-t-wf] [![Truffle Ruby 24.1 Compat][💎truby-c-i]][🚎11-c-wf]                                                                                                                                                            |
-| Works with MRI Ruby 3   | [![Ruby 3.2 Compat][💎ruby-3.2i]][🚎6-s-wf] [![Ruby 3.3 Compat][💎ruby-3.3i]][🚎6-s-wf] [![Ruby 3.4 Compat][💎ruby-c-i]][🚎11-c-wf] [![Ruby HEAD Compat][💎ruby-headi]][🚎3-hd-wf]                                                                                         |
-| Support & Community     | [![Join Me on Daily.dev's RubyFriends][✉️ruby-friends-img]][✉️ruby-friends] [![Live Chat on Discord][✉️discord-invite-img-ftb]][✉️discord-invite] [![Get help from me on Upwork][👨🏼‍🏫expsup-upwork-img]][👨🏼‍🏫expsup-upwork] [![Get help from me on Codementor][👨🏼‍🏫expsup-codementor-img]][👨🏼‍🏫expsup-codementor]                                       |
-| Source                  | [![Source on GitLab.com][📜src-gl-img]][📜src-gl] [![Source on CodeBerg.org][📜src-cb-img]][📜src-cb] [![Source on Github.com][📜src-gh-img]][📜src-gh] [![The best SHA: dQw4w9WgXcQ!][🧮kloc-img]][🧮kloc]                                                                                                                                                         |
-| Documentation           | [![Current release on RubyDoc.info][📜docs-cr-rd-img]][🚎yard-current] [![YARD on Galtzo.com][📜docs-head-rd-img]][🚎yard-head] [![Maintainer Blog][🚂maint-blog-img]][🚂maint-blog] [![GitLab Wiki][📜gl-wiki-img]][📜gl-wiki] [![GitHub Wiki][📜gh-wiki-img]][📜gh-wiki]                                                                                          |
-| Compliance              | [![License: MIT][📄license-img]][📄license-ref] [![Compatible with Apache Software Projects: Verified by SkyWalking Eyes][📄license-compat-img]][📄license-compat] [![📄ilo-declaration-img]][📄ilo-declaration] [![Security Policy][🔐security-img]][🔐security] [![Contributor Covenant 2.1][🪇conduct-img]][🪇conduct] [![SemVer 2.0.0][📌semver-img]][📌semver] |
-| Style                   | [![Enforced Code Style Linter][💎rlts-img]][💎rlts] [![Keep-A-Changelog 1.0.0][📗keep-changelog-img]][📗keep-changelog] [![Gitmoji Commits][📌gitmoji-img]][📌gitmoji] [![Compatibility appraised by: appraisal2][💎appraisal2-img]][💎appraisal2]                                                                                                                  |
-| Maintainer 🎖️          | [![Follow Me on LinkedIn][💖🖇linkedin-img]][💖🖇linkedin] [![Follow Me on Ruby.Social][💖🐘ruby-mast-img]][💖🐘ruby-mast] [![Follow Me on Bluesky][💖🦋bluesky-img]][💖🦋bluesky] [![Contact Maintainer][🚂maint-contact-img]][🚂maint-contact] [![My technical writing][💖💁🏼‍♂️devto-img]][💖💁🏼‍♂️devto]                                                      |
-| `...` 💖                | [![Find Me on WellFound:][💖✌️wellfound-img]][💖✌️wellfound] [![Find Me on CrunchBase][💖💲crunchbase-img]][💖💲crunchbase] [![My LinkTree][💖🌳linktree-img]][💖🌳linktree] [![More About Me][💖💁🏼‍♂️aboutme-img]][💖💁🏼‍♂️aboutme] [🧊][💖🧊berg] [🐙][💖🐙hub]  [🛖][💖🛖hut] [🧪][💖🧪lab]                                                                   |
-
-### Compatibility
-
-Compatible with MRI Ruby 3.2.0+, and concordant releases of JRuby, and TruffleRuby.
-
-| 🚚 _Amazing_ test matrix was brought to you by | 🔎 appraisal2 🔎 and the color 💚 green 💚             |
-|------------------------------------------------|--------------------------------------------------------|
-| 👟 Check it out!                               | ✨ [github.com/appraisal-rb/appraisal2][💎appraisal2] ✨ |
-
-### Federated DVCS
-
-<details markdown="1">
-  <summary>Find this repo on federated forges (Coming soon!)</summary>
-
-| Federated [DVCS][💎d-in-dvcs] Repository        | Status                                                                | Issues                    | PRs                      | Wiki                      | CI                       | Discussions                  |
-|-------------------------------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------|---------------------------|--------------------------|------------------------------|
-| 🧪 [galtzo-floss/yaml-converter on GitLab][📜src-gl]   | The Truth                                                             | [💚][🤝gl-issues]         | [💚][🤝gl-pulls]         | [💚][📜gl-wiki]           | 🐭 Tiny Matrix           | ➖                            |
-| 🧊 [galtzo-floss/yaml-converter on CodeBerg][📜src-cb] | An Ethical Mirror ([Donate][🤝cb-donate])                             | [💚][🤝cb-issues]         | [💚][🤝cb-pulls]         | ➖                         | ⭕️ No Matrix             | ➖                            |
-| 🐙 [galtzo-floss/yaml-converter on GitHub][📜src-gh]   | Another Mirror                                                        | [💚][🤝gh-issues]         | [💚][🤝gh-pulls]         | [💚][📜gh-wiki]           | 💯 Full Matrix           | [💚][gh-discussions]         |
-| 🎮️ [Discord Server][✉️discord-invite]          | [![Live Chat on Discord][✉️discord-invite-img-ftb]][✉️discord-invite] | [Let's][✉️discord-invite] | [talk][✉️discord-invite] | [about][✉️discord-invite] | [this][✉️discord-invite] | [library!][✉️discord-invite] |
-
-</details>
-
-[gh-discussions]: https://github.com/galtzo-floss/yaml-converter/discussions
-
-### Enterprise Support [![Tidelift](https://tidelift.com/badges/package/rubygems/yaml-converter)](https://tidelift.com/subscription/pkg/rubygems-yaml-converter?utm_source=rubygems-yaml-converter&utm_medium=referral&utm_campaign=readme)
-
-Available as part of the Tidelift Subscription.
-
-<details markdown="1">
-  <summary>Need enterprise-level guarantees?</summary>
-
-The maintainers of this and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use.
-
-[![Get help from me on Tidelift][🏙️entsup-tidelift-img]][🏙️entsup-tidelift]
-
-- 💡Subscribe for support guarantees covering _all_ your FLOSS dependencies
-- 💡Tidelift is part of [Sonar][🏙️entsup-tidelift-sonar]
-- 💡Tidelift pays maintainers to maintain the software you depend on!<br/>📊`@`Pointy Haired Boss: An [enterprise support][🏙️entsup-tidelift] subscription is "[never gonna let you down][🧮kloc]", and *supports* open source maintainers
-
-Alternatively:
-
-- [![Live Chat on Discord][✉️discord-invite-img-ftb]][✉️discord-invite]
-- [![Get help from me on Upwork][👨🏼‍🏫expsup-upwork-img]][👨🏼‍🏫expsup-upwork]
-- [![Get help from me on Codementor][👨🏼‍🏫expsup-codementor-img]][👨🏼‍🏫expsup-codementor]
-
-</details>
-
-## ✨ Installation
-
-Install the gem and add to the application's Gemfile by executing:
-
-```console
-bundle add yaml-converter
-```
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-```console
-gem install yaml-converter
-```
-
-### 🔒 Secure Installation
-
-<details markdown="1">
-  <summary>For Medium or High Security Installations</summary>
-
-This gem is cryptographically signed, and has verifiable [SHA-256 and SHA-512][💎SHA_checksums] checksums by
-[stone_checksums][💎stone_checksums]. Be sure the gem you install hasn’t been tampered with
-by following the instructions below.
-
-Add my public key (if you haven’t already, expires 2045-04-29) as a trusted certificate:
-
-```console
-gem cert --add <(curl -Ls https://raw.github.com/galtzo-floss/certs/main/pboling.pem)
-```
-
-You only need to do that once.  Then proceed to install with:
-
-```console
-gem install yaml-converter -P HighSecurity
-```
-
-The `HighSecurity` trust profile will verify signed gems, and not allow the installation of unsigned dependencies.
-
-If you want to up your security game full-time:
-
-```console
-bundle config set --global trust-policy MediumSecurity
-```
-
-`MediumSecurity` instead of `HighSecurity` is necessary if not all the gems you use are signed.
-
-NOTE: Be prepared to track down certs for signed gems and add them the same way you added mine.
-
-</details>
+Ideal for design documents stored as YAML, making them consumable in multiple formats.
 
 ## ⚙️ Configuration
 
+Pass options via API, CLI flags, or ENV variables.
 
+Core Options:
 
-## 🔧 Basic Usage
+- max_line_length (Integer, default 70)
+- truncate (Boolean, default true)
+- margin_notes (:auto | :inline | :ignore)
+- validate (Boolean, default true)
+- use_pandoc (Boolean, default false)
+- pandoc_args (Array<String> default ["-N", "--toc"])
+- current_date (Date, default Date.today) for deterministic validation line
+- pdf_page_size (e.g., LETTER)
+- pdf_two_column_notes (Boolean)
 
-### Library API
-
-Minimal conversion to Markdown:
-
-```ruby
-require 'yaml/converter'
-markdown = Yaml::Converter.to_markdown(File.read('spec/fixtures/example.yaml'))
-puts markdown
-```
-
-Convert directly to a file (extension decides behavior):
-
-```ruby
-Yaml::Converter.convert(
-  input_path: 'spec/fixtures/example.yaml',
-  output_path: 'doc/example.html',
-  options: { validate: true }
-)
-```
-
-### CLI
-
-Install gem (development checkout already has exe script):
+ENV overrides (examples):
 
 ```bash
-bundle exec ruby exe/yaml-convert input.yaml output.md
-bundle exec ruby exe/yaml-convert input.yaml output.html
-bundle exec ruby exe/yaml-convert input.yaml output.pdf --use-pandoc
-```
-If pandoc is not installed, the command will exit with code 5 and a helpful message.
-
-DOCX example (CLI):
-```bash
-bundle exec ruby exe/yaml-convert blueprint.yaml output.docx --use-pandoc
+export YAML_CONVERTER_MAX_LINE_LEN=120
+export YAML_CONVERTER_TRUNCATE=false
+export YAML_CONVERTER_VALIDATE=false
 ```
 
-Programmatic usage with pandoc fallback:
-```ruby
-Yaml::Converter.convert(
-  input_path: 'blueprint.yaml',
-  output_path: 'blueprint.pdf',
-  options: { use_pandoc: true }
-)
+Overwrite Warning:
+If the output file exists an informational warning is printed: "Overwriting existing file".
+Suppress by setting `KETTLE_TEST_SILENT=true` (used in CI/tests).
 
-Yaml::Converter.convert(
-  input_path: 'blueprint.yaml',
-  output_path: 'blueprint.docx',
-  options: { use_pandoc: true }
-)
-```
-
-Customize pandoc arguments:
-```bash
-bundle exec ruby exe/yaml-convert blueprint.yaml output.pdf --use-pandoc --pandoc-args "-N --toc --highlight-style pygments"
-```
-
-Security note: Arguments are passed positionally (array form) to avoid shell injection pitfalls.
+Deterministic Dates:
+Inject `current_date:` in `options` or stub time for tests; the state machine uses this value.
 
 ### Supported Formats (Phase 1)
 - Markdown (.md)
-- HTML (.html)
-- Others (.pdf, .docx, etc.) via pandoc when `--use-pandoc` (error if pandoc absent)
+- HTML (.html) via kramdown
+- PDF (.pdf) native (Prawn) or via pandoc when `use_pandoc: true`
+- DOCX (.docx) via pandoc (auto-detects pandoc path)
+- Other pandoc-supported formats (set output extension + `--use-pandoc`)
 
 ### Notes Handling
 Inline `#note:` at end of a YAML line:

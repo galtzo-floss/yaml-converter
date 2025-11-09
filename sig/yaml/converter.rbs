@@ -2,13 +2,35 @@ module Yaml
   module Converter
     VERSION: String
 
-    class Error < ::StandardError; end
-    class InvalidArgumentsError < Error; end
-    class RendererUnavailableError < Error; end
-    class PandocNotFoundError < Error; end
+    class Error < ::StandardError
+    end
+    class InvalidArgumentsError < Error
+    end
+    class RendererUnavailableError < Error
+    end
+    class PandocNotFoundError < Error
+    end
 
-    def self.to_markdown: (String yaml_string, ?options: Hash[Symbol, untyped]) -> String
+    type options = {
+      max_line_length: Integer,
+      truncate: bool,
+      margin_notes: Symbol,
+      validate: bool,
+      use_pandoc: bool,
+      pandoc_args: Array[String],
+      pandoc_path: String?,
+      html_theme: Symbol,
+      pdf_page_size: String,
+      pdf_margin: Array[Integer],
+      pdf_title_font_size: Integer,
+      pdf_body_font_size: Integer,
+      pdf_yaml_font_size: Integer,
+      pdf_two_column_notes: bool,
+      current_date: untyped
+    }
+
+    def self.to_markdown: (String yaml_string, ?options: options) -> String
     def self.validate: (String yaml_string) -> { status: Symbol, error: Exception? }
-    def self.convert: (input_path: String, output_path: String, ?options: Hash[Symbol, untyped]) -> { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }
+    def self.convert: (input_path: String, output_path: String, ?options: options) -> { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }
   end
 end
