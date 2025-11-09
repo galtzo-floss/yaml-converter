@@ -93,7 +93,7 @@ Compatible with MRI Ruby 3.2.0+, and concordant releases of JRuby, and TruffleRu
 ### Federated DVCS
 
 <details markdown="1">
-  <summary>Find this repo on federated forges (Coming soon!)</summary>
+  <summary>Find this repo on federated forges</summary>
 
 | Federated [DVCS][💎d-in-dvcs] Repository               | Status                                                                | Issues                    | PRs                      | Wiki                      | CI                       | Discussions                  |
 |--------------------------------------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------|---------------------------|--------------------------|------------------------------|
