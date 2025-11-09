@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require "optparse"
+require "fileutils"
 require "yaml/converter"
 
 options = {
@@ -11,10 +12,14 @@ options = {
   validate: nil,
   use_pandoc: nil,
   pandoc_args: nil,
+  glob: nil,
+  out_ext: nil,
+  out_dir: nil,
+  concurrency: nil,
 }
 
 parser = OptionParser.new do |opts|
-  opts.banner = "Usage: yaml-convert INPUT.yaml OUTPUT.(md|html|pdf|docx) [options]"
+  opts.banner = "Usage: yaml-convert INPUT.yaml OUTPUT.(md|html|pdf|docx) [options]\n       yaml-convert --glob 'dir/**/*.yaml' --out-ext (md|html|pdf|docx) [--out-dir DIR] [options]"
 
   opts.on("--max-line-length N", Integer, "Set maximum line length (default 70)") { |v| options[:max_line_length] = v }
   opts.on("--no-truncate", "Disable line truncation") { options[:truncate] = false }
@@ -22,6 +27,13 @@ parser = OptionParser.new do |opts|
   opts.on("--margin-notes MODE", "Set margin notes mode (auto|inline|ignore)") { |v| options[:margin_notes] = v.to_sym }
   opts.on("--use-pandoc", "Use pandoc for non-md/html output formats") { options[:use_pandoc] = true }
   opts.on("--pandoc-args STRING", "Extra args for pandoc (split on spaces)") { |v| options[:pandoc_args] = v.split(/\s+/) }
+
+  # Batch mode
+  opts.on("--glob PATTERN", "Batch convert all YAML files matching the glob pattern") { |v| options[:glob] = v }
+  opts.on("--out-ext EXT", "Output extension for batch mode (md|html|pdf|docx)") { |v| options[:out_ext] = v }
+  opts.on("--out-dir DIR", "Output directory for batch mode (defaults next to input)") { |v| options[:out_dir] = v }
+  opts.on("--concurrency N", Integer, "Batch concurrency (currently not used; reserved)") { |v| options[:concurrency] = v }
+
   opts.on("--version", "Show version") {
     puts Yaml::Converter::VERSION
     exit(0)
@@ -40,6 +52,45 @@ rescue OptionParser::InvalidOption => e
   exit(2)
 end
 
+# Batch mode if --glob is provided
+if options[:glob]
+  pattern = options[:glob]
+  out_ext = options[:out_ext]
+  unless out_ext && out_ext.match?(/^\w+$/)
+    warn "Error: --out-ext is required for --glob and must be like: md|html|pdf|docx"
+    puts parser
+    exit 2
+  end
+  files = Dir.glob(pattern).select { |p| File.file?(p) }
+  if files.empty?
+    warn "No files matched glob: #{pattern}"
+    exit 2
+  end
+  out_dir = options[:out_dir]
+  FileUtils.mkdir_p(out_dir) if out_dir
+
+  failures = 0
+  files.each do |input|
+    base = File.basename(input, File.extname(input))
+    dest_dir = out_dir || File.dirname(input)
+    FileUtils.mkdir_p(dest_dir)
+    output = File.join(dest_dir, base + "." + out_ext)
+    begin
+      result = Yaml::Converter.convert(input_path: input, output_path: output, options: options.compact)
+      puts "Converted: #{result[:output_path]}" unless ENV["KETTLE_TEST_SILENT"] == "true"
+    rescue Yaml::Converter::InvalidArgumentsError, Yaml::Converter::PandocNotFoundError, Yaml::Converter::RendererUnavailableError => e
+      failures += 1
+      warn("Failed: #{input}: #{e.message}")
+    rescue StandardError => e
+      failures += 1
+      warn("Unexpected error converting #{input}: #{e.class}: #{e.message}")
+    end
+  end
+  puts "Batch complete: #{files.size - failures} succeeded, #{failures} failed" unless ENV["KETTLE_TEST_SILENT"] == "true"
+  exit(failures.zero? ? 0 : 5)
+end
+
+# Single-file mode
 if ARGV.length != 2
   warn "Error: require INPUT.yaml and OUTPUT.<ext>"
   puts parser

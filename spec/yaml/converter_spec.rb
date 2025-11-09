@@ -181,5 +181,29 @@ RSpec.describe Yaml::Converter do
         expect(File.read(out)).to include("<html>")
       end
     end
+
+    it "supports batch conversion via --glob to md" do
+      Dir.mktmpdir do |dir|
+        a = File.join(dir, 'a.yaml'); File.write(a, "foo: 1\n")
+        b = File.join(dir, 'b.yaml'); File.write(b, "bar: 2\n")
+        output = capture(:stdout) do
+          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
+        end
+        expect($?.exitstatus).to eq(0)
+        expect(output).to include("Batch complete:")
+        expect(File).to exist(File.join(dir, 'a.md'))
+        expect(File).to exist(File.join(dir, 'b.md'))
+      end
+    end
+
+    it "handles --glob with no matches" do
+      Dir.mktmpdir do |dir|
+        output = capture(:stderr) do
+          system({"KETTLE_TEST_SILENT"=>"false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
+        end
+        expect($?.exitstatus).to eq(2)
+        expect(output).to include("No files matched glob:")
+      end
+    end
   end
 end
