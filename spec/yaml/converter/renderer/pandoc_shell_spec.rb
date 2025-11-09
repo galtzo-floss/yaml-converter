@@ -23,7 +23,7 @@ RSpec.describe Yaml::Converter::Renderer::PandocShell do
     File.write(tmp_md, "# heading\n\ntext")
     allow(described_class).to receive(:which).with("pandoc").and_return("/usr/bin/pandoc")
     fake_status = instance_double(Process::Status, success?: false)
-    expect(Open3).to receive(:capture3).and_return(["", "pandoc error", fake_status])
+    allow(Open3).to receive(:capture3).and_return(["", "pandoc error", fake_status])
     output = capture(:stderr) do
       ok = described_class.render(md_path: tmp_md, out_path: out_path, pandoc_path: nil, args: [])
       expect(ok).to be false

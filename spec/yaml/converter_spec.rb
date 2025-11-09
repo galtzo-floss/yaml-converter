@@ -49,13 +49,13 @@ RSpec.describe Yaml::Converter do
   describe "::validate" do
     it "returns ok for valid YAML" do
       result = described_class.validate("foo: bar")
-      expect(result[:status]).to eq(:ok)
+      expect(result[:status]).to be(:ok)
       expect(result[:error]).to be_nil
     end
 
     it "returns fail for invalid YAML" do
       result = described_class.validate(": : :")
-      expect(result[:status]).to eq(:fail)
+      expect(result[:status]).to be(:fail)
       expect(result[:error]).to be_a(StandardError)
     end
   end
@@ -67,7 +67,7 @@ RSpec.describe Yaml::Converter do
         f.flush
         out = Tempfile.create(["out", ".md"]) { |tf| tf.path }
         result = described_class.convert(input_path: f.path, output_path: out, options: {})
-        expect(result[:status]).to eq(:ok)
+        expect(result[:status]).to be(:ok)
         expect(File.read(out)).to include("foo: bar")
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe Yaml::Converter do
         f.flush
         out = Tempfile.create(["out", ".html"]) { |tf| tf.path }
         result = described_class.convert(input_path: f.path, output_path: out, options: {})
-        expect(result[:status]).to eq(:ok)
+        expect(result[:status]).to be(:ok)
         expect(File.read(out)).to include("<html")
       end
     end
@@ -89,7 +89,7 @@ RSpec.describe Yaml::Converter do
         f.flush
         out = Tempfile.create(["out", ".pdf"]) { |tf| tf.path }
         result = described_class.convert(input_path: f.path, output_path: out, options: {use_pandoc: false})
-        expect(result[:status]).to eq(:ok)
+        expect(result[:status]).to be(:ok)
         expect(File).to exist(out)
         expect(File.size(out)).to be > 0
       end
@@ -108,7 +108,7 @@ RSpec.describe Yaml::Converter do
         end
         if pandoc_path
           result = described_class.convert(input_path: f.path, output_path: out, options: {})
-          expect(result[:status]).to eq(:ok)
+          expect(result[:status]).to be(:ok)
           expect(File).to exist(out)
           expect(File.size(out)).to be > 0
         else
@@ -160,10 +160,10 @@ RSpec.describe Yaml::Converter do
       )
       expect(ENV["YAML_CONVERTER_MAX_LINE_LEN"]).to eq("80")
       cfg = Yaml::Converter::Config.resolve({})
-      expect(cfg[:max_line_length]).to eq(80)
-      expect(cfg[:truncate]).to eq(false)
-      expect(cfg[:validate]).to eq(false)
-      expect(cfg[:use_pandoc]).to eq(true)
+      expect(cfg[:max_line_length]).to be(80)
+      expect(cfg[:truncate]).to be(false)
+      expect(cfg[:validate]).to be(false)
+      expect(cfg[:use_pandoc]).to be(true)
     end
   end
 
@@ -176,7 +176,7 @@ RSpec.describe Yaml::Converter do
         output = capture(:stdout) do
           system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
         end
-        expect($?.exitstatus).to eq(0)
+        expect($?.exitstatus).to be(0)
         expect(output).to include("Converted:")
         expect(File.read(out)).to include("foo: bar")
       end
@@ -190,7 +190,7 @@ RSpec.describe Yaml::Converter do
         output = capture(:stdout) do
           system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
         end
-        expect($?.exitstatus).to eq(0)
+        expect($?.exitstatus).to be(0)
         expect(output).to include("Converted:")
         expect(File.read(out)).to include("<html>")
       end
@@ -205,10 +205,10 @@ RSpec.describe Yaml::Converter do
         output = capture(:stdout) do
           system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
         end
-        expect($?.exitstatus).to eq(0)
+        expect($?.exitstatus).to be(0)
         expect(output).to include("Batch complete:")
-        expect(File).to exist(File.join(dir, "a.md"))
-        expect(File).to exist(File.join(dir, "b.md"))
+        expect(File.read(a.sub(/\.yaml$/, ".md"))).to include("foo: 1")
+        expect(File.read(b.sub(/\.yaml$/, ".md"))).to include("bar: 2")
       end
     end
 

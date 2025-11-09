@@ -1,32 +1,13 @@
 {
-  "exe/yaml-convert:1393717282": [
-    [63, 10, 34, "Style/SafeNavigation: Use safe navigation (`&.`) instead of checking if an object exists before calling the method.", 3135175708]
+  "lib/yaml/converter.rb:982404199": [
+    [173, 11, 12, "Style/IdenticalConditionalBranches: Move `success.call` out of the conditional.", 2620711594],
+    [178, 11, 12, "Style/IdenticalConditionalBranches: Move `success.call` out of the conditional.", 2620711594]
   ],
-  "lib/yaml/converter.rb:3777655787": [
-    [124, 9, 350, "Style/ConditionalAssignment: Use the return of the conditional for variable assignment and comparison.", 2938339792],
-    [126, 11, 21, "Layout/IndentationWidth: Use 2 (not 21) spaces for indentation.", 3973078917],
-    [127, 30, 4, "Layout/ElseAlignment: Align `else` with `validation_result`.", 2087423834],
-    [129, 30, 3, "Layout/EndAlignment: `end` at 129, 29 is not aligned with `validation_result = if` at 125, 10.", 193405706],
-    [173, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982],
-    [179, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982]
+  "spec/yaml/html_renderer_spec.rb:1469607514": [
+    [5, 1, 30, "RSpec/SpecFilePathFormat: Spec path should end with `yaml/converter*_spec.rb`.", 2834375208]
   ],
-  "lib/yaml/converter/renderer/pdf_prawn.rb:1136374992": [
-    [74, 1, 1, "Layout/EmptyLines: Extra blank line detected.", 177583],
-    [78, 9, 16, "Layout/EmptyLineBetweenDefs: Expected 1 empty line between method definitions; found 2.", 1713629919]
-  ],
-  "spec/yaml/converter/renderer/pandoc_shell_spec.rb:231507547": [
-    [26, 5, 13, "RSpec/StubbedMock: Prefer `allow` over `expect` when configuring a response.", 2024371388]
-  ],
-  "spec/yaml/converter_spec.rb:367000414": [
-    [164, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
-    [165, 33, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785],
-    [166, 35, 2, "RSpec/BeEq: Prefer `be` over `eq`.", 5860785]
-  ],
-  "spec/yaml/html_renderer_spec.rb:2719870233": [
-    [5, 16, 30, "RSpec/DescribeClass: The first argument to describe should be the class or module being tested.", 758299981]
-  ],
-  "spec/yaml/streaming_spec.rb:4157644415": [
-    [5, 16, 22, "RSpec/DescribeClass: The first argument to describe should be the class or module being tested.", 2983490081]
+  "spec/yaml/streaming_spec.rb:3240141631": [
+    [5, 1, 30, "RSpec/SpecFilePathFormat: Spec path should end with `yaml/converter*_spec.rb`.", 2834375208]
   ],
   "spec/yaml/validation_spec.rb:2617750190": [
     [3, 1, 42, "RSpec/SpecFilePathFormat: Spec path should end with `yaml/converter/validation*_spec.rb`.", 1185126307]

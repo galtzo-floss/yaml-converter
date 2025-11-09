@@ -121,14 +121,10 @@ module Yaml
             io.write(to_markdown(yaml_string, options: opts))
           end
         end
-        if opts[:validate]
-          validation_result = if yaml_string
-                               Validation.validate_string(yaml_string)
-                             else
-                               Validation.validate_file(input_path)
-                             end
+        validation_result = if opts[:validate]
+          yaml_string ? Validation.validate_string(yaml_string) : Validation.validate_file(input_path)
         else
-          validation_result = {status: :ok, error: nil}
+          {status: :ok, error: nil}
         end
         return {status: :ok, output_path: output_path, validation: validation_result}
       end
@@ -136,6 +132,11 @@ module Yaml
       # For non-markdown outputs, we still produce an intermediate markdown string.
       yaml_string = File.read(input_path) if yaml_string.nil?
       markdown = to_markdown(yaml_string, options: opts)
+
+      # Helper lambda to build standard success response
+      success = lambda do
+        {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+      end
 
       case ext
       when ".html"
@@ -160,9 +161,8 @@ module Yaml
           </html>
         HTML
         File.write(output_path, html)
-        {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+        success.call
       when ".pdf"
-        opts = Config.resolve(options)
         if opts[:use_pandoc]
           tmp_md = output_path + ".md"
           File.write(tmp_md, markdown)
@@ -170,16 +170,14 @@ module Yaml
           ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: opts[:pandoc_path], args: opts[:pandoc_args])
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise PandocNotFoundError, "pandoc not found in PATH" unless ok
-          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+          success.call
         else
           require_relative "converter/renderer/pdf_prawn"
           ok = Renderer::PdfPrawn.render(markdown: markdown, out_path: output_path, options: opts)
-
           raise RendererUnavailableError, "PDF rendering failed" unless ok
-          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+          success.call
         end
       when ".docx"
-        # Prefer pandoc for DOCX; auto-detect without requiring use_pandoc flag
         tmp_md = output_path + ".md"
         File.write(tmp_md, markdown)
         require_relative "converter/renderer/pandoc_shell"
@@ -188,7 +186,7 @@ module Yaml
           ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: pandoc_path, args: [])
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise RendererUnavailableError, "pandoc failed to generate DOCX" unless ok
-          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+          success.call
         else
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise RendererUnavailableError, "DOCX requires pandoc; install pandoc or use .md/.html/.pdf"
@@ -201,7 +199,7 @@ module Yaml
           ok = Renderer::PandocShell.render(md_path: tmp_md, out_path: output_path, pandoc_path: opts[:pandoc_path], args: opts[:pandoc_args])
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise PandocNotFoundError, "pandoc not found in PATH" unless ok
-          {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
+          success.call
         else
           raise RendererUnavailableError, "Renderer for #{ext} not implemented. Pass use_pandoc: true or use .md/.html/.pdf."
         end

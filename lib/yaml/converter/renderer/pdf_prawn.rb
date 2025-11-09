@@ -71,7 +71,6 @@ module Yaml
           false
         end
 
-
         # Extract leading `# Title lines`.
         # @param markdown [String]
         # @return [Array<String>]

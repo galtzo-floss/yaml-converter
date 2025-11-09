@@ -2,7 +2,7 @@
 
 require "yaml/converter"
 
-RSpec.describe "Streaming conversion" do
+RSpec.describe Yaml::Converter do
   let(:input) do
     <<~YAML
       # Title
@@ -21,21 +21,18 @@ RSpec.describe "Streaming conversion" do
       out_normal = File.join(dir, "out_normal.md")
 
       # Non-streaming
-      res1 = Yaml::Converter.convert(input_path: in_path, output_path: out_normal, options: {streaming: false})
-      expect(res1[:status]).to eq(:ok)
+      res1 = described_class.convert(input_path: in_path, output_path: out_normal, options: {streaming: false})
+      expect(res1[:status]).to be(:ok)
 
       # Streaming forced
-      res2 = Yaml::Converter.convert(input_path: in_path, output_path: out_stream, options: {streaming: true})
-      expect(res2[:status]).to eq(:ok)
+      res2 = described_class.convert(input_path: in_path, output_path: out_stream, options: {streaming: true})
+      expect(res2[:status]).to be(:ok)
 
       md1 = File.read(out_normal)
       md2 = File.read(out_stream)
       expect(md2).to include("```yaml")
       expect(md2).to include("> NOTE: alpha")
       expect(md2).to include("Produced by [yaml-converter]")
-
-      # Normal and streaming should be functionally equivalent. Exact whitespace may vary minimally,
-      # but for our implementations they should match byte-for-byte.
       expect(md2).to eq(md1)
     end
   end

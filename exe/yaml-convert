@@ -60,7 +60,7 @@ end
 if options[:glob]
   pattern = options[:glob]
   out_ext = options[:out_ext]
-  unless out_ext && out_ext.match?(/^\w+$/)
+  unless out_ext&.match?(/^\w+$/)
     warn "Error: --out-ext is required for --glob and must be like: md|html|pdf|docx"
     puts parser
     exit 2
