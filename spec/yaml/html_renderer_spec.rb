@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'yaml/converter'
+require "yaml/converter"
 
-RSpec.describe 'HTML rendering (integration)' do
-  it 'wraps markdown into an HTML document with note class when notes present' do
+RSpec.describe "HTML rendering (integration)" do
+  it "wraps markdown into an HTML document with note class when notes present" do
     input = <<~YAML
       # Title Line
       # YAML validation:
@@ -11,13 +11,14 @@ RSpec.describe 'HTML rendering (integration)' do
       key: value #note: important detail
     YAML
     Dir.mktmpdir do |dir|
-      in_path = File.join(dir, 'in.yaml'); File.write(in_path, input)
-      out_path = File.join(dir, 'out.html')
+      in_path = File.join(dir, "in.yaml")
+      File.write(in_path, input)
+      out_path = File.join(dir, "out.html")
       result = Yaml::Converter.convert(input_path: in_path, output_path: out_path, options: {})
       expect(result[:status]).to eq(:ok)
       html = File.read(out_path)
       expect(html).to include('<blockquote class="yaml-note">')
-      expect(html).to include('NOTE: important detail')
+      expect(html).to include("NOTE: important detail")
       expect(html).to include('<code class="language-yaml">')
     end
   end

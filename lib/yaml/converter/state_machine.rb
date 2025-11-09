@@ -4,11 +4,22 @@ require "date"
 
 module Yaml
   module Converter
-    # Simple state machine to transform tokens into markdown lines.
+    # Simple state machine to transform {Parser::Token} sequences into
+    # Markdown lines. Produces:
+    # - Title lines as plain paragraphs
+    # - A validation status line (formatted with date)
+    # - Fenced YAML blocks for YAML content
+    # - Blockquoted notes (outside fences)
     class StateMachine
       START_YAML = "```yaml"
       END_YAML = "```"
 
+      # @param options [Hash]
+      # @option options [Symbol] :validation_status (:ok) Injected validation result (:ok or :fail)
+      # @option options [Integer] :max_line_length (70)
+      # @option options [Boolean] :truncate (true)
+      # @option options [Symbol] :margin_notes (:auto)
+      # @option options [Date] :current_date (Date.today)
       def initialize(options = {})
         @options = options
         @validate_status = options.fetch(:validation_status, :ok)
@@ -18,6 +29,10 @@ module Yaml
         @current_date = options[:current_date] || Date.today
       end
 
+      # Apply stateful transformations to tokens and emit Markdown lines.
+      #
+      # @param tokens [Array<Parser::Token>]
+      # @return [Array<String>] Output lines (without trailing newlines)
       def apply(tokens)
         out = []
         state = :text
@@ -33,7 +48,7 @@ module Yaml
           when :validation
             close_yaml(out, state)
             date = @current_date.strftime("%d/%m/%Y")
-            status_str = (@validate_status == :ok ? "OK" : "Fail")
+            status_str = ((@validate_status == :ok) ? "OK" : "Fail")
             out << "YAML validation:*#{status_str}* on #{date}"
             out << ""
             state = :text
@@ -70,6 +85,10 @@ module Yaml
 
       private
 
+      # Open a fenced YAML block if not already inside one.
+      # @param out [Array<String>]
+      # @param state [Symbol]
+      # @return [Symbol] new state
       def open_yaml(out, state)
         if state != :yaml
           out << "" if out.last && out.last != ""
@@ -80,6 +99,10 @@ module Yaml
         end
       end
 
+      # Close a fenced YAML block if currently inside one.
+      # @param out [Array<String>]
+      # @param state [Symbol]
+      # @return [void]
       def close_yaml(out, state)
         if state == :yaml
           out << END_YAML

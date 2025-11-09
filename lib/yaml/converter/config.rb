@@ -5,6 +5,7 @@ require "date"
 module Yaml
   module Converter
     # Central configuration handling: merges explicit options with ENV and defaults.
+    # Use {Yaml::Converter::Config.resolve} to obtain the finalized options hash.
     module Config
       DEFAULTS = {
         max_line_length: 70,
@@ -40,6 +41,11 @@ module Yaml
       BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes].freeze
 
       class << self
+        # Merge caller options with environment overrides and defaults.
+        # Environment bools accept values: 1, true, yes, on (case-insensitive).
+        #
+        # @param options [Hash]
+        # @return [Hash] normalized options suitable for passing to emitters/renderers
         def resolve(options = {})
           opts = DEFAULTS.dup
           ENV_MAP.each do |key, env_key|
@@ -54,12 +60,19 @@ module Yaml
           normalize(opts)
         end
 
+        # Normalize symbolic values loaded from ENV.
+        # @param opts [Hash]
+        # @return [Hash]
         def normalize(opts)
           opts[:margin_notes] = opts[:margin_notes].to_sym if opts[:margin_notes].is_a?(String)
           opts[:html_theme] = opts[:html_theme].to_sym if opts[:html_theme].is_a?(String)
           opts
         end
 
+        # Coerce ENV string values into typed Ruby objects.
+        # @param key [Symbol]
+        # @param value [String]
+        # @return [Object]
         def coerce_env_value(key, value)
           if BOOLEAN_KEYS.include?(key)
             %w[1 true yes on].include?(value.to_s.downcase)

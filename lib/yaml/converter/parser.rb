@@ -2,19 +2,40 @@
 
 module Yaml
   module Converter
-    # Tokenizes input lines into structured elements for the state machine.
+    # Tokenizes input YAML lines (with inline annotations) into structured tokens
+    # consumable by the {Yaml::Converter::StateMachine}.
+    #
+    # Input assumptions:
+    # - Comment titles: lines starting with `# ` become title tokens.
+    # - Validation marker: a comment line starting with `# YAML validation:` is recognized.
+    # - Separator lines (`---`) are recognized and currently ignored by the state machine.
+    # - Inline notes: fragments after `#note:` are captured as out-of-band NOTE tokens.
+    # - Other non-empty lines are treated as YAML content.
     class Parser
+      # Lightweight token structure used by the parser/state machine pipeline.
+      #
+      # @!attribute [rw] type
+      #   @return [Symbol] One of :blank, :title, :validation, :separator, :dash_heading, :yaml_line, :note
+      # @!attribute [rw] text
+      #   @return [String] Payload string for this token
+      # @!attribute [rw] meta
+      #   @return [Hash,nil] Optional metadata bag (currently unused)
       Token = Struct.new(:type, :text, :meta, keyword_init: true)
 
+      # Comment line prefix indicating a validation status line will be injected
       VALIDATION_PREFIX = "# YAML validation:"
+      # Inline note marker captured from right side of a line
       NOTE_MARK = "#note:"
 
+      # @param options [Hash] Reserved for future parsing options
       def initialize(options = {})
         @options = options
       end
 
-      # @param lines [Array<String>]
-      # @return [Array<Token>]
+      # Convert raw lines into token objects.
+      #
+      # @param lines [Array<String>] Input lines (including newlines)
+      # @return [Array<Token>] Sequence of tokens representing the document structure
       def tokenize(lines)
         tokens = []
         lines.each do |raw|

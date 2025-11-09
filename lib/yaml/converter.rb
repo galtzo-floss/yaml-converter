@@ -11,17 +11,29 @@ require_relative "converter/markdown_emitter"
 
 module Yaml
   module Converter
+    # Base error class for all yaml-converter specific exceptions.
     class Error < StandardError; end
+    # Raised when provided arguments (paths, extensions, etc.) are invalid.
     class InvalidArgumentsError < Error; end
+    # Raised when a requested renderer is not available or implemented.
     class RendererUnavailableError < Error; end
+    # Raised when pandoc rendering is requested but pandoc cannot be located.
     class PandocNotFoundError < Error; end
 
     module_function
 
-    # Public: Convert a YAML string into Markdown, with validation status injection.
-    # @param yaml_string [String]
-    # @param options [Hash]
-    # @return [String] markdown content
+    # Convert a YAML string into Markdown with optional validation & notes extraction.
+    #
+    # @param yaml_string [String] Raw YAML content (with optional inline `#note:` annotations or validation marker line)
+    # @param options [Hash, Config::DEFAULTS] User overrides for configuration (see {Yaml::Converter::Config::DEFAULTS})
+    # @option options [Boolean] :validate (true) Whether to attempt YAML parsing and inject validation status.
+    # @option options [Integer] :max_line_length (70) Maximum line length before truncation.
+    # @option options [Boolean] :truncate (true) Whether to truncate overly long lines.
+    # @option options [Symbol] :margin_notes (:auto) How to handle notes (:auto, :inline, :ignore).
+    # @option options [Date] :current_date (Date.today) Deterministic date injection for specs.
+    # @return [String] Markdown document including fenced YAML and extracted notes.
+    # @example Simple conversion
+    #   Yaml::Converter.to_markdown("foo: 1 #note: first")
     def to_markdown(yaml_string, options: {})
       opts = Config.resolve(options)
       emitter = MarkdownEmitter.new(opts)
@@ -32,18 +44,34 @@ module Yaml
       emitter.emit(yaml_string.lines).join("\n")
     end
 
-    # Public: Validate YAML string
-    # @return [Hash] { status: :ok|:fail, error: Exception|nil }
+    # Validate a YAML string returning a structured status.
+    #
+    # @param yaml_string [String]
+    # @return [Hash{Symbol=>Object}] Hash with :status (:ok|:fail) and :error (Exception or nil)
+    # @example
+    #   Yaml::Converter.validate("foo: bar") #=> { status: :ok, error: nil }
     def validate(yaml_string)
       Validation.validate_string(yaml_string)
     end
 
-    # Public: Convert from input file to a given output path based on extension.
-    # Writes files as needed and returns a result hash.
-    # @param input_path [String]
-    # @param output_path [String]
-    # @param options [Hash]
-    # @return [Hash] { status:, output_path:, validation: }
+    # Convert a YAML file to a target format determined by the output extension.
+    #
+    # Supported extensions (Phase 1): .md, .html, .pdf (native), .docx (pandoc).
+    # Other formats may be produced via pandoc when :use_pandoc is true.
+    #
+    # @param input_path [String] Path to existing .yaml source file.
+    # @param output_path [String] Destination file (extension decides rendering strategy).
+    # @param options [Hash] See {#to_markdown} plus pandoc/pdf specific keys.
+    # @option options [Boolean] :use_pandoc (false) Enable pandoc for non-native conversions.
+    # @option options [Array<String>] :pandoc_args (["-N", "--toc"]) Extra pandoc CLI args.
+    # @option options [String,nil] :pandoc_path (nil) Explicit pandoc binary path (auto-detected if nil).
+    # @option options [Boolean] :pdf_two_column_notes (false) Layout notes beside YAML in PDF.
+    # @return [Hash] { status: Symbol, output_path: String, validation: Hash }
+    # @raise [InvalidArgumentsError] if input is missing or an invalid extension is requested.
+    # @raise [PandocNotFoundError] when pandoc rendering requested & missing.
+    # @raise [RendererUnavailableError] for unsupported formats.
+    # @example HTML conversion
+    #   Yaml::Converter.convert(input_path: "blueprint.yaml", output_path: "blueprint.html", options: {})
     def convert(input_path:, output_path:, options: {})
       raise InvalidArgumentsError, "input file not found: #{input_path}" unless File.exist?(input_path)
 
@@ -67,7 +95,7 @@ module Yaml
         {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
       when ".html"
         require "kramdown"
-        body_html = Kramdown::Document.new(markdown, input: 'GFM').to_html
+        body_html = Kramdown::Document.new(markdown, input: "GFM").to_html
         note_style = ""
         if markdown.include?("> NOTE:")
           note_style = "<style>.yaml-note{font-style:italic;color:#555;margin-left:1em;}</style>\n"
@@ -99,6 +127,7 @@ module Yaml
         else
           require_relative "converter/renderer/pdf_prawn"
           ok = Renderer::PdfPrawn.render(markdown: markdown, out_path: output_path, options: opts)
+
           raise RendererUnavailableError, "PDF rendering failed" unless ok
           {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
         end

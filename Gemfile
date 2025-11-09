@@ -2,11 +2,12 @@
 
 source "https://gem.coop"
 
-# Specify your gem's dependencies in yaml-converter.gemspec
-gemspec
-source "https://gem.coop"
 git_source(:codeberg) { |repo_name| "https://codeberg.org/#{repo_name}" }
 git_source(:gitlab) { |repo_name| "https://gitlab.com/#{repo_name}" }
+
+# Specify your gem's dependencies in yaml-converter.gemspec
+gemspec
+
 eval_gemfile "gemfiles/modular/debug.gemfile"
 eval_gemfile "gemfiles/modular/coverage.gemfile"
 eval_gemfile "gemfiles/modular/style.gemfile"

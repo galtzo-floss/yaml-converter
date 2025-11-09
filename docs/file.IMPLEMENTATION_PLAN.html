@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: IMPLEMENTATION_PLAN
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "IMPLEMENTATION_PLAN";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: IMPLEMENTATION_PLAN</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1 id="implementation-plan">Implementation Plan</h1>
+<p>Derived from PRD v0.1 (2025-11-08)</p>
+
+<h2 id="legend">Legend</h2>
+<p>Status Codes: TODO / WIP / DONE / DEFERRED<br>
+Priority: (H) High, (M) Medium, (L) Low<br>
+Phase: 1=MVP, 2=Enhancement, 3=Scaling, 4=Extended Formats</p>
+
+<h2 id="high-level-sequence">High-Level Sequence</h2>
+<ol>
+  <li>Scaffolding &amp; Configuration (Phase 1)</li>
+  <li>Core Parsing &amp; State Machine (Phase 1)</li>
+  <li>Markdown Emission (Phase 1)</li>
+  <li>HTML Rendering (Phase 1)</li>
+  <li>Pandoc Integration for PDF/docx (Phase 1)</li>
+  <li>CLI Interface (Phase 1)</li>
+  <li>Validation Layer (Phase 1)</li>
+  <li>Public API (Phase 1)</li>
+  <li>Tests &amp; Fixtures (Phase 1)</li>
+  <li>RBS Types &amp; YARD Docs (Phase 1)</li>
+  <li>Polish: Errors, Logging, Coverage (Phase 1)</li>
+  <li>Native PDF (Phase 2)</li>
+  <li>Plugin Renderer Registry (Phase 2)</li>
+  <li>Streaming &amp; Batch Modes (Phase 3)</li>
+  <li>Additional Formats (Phase 4)</li>
+</ol>
+
+<h2 id="detailed-tasks">Detailed Tasks</h2>
+<h3 id="1-scaffolding--config-h-phase-1">1. Scaffolding &amp; Config (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Create <code>lib/yaml/converter/config.rb</code> with defaults &amp; ENV merge.</li>
+  <li>[DONE] Add RBS file <code>sig/yaml/converter/config.rbs</code>.</li>
+  <li>[DONE] Update gemspec runtime dependencies: add <code>kramdown</code>.</li>
+  <li>[DEFERRED] (Optional) Add <code>thor</code> dependency (using OptionParser for now).</li>
+</ul>
+
+<h3 id="2-tokenization--parsing-h-phase-1">2. Tokenization &amp; Parsing (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Implement <code>lib/yaml/converter/parser.rb</code> to produce token structs.</li>
+  <li>[DONE] Tokens: CommentToken, YamlContentToken, NoteToken.</li>
+  <li>[DONE] Edge cases: empty file, lines with only <code>#</code>, mixed indentation.</li>
+  <li>[DONE] Tests: parser_spec.</li>
+</ul>
+
+<h3 id="3-state-machine-h-phase-1">3. State Machine (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Implement <code>state_machine.rb</code> with explicit transitions.</li>
+  <li>[DONE] Provide validation events handling and fence closure.</li>
+  <li>[DONE] Tests: state_machine_spec.</li>
+</ul>
+
+<h3 id="4-markdown-emitter-h-phase-1">4. Markdown Emitter (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Implement <code>markdown_emitter.rb</code>.</li>
+  <li>[DONE] Handle validation status injection line.</li>
+  <li>[DONE] Truncation logic.</li>
+  <li>[DONE] Footer line.</li>
+  <li>[DONE] Tests: emitter spec covers fences, truncation, and notes.</li>
+</ul>
+
+<h3 id="5-validation-layer-h-phase-1">5. Validation Layer (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Implement <code>validation.rb</code>.</li>
+  <li>[DONE] Return structured hash.</li>
+  <li>[DONE] Tests: validate examples in converter_spec.</li>
+</ul>
+
+<h3 id="6-html-rendering-m-phase-1">6. HTML Rendering (M, Phase 1)</h3>
+<ul>
+  <li>[DONE] HTML via kramdown embedded in <code>convert</code> method.</li>
+  <li>[DONE] Aside styling (minimal CSS + class injection).</li>
+  <li>[DEFERRED] Tests: dedicated html_renderer_spec deferred (verified in converter_spec).</li>
+</ul>
+
+<h3 id="7-pandoc-integration-m-phase-1">7. Pandoc Integration (M, Phase 1)</h3>
+<ul>
+  <li>[DONE] Implement <code>renderer/pandoc_shell.rb</code>.</li>
+  <li>[DONE] Binary detection.</li>
+  <li>[DONE] Shell invocation via Open3.</li>
+  <li>[DONE] Temp <code>.md</code> removal.</li>
+  <li>[DEFERRED] Tests: pandoc_renderer_spec (pending pandoc presence).</li>
+</ul>
+
+<h3 id="8-public-facade-h-phase-1">8. Public Facade (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Implement <code>.convert</code>, <code>.to_markdown</code>, <code>.validate</code>.</li>
+  <li>[DONE] Options merging via Config.</li>
+  <li>[DONE] File vs in-memory use-cases.</li>
+  <li>[DONE] Tests: converter_spec.</li>
+</ul>
+
+<h3 id="9-cli-h-phase-1">9. CLI (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Add <code>exe/yaml-convert</code> using OptionParser.</li>
+  <li>[DONE] Parse args &amp; map to facade.</li>
+  <li>[DONE] Output extension logic, includes pandoc option.</li>
+  <li>[DONE] Exit codes implemented.</li>
+  <li>[DONE] Tests: CLI scenarios in converter_spec.</li>
+</ul>
+
+<h3 id="10-notes-handling-m-phase-1">10. Notes Handling (M, Phase 1)</h3>
+<ul>
+  <li>[DONE] Detect inline <code>#note:</code>.</li>
+  <li>[DONE] Markdown note blockquote.</li>
+  <li>[DONE] HTML blockquote with class (future aside tag TBD).</li>
+  <li>[DONE] PDF fallback (handled through pandoc future; currently same markdown path).</li>
+  <li>[DONE] Tests: notes behavior covered in emitter spec.</li>
+</ul>
+
+<h3 id="11-error-classes-m-phase-1">11. Error Classes (M, Phase 1)</h3>
+<ul>
+  <li>[DONE] Define InvalidArgumentsError, RendererUnavailableError, PandocNotFoundError.</li>
+  <li>[DONE] ValidationFailedError not distinct (using status instead); potential refactor later.</li>
+  <li>[DONE] Raised appropriately in convert.</li>
+  <li>[DEFERRED] Dedicated errors_spec.</li>
+</ul>
+
+<h3 id="12-configuration-via-env-m-phase-1">12. Configuration via ENV (M, Phase 1)</h3>
+<ul>
+  <li>[DONE] ENV override logic implemented in Config.</li>
+  <li>[DONE] README docs and config_spec.</li>
+</ul>
+
+<h3 id="13-documentation--types-m-phase-1">13. Documentation &amp; Types (M, Phase 1)</h3>
+<ul>
+  <li>[DONE] RBS files for new classes/modules.</li>
+  <li>[DONE] YARD docstrings (baseline; more later).</li>
+  <li>[DONE] README update with usage examples and config.</li>
+  <li>[DONE] Supported formats list.</li>
+</ul>
+
+<h3 id="14-replace-placeholder-spec-h-phase-1">14. Replace Placeholder Spec (H, Phase 1)</h3>
+<ul>
+  <li>[DONE] Removed failing example and added real tests.</li>
+</ul>
+
+<h3 id="15-quality-gates-h-phase-1">15. Quality Gates (H, Phase 1)</h3>
+<ul>
+  <li>[TODO] Run rubocop_gradual:autocorrect.</li>
+  <li>[TODO] Run reek:update &amp; snapshot.</li>
+  <li>[DONE] Coverage run; thresholds met &gt; 90%.</li>
+</ul>
+
+<h3 id="16-native-pdf-h-phase-2">16. Native PDF (H, Phase 2)</h3>
+<ul>
+  <li>[TODO] Introduce <code>prawn</code>.</li>
+  <li>[TODO] Implement PDF renderer.</li>
+  <li>[TODO] Tests.</li>
+</ul>
+
+<h3 id="17-renderer-registry-m-phase-2">17. Renderer Registry (M, Phase 2)</h3>
+<ul>
+  <li>[TODO] Registration DSL.</li>
+  <li>[TODO] Tests.</li>
+</ul>
+
+<h3 id="18-streaming-conversion-m-phase-3">18. Streaming Conversion (M, Phase 3)</h3>
+<ul>
+  <li>[TODO] Incremental IO refactor.</li>
+  <li>[TODO] Tests.</li>
+</ul>
+
+<h3 id="19-batch-mode-l-phase-3">19. Batch Mode (L, Phase 3)</h3>
+<ul>
+  <li>[DONE] CLI <code>--glob</code>.</li>
+  <li>[DONE] Tests.</li>
+</ul>
+
+<h3 id="20-additional-formats-l-phase-4">20. Additional Formats (L, Phase 4)</h3>
+<ul>
+  <li>[TODO] RST/man additions.</li>
+  <li>[TODO] Tests.</li>
+</ul>
+
+<h2 id="testing-matrix-summary-phase-1">Testing Matrix Summary (Phase 1)</h2>
+<p>| Spec File | Focus | Status |<br>
+|———–|——-|——–|<br>
+| parser_spec.rb | Tokenization correctness | DONE |<br>
+| state_machine_spec.rb | Transitions, fenced blocks | DONE |<br>
+| markdown_emitter_spec.rb | Output lines &amp; truncation | DONE |<br>
+| validation_spec.rb | YAML pass/fail | DONE |<br>
+| notes_spec.rb | Note extraction &amp; rendering | DONE (emitter spec) |<br>
+| html_renderer_spec.rb | HTML generation | DONE |<br>
+| pandoc_renderer_spec.rb | External integration | DEFERRED |<br>
+| converter_spec.rb | End-to-end conversion | DONE |<br>
+| cli_spec.rb | Command execution &amp; exit codes | DONE |<br>
+| config_spec.rb | ENV override behavior | DONE |<br>
+| errors_spec.rb | Error raising &amp; subclasses | DONE |</p>
+
+<h2 id="edge-cases-to-cover-status">Edge Cases To Cover (Status)</h2>
+<ul>
+  <li>Empty file: DONE (no crash; footer emitted)</li>
+  <li>File ending while in YAML state: DONE (emitter ensures closure)</li>
+  <li>Malformed YAML: DONE (status Fail handled)</li>
+  <li>Lines &gt; max length: DONE</li>
+  <li>Multiple <code>#note:</code> lines: DONE</li>
+  <li>Output path existing overwrite warning: DONE</li>
+</ul>
+
+<h2 id="tooling-integration">Tooling Integration</h2>
+<ul>
+  <li>Kettle-test silence: active</li>
+  <li>Time freezing for date line: DONE via configurable <code>current_date</code>
+</li>
+</ul>
+
+<h2 id="deliverables-phase-1-completion-checklist">Deliverables Phase 1 Completion Checklist</h2>
+<ul>
+  <li>[DONE] All classes implemented (parser/state-machine done)</li>
+  <li>[DONE] All specs green</li>
+  <li>[DONE] README updated</li>
+  <li>[DONE] PRD &amp; Implementation Plan updated (this file marked)</li>
+  <li>[TODO] Rubocop &amp; Reek passes</li>
+  <li>[DONE] RBS signatures in sync</li>
+</ul>
+
+<h2 id="post-release-follow-ups-phase-2-backlog">Post-Release Follow-ups (Phase 2+ Backlog)</h2>
+<ul>
+  <li>PDF native improvements.</li>
+  <li>Plugin registry.</li>
+  <li>Streaming &amp; batch conversions.</li>
+  <li>Additional formats.</li>
+  <li>Benchmark scripts.</li>
+</ul>
+
+<h2 id="assumptions">Assumptions</h2>
+<ul>
+  <li>Pandoc optional.</li>
+  <li>Ruby &gt;= 3.2 targeted.</li>
+  <li>Users accept OptionParser CLI for MVP.</li>
+</ul>
+
+<h2 id="risks-log">Risks Log</h2>
+<p>| Risk | Impact | Mitigation | Status |<br>
+|——|——–|————|——–|<br>
+| Pandoc absence | PDF unavailable | Clear error | ACTIVE |<br>
+| PDF complexity | Delay Phase 2 | Defer to pandoc | ACTIVE |<br>
+| Note rendering variations | Confusion | Config modes | ACTIVE |<br>
+| Test coverage gaps | Regressions | Add deferred specs | LOWERED |</p>
+
+<hr>
+<p>Implementation Plan v0.1 (Updated)</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sat Nov  8 22:21:13 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.7).
+</div>
+
+    </div>
+  </body>
+</html>

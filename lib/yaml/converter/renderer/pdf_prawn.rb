@@ -7,9 +7,23 @@ module Yaml
     module Renderer
       # Native PDF rendering using prawn.
       # Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.
+      #
+      # For PDF rendering via pandoc, see {Yaml::Converter::Renderer::PandocShell}.
       module PdfPrawn
         module_function
 
+        # Render a PDF document from the given markdown string.
+        #
+        # @param markdown [String] Markdown that includes fenced YAML and blockquote notes
+        # @param out_path [String] Destination PDF path
+        # @param options [Hash] PDF options (see Config defaults: page size, margins, font sizes, two-column notes)
+        # @option options [String] :pdf_page_size ("LETTER")
+        # @option options [Array<Integer>] :pdf_margin ([36,36,36,36])
+        # @option options [Integer] :pdf_title_font_size (14)
+        # @option options [Integer] :pdf_body_font_size (11)
+        # @option options [Integer] :pdf_yaml_font_size (9)
+        # @option options [Boolean] :pdf_two_column_notes (false)
+        # @return [Boolean] true if rendering succeeded
         def render(markdown:, out_path:, options: {})
           with_suppressed_circular_require_warning do
             require "prawn"
@@ -68,6 +82,10 @@ module Yaml
           false
         end
 
+        # Temporarily suppress Ruby's circular require warnings around requiring prawn.
+        # Falls through silently on Rubies that do not support the :circular category.
+        # @yield Require block
+        # @return [void]
         def with_suppressed_circular_require_warning
           if defined?(Warning) && Warning.respond_to?(:[]=)
             prev = nil
@@ -91,10 +109,16 @@ module Yaml
           end
         end
 
+        # Extract leading `# Title lines`.
+        # @param markdown [String]
+        # @return [Array<String>]
         def header_lines(markdown)
           markdown.lines.take_while { |l| l.start_with?("# ") }.map { |l| l.sub(/^# /, "").strip }
         end
 
+        # Return the lines inside the first fenced ```yaml block.
+        # @param markdown [String]
+        # @return [Array<String>]
         def fenced_yaml(markdown)
           inside = false
           lines = []
@@ -112,6 +136,9 @@ module Yaml
           lines
         end
 
+        # Extract note strings from Markdown blockquote lines.
+        # @param markdown [String]
+        # @return [Array<String>]
         def extract_notes(markdown)
           markdown.lines.grep(/^> NOTE:/).map { |l| l.sub(/^> NOTE:\s*/, "").strip }
         end

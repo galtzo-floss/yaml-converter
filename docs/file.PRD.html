@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: PRD
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "PRD";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: PRD</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1 id="product-requirements-document-prd">Product Requirements Document (PRD)</h1>
+
+<p>Project: <code>yaml-converter</code> (Ruby Gem)<br>
+Status: Draft v0.1<br>
+Owner: Maintainer (Peter H. Boling)<br>
+Last Updated: 2025-11-08</p>
+
+<h2 id="1-vision">1. Vision</h2>
+<p>Provide a reliable, extensible Ruby tool (library + CLI) that converts annotated YAML blueprints/specs into rich documentation formats (Markdown first, then HTML, PDF, and optionally others). Mirrors and evolves the functionality demonstrated by the Python reference project (<code>pkg/yaml2doc</code>), while adopting idiomatic Ruby patterns, strong typing (RBS), high test coverage, and galtzo-floss project guidelines.</p>
+
+<h2 id="2-personas--use-cases">2. Personas &amp; Use Cases</h2>
+<ul>
+  <li>Documentation Engineer: Converts YAML configuration/spec files into human-readable docs (README-style, reports).</li>
+  <li>Developer / DevOps: Validates YAML structure and generates docs for infrastructure definitions.</li>
+  <li>Analyst / Architect: Adds narrative commentary alongside structured data and exports PDFs for distribution.</li>
+  <li>Open Source Maintainer: Integrates converter in CI pipeline to publish HTML docs.</li>
+</ul>
+
+<p>Primary Use Cases:</p>
+<ol>
+  <li>Convert a YAML blueprint file into Markdown documentation preserving comments as narrative text.</li>
+  <li>Embed validation status of YAML near a “YAML validation:” marker.</li>
+  <li>Generate HTML from the intermediate Markdown.</li>
+  <li>Generate PDF (with margin notes from <code>#note:</code> inline annotations).</li>
+  <li>Optionally invoke Pandoc (if installed) for extended formats (docx, man, rst, latex) while still producing an intermediate Markdown.</li>
+  <li>Programmatic API usage for in-memory conversion (string → string) without touching filesystem.</li>
+  <li>CLI usage with input and output paths, auto-selecting pipeline based on requested extension.</li>
+  <li>Provide optional truncation for long YAML lines to keep output width manageable.</li>
+  <li>Allow disabling truncation or adjusting max line length via configuration.</li>
+</ol>
+
+<h2 id="3-scope">3. Scope</h2>
+<h3 id="in-scope-initial-mvp--phase-1">In-Scope (Initial MVP / Phase 1)</h3>
+<ul>
+  <li>Core parsing of YAML + comment lines into structured intermediate representation.</li>
+  <li>Algorithmic reproduction of Python logic: state machine: TEXT vs YAML block, insertion/removal of fenced code blocks, note extraction, validation status injection, line-length truncation.</li>
+  <li>CLI command <code>yaml-convert</code> (or <code>yaml-converter</code>) with arguments: input file, output file, options flags.</li>
+  <li>Output formats: <code>.md</code>, <code>.html</code>, <code>.pdf</code> (the latter two via embedded Ruby libraries; fallback shell-out to Pandoc if configured).</li>
+  <li>Public Ruby API: <code>Yaml::Converter.convert(input:, output_format:, **opts)</code> returning string + metadata.</li>
+  <li>Configurable options: <code>max_line_length</code>, <code>truncate</code>, <code>margin_notes</code>, <code>validate</code>, <code>use_pandoc</code>, <code>pandoc_args</code>, <code>html_theme</code>.</li>
+  <li>YAML validation using Psych; failure reflected in status line.</li>
+  <li>RBS signatures, YARD docs for public API.</li>
+  <li>High test coverage (near 100% public API) using kettle-test environment.</li>
+</ul>
+
+<h3 id="deferred--future-phases">Deferred / Future Phases</h3>
+<ul>
+  <li>Streaming conversion for very large YAML files.</li>
+  <li>Parallel batch conversion for directories.</li>
+  <li>Rich PDF layout (tables, syntax highlighting for YAML) beyond MVP.</li>
+  <li>Plugin architecture for custom block handlers.</li>
+  <li>Internationalization / localization.</li>
+  <li>Web service wrapper.</li>
+</ul>
+
+<h3 id="explicitly-out-of-scope-now">Explicitly Out-of-Scope (Now)</h3>
+<ul>
+  <li>Editing YAML, transformation beyond superficial truncation &amp; comment extraction.</li>
+  <li>Non-YAML inputs.</li>
+  <li>Live preview server.</li>
+</ul>
+
+<h2 id="4-competitive--reference-analysis">4. Competitive / Reference Analysis</h2>
+<p>Python reference uses:</p>
+<ul>
+  <li>
+<code>yaml</code> (PyYAML) for parsing.</li>
+  <li>
+<code>pandoc</code> external binary for conversions (Markdown → HTML/PDF).<br>
+Ruby counterparts:</li>
+  <li>Psych (built-in YAML) for parsing &amp; validation.</li>
+  <li>Markdown: produced directly; to HTML use <code>kramdown</code> (fast, pure Ruby, supports fenced code blocks).</li>
+  <li>PDF Options:
+    <ul>
+      <li>Option A (MVP): Shell out to <code>pandoc</code> if present (mirrors Python). Simpler initial implementation, less code.</li>
+      <li>Option B: Internal renderer using <code>prawn</code> (plus <code>prawn-table</code> if needed) for removing external dependency.<br>
+Decision: Implement fallback cascade (internal HTML &amp; PDF first choice; if internal PDF not yet implemented or user opts in to pandoc, shell out). Document clearly.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="5-functional-requirements">5. Functional Requirements</h2>
+<ol>
+  <li>Parse input YAML file while preserving original comment blocks as narrative paragraphs.</li>
+  <li>Extract lines starting with <code># </code> (or <code>#</code> alone) as text sections; convert <code>-</code> list items (starting with <code>-</code>) into Markdown headings or list entries (matching Python behavior: Python yields <code># </code> heading for leading dash lines when in TEXT mode).</li>
+  <li>Maintain state machine to open/close fenced ```yaml blocks surrounding YAML content segments.</li>
+  <li>Detect <code>#note:</code> inline annotations appended after YAML content lines (before the closing newline) and render margin notes:
+    <ul>
+      <li>In Markdown: represent as blockquote footnote style or inline emphasis (design decision, configurable).</li>
+      <li>In PDF: render in side margin (if using prawn) or inline parentheses fallback if margin rendering unsupported.</li>
+    </ul>
+  </li>
+  <li>Inject validation status line (<code>YAML validation:</code> followed by status) with date formatting <code>%d/%m/%Y</code> exactly.</li>
+  <li>Apply max line length truncation (<code>MAX_LINE_LEN</code> default 70) with <code>'..'</code> suffix for truncated lines.</li>
+  <li>Ensure closing fenced block at end if last state was YAML.</li>
+  <li>Append production footer: “Produced by yaml-converter” (link to repo) and if pandoc used note so.</li>
+  <li>CLI argument parsing with helpful <code>--help</code> and exit codes: non-zero on validation failure or missing files.</li>
+  <li>Support file output extension logic:
+    <ul>
+      <li>If output is <code>.yaml</code>: abort (error).</li>
+      <li>If output is <code>.md</code>: produce Markdown only.</li>
+      <li>Else produce intermediate <code>.md</code> (temp) then transform to target (HTML, PDF, others).</li>
+    </ul>
+  </li>
+  <li>Auto-remove temporary intermediate file on successful transformation.</li>
+  <li>Provide programmatic API with options hash; raise <code>Yaml::Converter::Error</code> for invalid usage.</li>
+  <li>Provide environment variable overrides for defaults (document in README): e.g., <code>YAML_CONVERTER_MAX_LINE_LEN</code>.</li>
+  <li>Provide stable semantic versioning.</li>
+</ol>
+
+<h2 id="6-non-functional-requirements">6. Non-Functional Requirements</h2>
+<ul>
+  <li>Performance: Target conversion of typical spec files (&lt;2 MB) under 1s on standard hardware (Ruby 3.2+).</li>
+  <li>Reliability: Deterministic outputs given identical inputs and options.</li>
+  <li>Extensibility: Allow new output formats via a Renderer interface.</li>
+  <li>Security: No arbitrary code execution—no <code>eval</code>—validation limited to parsing YAML. Shelling out to pandoc guarded &amp; sanitized.</li>
+  <li>Portability: Works on MRI, JRuby, TruffleRuby per README compatibility list.</li>
+  <li>Observability: Provide minimal logging behind a debug flag (respect kettle guidelines for silenced output).</li>
+</ul>
+
+<h2 id="7-architecture-overview">7. Architecture Overview</h2>
+<p>Pipeline:<br>
+Input YAML file → Line Scanner → Token Stream (CommentTokens, YamlTokens, NoteTokens) → State Machine (TEXT/YAML) → Markdown Builder → (Conditional) Renderer → Output file.</p>
+
+<p>Core Components (Classes / Modules):</p>
+<ul>
+  <li>
+<code>Yaml::Converter</code> (facade API &amp; CLI invocation coordinator)</li>
+  <li>
+<code>Yaml::Converter::Parser</code> (reads file, emits tokens)</li>
+  <li>
+<code>Yaml::Converter::StateMachine</code> (manages TEXT vs YAML blocks)</li>
+  <li>
+<code>Yaml::Converter::MarkdownEmitter</code> (accumulates output lines)</li>
+  <li>
+<code>Yaml::Converter::Renderer</code> (abstract base for format renderers)
+    <ul>
+      <li>
+<code>Yaml::Converter::Renderer::Markdown</code> (identity)</li>
+      <li><code>Yaml::Converter::Renderer::HtmlKramdown</code></li>
+      <li>
+<code>Yaml::Converter::Renderer::PdfPrawn</code> (Phase 2 if complex; Phase 1 may stub or rely on pandoc)</li>
+      <li>
+<code>Yaml::Converter::Renderer::PandocShell</code> (optional external)</li>
+    </ul>
+  </li>
+  <li>
+<code>Yaml::Converter::Config</code> (option normalization; env + defaults)</li>
+  <li>
+<code>Yaml::Converter::Validation</code> (YAML parse attempt; returns :ok/:fail + message)</li>
+</ul>
+
+<p>Data Structures:</p>
+<ul>
+  <li>Token (struct w/ type, raw_line, content, line_no)</li>
+  <li>Note (struct w/ text, originating line_no)</li>
+</ul>
+
+<h2 id="8-public-api-initial">8. Public API (Initial)</h2>
+<pre class="code language-ruby"><code class="language-ruby">Yaml::Converter.convert(input_path:, output_path:, options: {}) # returns { status:, output_path:, validation:, stats: }
+Yaml::Converter.to_markdown(yaml_string, options: {}) # returns markdown_string
+Yaml::Converter.validate(yaml_string) # returns { status: :ok|:fail, error: nil|Exception }
+</code></pre>
+<p>Options:</p>
+<ul>
+  <li>
+<code>max_line_length: Integer</code> (default 70)</li>
+  <li>
+<code>truncate: true|false</code> (default true)</li>
+  <li>
+<code>margin_notes: :auto|:inline|:ignore</code> (default :auto)</li>
+  <li>
+<code>validate: true|false</code> (default true)</li>
+  <li>
+<code>use_pandoc: true|false</code> (default false)</li>
+  <li>
+<code>pandoc_path: String</code> (auto-detect if nil)</li>
+  <li>
+<code>pandoc_args: Array&lt;String&gt;</code> (default [“-N”, “–toc”])</li>
+  <li>
+<code>html_theme: :basic</code> (placeholder for future extensions)</li>
+</ul>
+
+<h2 id="9-cli-specification-phase-1">9. CLI Specification (Phase 1)</h2>
+<p>Command: <code>yaml-convert</code><br>
+Usage:</p>
+<pre class="code ruby"><code class="ruby">yaml-convert INPUT.yaml OUTPUT.[md|html|pdf|docx]
+</code></pre>
+<p>Flags:</p>
+<ul>
+  <li><code>--max-line-length N</code></li>
+  <li><code>--no-truncate</code></li>
+  <li><code>--no-validate</code></li>
+  <li><code>--margin-notes [auto|inline|ignore]</code></li>
+  <li><code>--use-pandoc</code></li>
+  <li><code>--pandoc-args "--toc -N"</code></li>
+  <li><code>--version</code></li>
+  <li>
+<code>--help</code><br>
+Exit Codes:</li>
+  <li>0 success</li>
+  <li>2 invalid arguments</li>
+  <li>3 validation failed</li>
+  <li>4 output extension error</li>
+  <li>5 renderer unavailable</li>
+</ul>
+
+<h2 id="10-error-handling-strategy">10. Error Handling Strategy</h2>
+<p>Raise specific <code>Yaml::Converter::Error</code> subclasses:</p>
+<ul>
+  <li><code>InvalidArgumentsError</code></li>
+  <li><code>ValidationFailedError</code></li>
+  <li><code>RendererUnavailableError</code></li>
+  <li>
+<code>PandocNotFoundError</code><br>
+Return structured hashes to callers rather than raising for soft failures (like truncated lines warning) while raising for hard failures.</li>
+</ul>
+
+<h2 id="11-security-considerations">11. Security Considerations</h2>
+<ul>
+  <li>Shell execution limited to pandoc; command constructed with sanitized arguments (no user-supplied interpolation without separation).</li>
+  <li>No dynamic requires based on user input.</li>
+  <li>Avoid reading arbitrary files beyond specified input path.</li>
+  <li>PDF generation internally (if implemented) avoids executing external binaries.</li>
+</ul>
+
+<h2 id="12-extensibility--plugin-concept-future">12. Extensibility / Plugin Concept (Future)</h2>
+<p>Renderer registry: <code>Yaml::Converter.register_renderer(:format, klass)</code> enabling new formats (e.g., <code>:rst</code>). Not implemented in Phase 1 but API shaped to allow it.</p>
+
+<h2 id="13-configuration-hierarchy">13. Configuration Hierarchy</h2>
+<p>Order of precedence:</p>
+<ol>
+  <li>Method call explicit options.</li>
+  <li>Environment (e.g., <code>ENV["YAML_CONVERTER_MAX_LINE_LEN"]</code>).</li>
+  <li>Library defaults.<br>
+Expose <code>Yaml::Converter::Config.default_options</code> constant.</li>
+</ol>
+
+<h2 id="14-logging--output">14. Logging &amp; Output</h2>
+<ul>
+  <li>Use <code>warn</code> for critical errors, silenced under kettle-test unless <code>:check_output</code> tag or <code>DEBUG=true</code>.</li>
+  <li>Provide optional structured debug (maybe via STDOUT) only when <code>ENV["DEBUG"]</code> set.</li>
+</ul>
+
+<h2 id="15-testing-strategy">15. Testing Strategy</h2>
+<p>Coverage Goals:</p>
+<ul>
+  <li>Unit tests for each component class.</li>
+  <li>Integration test: full file conversion (fixture similar to <code>pkg/yaml2doc/test/blueprint.yaml</code>).</li>
+  <li>Edge cases: empty file, only comments, malformed YAML, long lines, notes, final state closing.</li>
+  <li>CLI invocation tests via system specs (simulate arguments). Stub ENV where needed using rspec-stubbed_env.</li>
+  <li>Ensure deterministic date format by freezing time with timecop-rspec.</li>
+  <li>RBS signature validation (add <code>.rbs</code> types under <code>sig/yaml/converter/*.rbs</code>).</li>
+  <li>Mutation or property tests (future) for line truncation logic.</li>
+</ul>
+
+<h2 id="16-performance-considerations">16. Performance Considerations</h2>
+<p>Process file line by line; avoid loading large file into memory twice. Single pass scanning with streaming builder into an array; join at end. For huge files consider streaming output (Phase 2).</p>
+
+<h2 id="17-dependencies-proposed">17. Dependencies (Proposed)</h2>
+<p>Runtime:</p>
+<ul>
+  <li>
+<code>kramdown</code> (HTML rendering)</li>
+  <li>(Optional) <code>prawn</code> for internal PDF (Phase 2) — might delay to keep MVP lean.</li>
+  <li>(Optional) <code>tty-option</code> or <code>thor</code> for CLI; choose <code>thor</code> given presence in bin and established patterns.<br>
+Development (already present via kettle-test): rspec, rubocop, reek, yard, version_gem, etc.</li>
+</ul>
+
+<p>Pandoc Integration: Detect with <code>which pandoc</code> analog (<code>ENV["PATH"].split(File::PATH_SEPARATOR)</code>) before using.</p>
+
+<h2 id="18-milestones--phases">18. Milestones &amp; Phases</h2>
+<h3 id="phase-1-mvp">Phase 1 (MVP)</h3>
+<ul>
+  <li>Core conversion logic &amp; Markdown output.</li>
+  <li>HTML rendering via kramdown.</li>
+  <li>Pandoc fallback for PDF &amp; docx.</li>
+  <li>CLI command.</li>
+  <li>Tests &amp; Docs.
+    <h3 id="phase-2">Phase 2</h3>
+  </li>
+  <li>Native PDF rendering (prawn) with margin notes layout.</li>
+  <li>Plugin renderer registry.
+    <h3 id="phase-3">Phase 3</h3>
+  </li>
+  <li>Streaming large-file conversion.</li>
+  <li>Directory batch mode.
+    <h3 id="phase-4">Phase 4</h3>
+  </li>
+  <li>Additional formats (RST, man pages) via internal or pandoc.</li>
+</ul>
+
+<h2 id="19-risks--mitigations">19. Risks &amp; Mitigations</h2>
+<ul>
+  <li>Risk: PDF complexity delays release. Mitigation: rely on pandoc for PDF initially.</li>
+  <li>Risk: Margin notes challenging in PDF. Mitigation: degrade note rendering to inline parentheses until prawn implementation stable.</li>
+  <li>Risk: External pandoc not installed on user system. Mitigation: Provide clear error and guidance; README doc.</li>
+  <li>Risk: Test coverage thresholds failing due to incremental development. Mitigation: Write tests first per component.</li>
+</ul>
+
+<h2 id="20-acceptance-criteria-phase-1">20. Acceptance Criteria (Phase 1)</h2>
+<ul>
+  <li>Converting provided blueprint fixture to <code>.md</code>, <code>.html</code>, <code>.pdf</code> produces expected structural output (specs assert key lines).</li>
+  <li>Validation status line accurately reflects valid vs invalid YAML.</li>
+  <li>Notes extracted and displayed appropriately in Markdown &amp; HTML.</li>
+  <li>CLI exits with correct codes under each failure scenario.</li>
+  <li>RBS and YARD docs present for public API.</li>
+  <li>Rubocop &amp; Reek pass (with intentional smells snapshot updated).</li>
+  <li>Coverage thresholds met (line &amp; branch) for new code.</li>
+</ul>
+
+<h2 id="21-open-questions">21. Open Questions</h2>
+<ul>
+  <li>Should margin notes in HTML appear as aside elements with a CSS class? (Proposed: yes, minimal inline style Phase 1.)</li>
+  <li>Provide configuration to disable footer? (Future.)</li>
+  <li>Should we support STDIN/STDOUT piping? (Future enhancement.)</li>
+</ul>
+
+<h2 id="22-appendix-python-behavior-mapping">22. Appendix: Python Behavior Mapping</h2>
+<p>| Python Behavior | Ruby Plan |<br>
+|—————–|———–|<br>
+| argparse CLI | thor-based CLI |<br>
+| yaml.load with Loader | Psych.safe_load (with fallback &amp; error capture) |<br>
+| pandoc shell | internal HTML renderer + optional pandoc; PDF via pandoc initially |<br>
+| Markdown fenced blocks management | identical state machine logic |<br>
+| Margin notes via LaTeX injection | Abstract note tokens; HTML aside / PDF margin (later) |<br>
+| Line truncation to 70 chars | same, configurable |<br>
+| Validation status injection | same, with date format <code>%d/%m/%Y</code> |</p>
+
+<hr>
+<p>PRD v0.1 complete.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sat Nov  8 22:21:13 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.7).
+</div>
+
+    </div>
+  </body>
+</html>

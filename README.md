@@ -92,6 +92,7 @@ Deterministic Dates:
 Inject `current_date:` in `options` or stub time for tests; the state machine uses this value.
 
 ### Supported Formats (Phase 1)
+
 - Markdown (.md)
 - HTML (.html) via kramdown
 - PDF (.pdf) native (Prawn) or via pandoc when `use_pandoc: true`
@@ -99,6 +100,7 @@ Inject `current_date:` in `options` or stub time for tests; the state machine us
 - Other pandoc-supported formats (set output extension + `--use-pandoc`)
 
 ### Notes Handling
+
 Inline `#note:` at end of a YAML line:
 
 ```yaml
@@ -108,6 +110,7 @@ key: value #note: important detail
 Will produce a blockquote note just after the YAML fenced block.
 
 ### ENV Configuration
+
 Override defaults using ENV (before process start):
 
 ```bash
@@ -117,6 +120,7 @@ export YAML_CONVERTER_VALIDATE=false
 ```
 
 ### Validation Status Line
+
 Any comment line that begins with `# YAML validation:` will be replaced with a status and date:
 
 ```
@@ -124,14 +128,97 @@ YAML validation:*OK* on dd/mm/YYYY
 ```
 
 ### Footer
+
 A production footer is always appended:
+
 ```
 ----
 Produced by yaml-converter
 ```
 
 ### Future Enhancements
+
 See `IMPLEMENTATION_PLAN.md` for upcoming phases (native PDF, streaming, plugin renderers).
+
+## 🔧 Basic Usage
+
+### Library API
+
+Minimal conversion to Markdown:
+
+```ruby
+require "yaml/converter"
+markdown = Yaml::Converter.to_markdown(File.read("spec/fixtures/example.yaml"))
+puts markdown
+```
+
+Convert directly to a file (extension decides behavior):
+
+```ruby
+Yaml::Converter.convert(
+  input_path: "spec/fixtures/example.yaml",
+  output_path: "doc/example.html",
+  options: {validate: true},
+)
+```
+
+Deterministic date for tests (inject current_date):
+
+```ruby
+Yaml::Converter.to_markdown(yaml_str, options: {current_date: Date.new(2025, 11, 8)})
+```
+
+Native PDF vs pandoc PDF:
+
+```ruby
+# Native PDF using Prawn
+Yaml::Converter.convert(
+  input_path: "blueprint.yaml",
+  output_path: "blueprint.pdf",
+  options: {use_pandoc: false, pdf_two_column_notes: true},
+)
+
+# PDF via pandoc (requires pandoc in PATH)
+Yaml::Converter.convert(
+  input_path: "blueprint.yaml",
+  output_path: "blueprint.pdf",
+  options: {use_pandoc: true, pandoc_args: ["-N", "--toc"]},
+)
+```
+
+DOCX via pandoc:
+
+```ruby
+Yaml::Converter.convert(
+  input_path: "blueprint.yaml",
+  output_path: "blueprint.docx",
+  options: {},
+)
+```
+
+### CLI
+
+Install gem (development checkout already has exe script):
+
+```bash
+bundle exec ruby exe/yaml-convert input.yaml output.md
+bundle exec ruby exe/yaml-convert input.yaml output.html
+bundle exec ruby exe/yaml-convert input.yaml output.pdf --use-pandoc
+```
+
+If pandoc is not installed, the command will exit with code 5 and a helpful message.
+
+DOCX example (CLI):
+
+```bash
+bundle exec ruby exe/yaml-convert blueprint.yaml output.docx --use-pandoc
+```
+
+Batch mode with glob:
+
+```bash
+bundle exec ruby exe/yaml-convert --glob 'docs/**/*.yaml' --out-ext md --out-dir out/
+```
 
 ## 🦷 FLOSS Funding
 

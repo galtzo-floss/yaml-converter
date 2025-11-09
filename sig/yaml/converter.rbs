@@ -4,10 +4,13 @@ module Yaml
 
     class Error < ::StandardError
     end
+
     class InvalidArgumentsError < Error
     end
+
     class RendererUnavailableError < Error
     end
+
     class PandocNotFoundError < Error
     end
 
