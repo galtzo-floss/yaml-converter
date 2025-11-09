@@ -121,11 +121,15 @@ module Yaml
             io.write(to_markdown(yaml_string, options: opts))
           end
         end
-        validation_result = (if opts[:validate]
-                               yaml_string ? Validation.validate_string(yaml_string) : Validation.validate_file(input_path)
+        if opts[:validate]
+          validation_result = if yaml_string
+                               Validation.validate_string(yaml_string)
                              else
-                               {status: :ok, error: nil}
-        end)
+                               Validation.validate_file(input_path)
+                             end
+        else
+          validation_result = {status: :ok, error: nil}
+        end
         return {status: :ok, output_path: output_path, validation: validation_result}
       end
 

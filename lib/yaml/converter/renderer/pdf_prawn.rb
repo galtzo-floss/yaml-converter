@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# NOTE: We defer requiring 'prawn' until render time to avoid circular require warnings on load.
-
 module Yaml
   module Converter
     module Renderer
@@ -25,9 +23,7 @@ module Yaml
         # @option options [Boolean] :pdf_two_column_notes (false)
         # @return [Boolean] true if rendering succeeded
         def render(markdown:, out_path:, options: {})
-          with_suppressed_circular_require_warning do
-            require "prawn"
-          end
+          require "prawn"
 
           notes = extract_notes(markdown)
           yaml_section = fenced_yaml(markdown)
@@ -51,9 +47,7 @@ module Yaml
               col_width = (pdf.bounds.width - col_gap) / 2.0
               pdf.bounding_box([pdf.bounds.left, pdf.cursor], width: col_width, height: pdf.cursor) do
                 pdf.font_size(yaml_fs)
-                pdf.font("Courier") do
-                  yaml_section.each { |l| pdf.text(l) }
-                end
+                pdf.font("Courier") { yaml_section.each { |l| pdf.text(l) } }
               end
               pdf.bounding_box([pdf.bounds.left + col_width + col_gap, pdf.cursor], width: col_width, height: pdf.cursor) do
                 pdf.font_size(body_fs)
@@ -61,16 +55,11 @@ module Yaml
               end
             else
               pdf.font_size(yaml_fs)
-              pdf.font("Courier") do
-                yaml_section.each { |l| pdf.text(l) }
-              end
+              pdf.font("Courier") { yaml_section.each { |l| pdf.text(l) } }
               pdf.move_down(10)
-
               unless notes.empty?
                 pdf.font_size(body_fs)
-                notes.each do |n|
-                  pdf.text("NOTE: #{n}", style: :italic)
-                end
+                notes.each { |n| pdf.text("NOTE: #{n}", style: :italic) }
               end
             end
 
@@ -82,32 +71,6 @@ module Yaml
           false
         end
 
-        # Temporarily suppress Ruby's circular require warnings around requiring prawn.
-        # Falls through silently on Rubies that do not support the :circular category.
-        # @yield Require block
-        # @return [void]
-        def with_suppressed_circular_require_warning
-          if defined?(Warning) && Warning.respond_to?(:[]=)
-            prev = nil
-            begin
-              begin
-                prev = Warning[:circular]
-                Warning[:circular] = false
-              rescue ArgumentError
-                # Category not supported on this Ruby; proceed without suppression
-              end
-              yield
-            ensure
-              begin
-                Warning[:circular] = prev unless prev.nil?
-              rescue ArgumentError
-                # Category not supported; nothing to restore
-              end
-            end
-          else
-            yield
-          end
-        end
 
         # Extract leading `# Title lines`.
         # @param markdown [String]
