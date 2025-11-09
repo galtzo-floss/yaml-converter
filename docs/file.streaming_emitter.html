@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  File: CHANGELOG
+  File: streaming_emitter
   
     &mdash; Documentation by YARD 0.9.37
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" />
 
 <script type="text/javascript">
-  pathId = "CHANGELOG";
+  pathId = "streaming_emitter";
   relpath = '';
 </script>
 
@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="_index.html">Index</a> &raquo; 
-    <span class="title">File: CHANGELOG</span>
+    <span class="title">File: streaming_emitter</span>
   
 </div>
 
@@ -57,40 +57,21 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="changelog">Changelog</h1>
+      <div id="content"><div id='filecontents'><p>module Yaml<br>
+  module Converter<br>
+    class StreamingEmitter<br>
+      START_YAML: String<br>
+      END_YAML: String</p>
 
-<p><a href="https://semver.org/spec/v2.0.0.html"><img src="https://img.shields.io/badge/semver-2.0.0-FFDD67.svg?style=flat" alt="SemVer 2.0.0"></a> <a href="https://keepachangelog.com/en/1.0.0/"><img src="https://img.shields.io/badge/keep--a--changelog-1.0.0-FFDD67.svg?style=flat" alt="Keep-A-Changelog 1.0.0"></a></p>
-
-<p>All notable changes to this project will be documented in this file.</p>
-
-<p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,<br>
-and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>,<br>
-and <a href="https://tom.preston-werner.com/2022/05/23/major-version-numbers-are-not-sacred.html">yes</a>, platform and engine support are part of the <a href="https://github.com/semver/semver/issues/716#issuecomment-869336139">public API</a>.<br>
-Please file a bug if you notice a violation of semantic versioning.</p>
-
-<h2 id="unreleased">[Unreleased]</h2>
-
-<h3 id="added">Added</h3>
-
-<h3 id="changed">Changed</h3>
-
-<h3 id="deprecated">Deprecated</h3>
-
-<h3 id="removed">Removed</h3>
-
-<h3 id="fixed">Fixed</h3>
-
-<h3 id="security">Security</h3>
-
-<h2 id="010---2025-11-08">[0.1.0] - 2025-11-08</h2>
-
-<ul>
-  <li>Initial release</li>
-</ul>
+<pre class="code ruby"><code class="ruby">  def initialize: (Yaml::Converter::options options, untyped io) -&gt; void
+  def set_validation_status: (Symbol) -&gt; void
+  def emit_file: (String input_path) -&gt; void
+end   end end
+</code></pre>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Nov  9 00:22:02 2025 by
+  Generated on Sun Nov  9 00:22:03 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>

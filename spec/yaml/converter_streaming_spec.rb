@@ -33,4 +33,3 @@ RSpec.describe Yaml::Converter do
     end
   end
 end
-

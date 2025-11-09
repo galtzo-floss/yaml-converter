@@ -14,9 +14,9 @@ RSpec.describe Yaml::Converter do
   end
 
   describe "::to_markdown" do
-    it "includes validation status line", freeze: Time.new(2025, 11, 8, 12, 0, 0, 0) do
-      md = described_class.to_markdown(yaml_input, options: {validate: true})
-      expect(md).to include("YAML validation:*OK* on 08/11/2025")
+    it "includes validation status line", freeze: Time.new(2001, 3, 17, 12, 0, 0, 0) do
+      md = described_class.to_markdown(yaml_input, options: {validate: true, current_date: Date.today})
+      expect(md).to include("YAML validation:*OK* on 17/03/2001")
     end
 
     it "includes footer by default" do
@@ -155,8 +155,8 @@ RSpec.describe Yaml::Converter do
 
     it "raises InvalidArgumentsError on missing input" do
       expect {
-        Yaml::Converter.convert(input_path: "/no/such/file.yaml", output_path: "/tmp/x.md")
-      }.to raise_error(Yaml::Converter::InvalidArgumentsError)
+        described_class.convert(input_path: "/no/such/file.yaml", output_path: "/tmp/x.md")
+      }.to raise_error(described_class::InvalidArgumentsError)
     end
   end
 

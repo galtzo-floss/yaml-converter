@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Yaml::Converter
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Yaml::Converter";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Yaml.html" title="Yaml (module)">Yaml</a></span></span>
+     &raquo; 
+    <span class="title">Converter</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Yaml::Converter
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/yaml/converter.rb<span class="defines">,<br />
+  lib/yaml/converter/config.rb,<br /> lib/yaml/converter/parser.rb,<br /> lib/yaml/converter/version.rb,<br /> lib/yaml/converter/validation.rb,<br /> lib/yaml/converter/state_machine.rb,<br /> lib/yaml/converter/markdown_emitter.rb,<br /> lib/yaml/converter/streaming_emitter.rb,<br /> lib/yaml/converter/renderer/pdf_prawn.rb,<br /> lib/yaml/converter/renderer/pandoc_shell.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Converter/Config.html" title="Yaml::Converter::Config (module)">Config</a></span>, <span class='object_link'><a href="Converter/Renderer.html" title="Yaml::Converter::Renderer (module)">Renderer</a></span>, <span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span>, <span class='object_link'><a href="Converter/Version.html" title="Yaml::Converter::Version (module)">Version</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Converter/Error.html" title="Yaml::Converter::Error (class)">Error</a></span>, <span class='object_link'><a href="Converter/InvalidArgumentsError.html" title="Yaml::Converter::InvalidArgumentsError (class)">InvalidArgumentsError</a></span>, <span class='object_link'><a href="Converter/MarkdownEmitter.html" title="Yaml::Converter::MarkdownEmitter (class)">MarkdownEmitter</a></span>, <span class='object_link'><a href="Converter/PandocNotFoundError.html" title="Yaml::Converter::PandocNotFoundError (class)">PandocNotFoundError</a></span>, <span class='object_link'><a href="Converter/Parser.html" title="Yaml::Converter::Parser (class)">Parser</a></span>, <span class='object_link'><a href="Converter/RendererUnavailableError.html" title="Yaml::Converter::RendererUnavailableError (class)">RendererUnavailableError</a></span>, <span class='object_link'><a href="Converter/StateMachine.html" title="Yaml::Converter::StateMachine (class)">StateMachine</a></span>, <span class='object_link'><a href="Converter/StreamingEmitter.html" title="Yaml::Converter::StreamingEmitter (class)">StreamingEmitter</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          <div class="docstring">
+  <div class="discussion">
+    <p>The gem version, exposed at the root of the Yaml::Converter namespace.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="Converter/Version.html" title="Yaml::Converter::Version (module)">Version</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Converter/Version.html#VERSION-constant" title="Yaml::Converter::Version::VERSION (constant)">VERSION</a></span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#convert-class_method" title="convert (class method)">.<strong>convert</strong>(input_path:, output_path:, options: {})  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Convert a YAML file to a target format determined by the output extension.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_markdown-class_method" title="to_markdown (class method)">.<strong>to_markdown</strong>(yaml_string, options: {})  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Convert a YAML string into Markdown with optional validation &amp; notes extraction.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_markdown_streaming-class_method" title="to_markdown_streaming (class method)">.<strong>to_markdown_streaming</strong>(input_path, io, options: {})  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Stream a YAML file to Markdown into an IO target.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#validate-class_method" title="validate (class method)">.<strong>validate</strong>(yaml_string)  &#x21d2; Hash{Symbol=&gt;Object} </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Validate a YAML string returning a structured status.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="convert-class_method">
+  
+    .<strong>convert</strong>(input_path:, output_path:, options: {})  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Convert a YAML file to a target format determined by the output extension.</p>
+
+<p>Supported extensions (Phase 1): .md, .html, .pdf (native), .docx (pandoc).<br />
+Other formats may be produced via pandoc when :use_pandoc is true.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>HTML conversion</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Yaml.html" title="Yaml (module)">Yaml</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Yaml::Converter (module)">Converter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_convert'>convert</span><span class='lparen'>(</span><span class='label'>input_path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blueprint.yaml</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>output_path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blueprint.html</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>input_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Path to existing .yaml source file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>output_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Destination file (extension decides rendering strategy).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>See <span class='object_link'>#to_markdown</span> plus pandoc/pdf specific keys.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:use_pandoc</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Enable pandoc for non-native conversions.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:pandoc_args</span>
+          <span class="type">(<tt>Array&lt;String&gt;</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>[&quot;-N&quot;</tt>, <tt>&quot;--toc&quot;]</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Extra pandoc CLI args.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:pandoc_path</span>
+          <span class="type">(<tt>String</tt>, <tt>nil</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Explicit pandoc binary path (auto-detected if nil).</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:pdf_two_column_notes</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Layout notes beside YAML in PDF.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:streaming</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Force streaming mode for markdown conversion.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:streaming_threshold_bytes</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>5_000_000</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Auto-enable streaming over this size when not forced.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>{ status: Symbol, output_path: String, validation: Hash }</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Converter/InvalidArgumentsError.html" title="Yaml::Converter::InvalidArgumentsError (class)">InvalidArgumentsError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if input is missing or an invalid extension is requested.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Converter/PandocNotFoundError.html" title="Yaml::Converter::PandocNotFoundError (class)">PandocNotFoundError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>when pandoc rendering requested &amp; missing.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Converter/RendererUnavailableError.html" title="Yaml::Converter::RendererUnavailableError (class)">RendererUnavailableError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>for unsupported formats.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_convert'>convert</span><span class='lparen'>(</span><span class='label'>input_path:</span><span class='comma'>,</span> <span class='label'>output_path:</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/InvalidArgumentsError.html" title="Yaml::Converter::InvalidArgumentsError (class)">InvalidArgumentsError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>input file not found: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_input_path'>input_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_ext'>ext</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_extname'>extname</span><span class='lparen'>(</span><span class='id identifier rubyid_output_path'>output_path</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_ext'>ext</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.yaml</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/InvalidArgumentsError.html" title="Yaml::Converter::InvalidArgumentsError (class)">InvalidArgumentsError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Output must not be .yaml</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Config.html" title="Yaml::Converter::Config (module)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_resolve'><span class='object_link'><a href="Converter/Config.html#resolve-class_method" title="Yaml::Converter::Config.resolve (method)">resolve</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_yaml_string'>yaml_string</span> <span class='op'>=</span> <span class='kw'>nil</span>
+
+  <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_output_path'>output_path</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>KETTLE_TEST_SILENT</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Overwriting existing file: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_output_path'>output_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_auto_stream'>auto_stream</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:streaming</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_size?'>size?</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:streaming_threshold_bytes</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_ext'>ext</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.md</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='id identifier rubyid_ext'>ext</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='comment'># Direct markdown output path: stream to file for large inputs
+</span>    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_io'>io</span><span class='op'>|</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:streaming</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_auto_stream'>auto_stream</span>
+        <span class='id identifier rubyid_to_markdown_streaming'>to_markdown_streaming</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='comma'>,</span> <span class='id identifier rubyid_io'>io</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_yaml_string'>yaml_string</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_io'>io</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_to_markdown'>to_markdown</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_validation_result'>validation_result</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:validate</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_yaml_string'>yaml_string</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate_string'><span class='object_link'><a href="Converter/Validation.html#validate_string-class_method" title="Yaml::Converter::Validation.validate_string (method)">validate_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate_file'><span class='object_link'><a href="Converter/Validation.html#validate_file-class_method" title="Yaml::Converter::Validation.validate_file (method)">validate_file</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='lbrace'>{</span><span class='label'>status:</span> <span class='symbol'>:ok</span><span class='comma'>,</span> <span class='label'>error:</span> <span class='kw'>nil</span><span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+    <span class='kw'>return</span> <span class='lbrace'>{</span><span class='label'>status:</span> <span class='symbol'>:ok</span><span class='comma'>,</span> <span class='label'>output_path:</span> <span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='label'>validation:</span> <span class='id identifier rubyid_validation_result'>validation_result</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># For non-markdown outputs, we still produce an intermediate markdown string.
+</span>  <span class='id identifier rubyid_yaml_string'>yaml_string</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_markdown'>markdown</span> <span class='op'>=</span> <span class='id identifier rubyid_to_markdown'>to_markdown</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+
+  <span class='comment'># Helper lambda to build standard success response
+</span>  <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='kw'>do</span>
+    <span class='lbrace'>{</span><span class='label'>status:</span> <span class='symbol'>:ok</span><span class='comma'>,</span> <span class='label'>output_path:</span> <span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='label'>validation:</span> <span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:validate</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate_string'><span class='object_link'><a href="Converter/Validation.html#validate_string-class_method" title="Yaml::Converter::Validation.validate_string (method)">validate_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='label'>status:</span> <span class='symbol'>:ok</span><span class='comma'>,</span> <span class='label'>error:</span> <span class='kw'>nil</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>case</span> <span class='id identifier rubyid_ext'>ext</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.html</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kramdown</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kramdown-parser-gfm</span><span class='tstring_end'>&quot;</span></span>
+
+    <span class='id identifier rubyid_body_html'>body_html</span> <span class='op'>=</span> <span class='const'>Kramdown</span><span class='op'>::</span><span class='const'>Document</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_markdown'>markdown</span><span class='comma'>,</span> <span class='label'>input:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GFM</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_html'>to_html</span>
+    <span class='id identifier rubyid_note_style'>note_style</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_markdown'>markdown</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&gt; NOTE:</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_note_style'>note_style</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;style&gt;.yaml-note{font-style:italic;color:#555;margin-left:1em;}&lt;/style&gt;\n</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_body_html'>body_html</span> <span class='op'>=</span> <span class='id identifier rubyid_body_html'>body_html</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;blockquote&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&lt;blockquote class=&quot;yaml-note&quot;&gt;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_html'>html</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;~HTML</span>
+<span class='tstring_content'>      &lt;!DOCTYPE html&gt;
+</span><span class='tstring_content'>      &lt;html&gt;
+</span><span class='tstring_content'>      &lt;head&gt;
+</span><span class='tstring_content'>      &lt;meta charset=&quot;utf-8&quot;&gt;
+</span><span class='tstring_content'>      </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_note_style'>note_style</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/head&gt;
+</span><span class='tstring_content'>      &lt;body&gt;
+</span><span class='tstring_content'>      </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_body_html'>body_html</span><span class='embexpr_end'>}</span><span class='tstring_content'>
+</span><span class='tstring_content'>      &lt;/body&gt;
+</span><span class='tstring_content'>      &lt;/html&gt;
+</span><span class='heredoc_end'>    HTML
+</span>    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='id identifier rubyid_html'>html</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_success'>success</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.pdf</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:use_pandoc</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_tmp_md'>tmp_md</span> <span class='op'>=</span> <span class='id identifier rubyid_output_path'>output_path</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.md</span><span class='tstring_end'>&quot;</span></span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='comma'>,</span> <span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_require_relative'>require_relative</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>converter/renderer/pandoc_shell</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_ok'>ok</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Renderer.html" title="Yaml::Converter::Renderer (module)">Renderer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Converter/Renderer/PandocShell.html" title="Yaml::Converter::Renderer::PandocShell (module)">PandocShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render'><span class='object_link'><a href="Converter/Renderer/PandocShell.html#render-class_method" title="Yaml::Converter::Renderer::PandocShell.render (method)">render</a></span></span><span class='lparen'>(</span><span class='label'>md_path:</span> <span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='comma'>,</span> <span class='label'>out_path:</span> <span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='label'>pandoc_path:</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:pandoc_path</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>args:</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:pandoc_args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/PandocNotFoundError.html" title="Yaml::Converter::PandocNotFoundError (class)">PandocNotFoundError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pandoc not found in PATH</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_ok'>ok</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_require_relative'>require_relative</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>converter/renderer/pdf_prawn</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_ok'>ok</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Renderer.html" title="Yaml::Converter::Renderer (module)">Renderer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Converter/Renderer/PdfPrawn.html" title="Yaml::Converter::Renderer::PdfPrawn (module)">PdfPrawn</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render'><span class='object_link'><a href="Converter/Renderer/PdfPrawn.html#render-class_method" title="Yaml::Converter::Renderer::PdfPrawn.render (method)">render</a></span></span><span class='lparen'>(</span><span class='label'>markdown:</span> <span class='id identifier rubyid_markdown'>markdown</span><span class='comma'>,</span> <span class='label'>out_path:</span> <span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/RendererUnavailableError.html" title="Yaml::Converter::RendererUnavailableError (class)">RendererUnavailableError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PDF rendering failed</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_ok'>ok</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_success'>success</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.docx</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_tmp_md'>tmp_md</span> <span class='op'>=</span> <span class='id identifier rubyid_output_path'>output_path</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.md</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='comma'>,</span> <span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_require_relative'>require_relative</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>converter/renderer/pandoc_shell</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_pandoc_path'>pandoc_path</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Renderer.html" title="Yaml::Converter::Renderer (module)">Renderer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Converter/Renderer/PandocShell.html" title="Yaml::Converter::Renderer::PandocShell (module)">PandocShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_which'><span class='object_link'><a href="Converter/Renderer/PandocShell.html#which-class_method" title="Yaml::Converter::Renderer::PandocShell.which (method)">which</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pandoc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_pandoc_path'>pandoc_path</span>
+      <span class='id identifier rubyid_ok'>ok</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Renderer.html" title="Yaml::Converter::Renderer (module)">Renderer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Converter/Renderer/PandocShell.html" title="Yaml::Converter::Renderer::PandocShell (module)">PandocShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render'><span class='object_link'><a href="Converter/Renderer/PandocShell.html#render-class_method" title="Yaml::Converter::Renderer::PandocShell.render (method)">render</a></span></span><span class='lparen'>(</span><span class='label'>md_path:</span> <span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='comma'>,</span> <span class='label'>out_path:</span> <span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='label'>pandoc_path:</span> <span class='id identifier rubyid_pandoc_path'>pandoc_path</span><span class='comma'>,</span> <span class='label'>args:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/RendererUnavailableError.html" title="Yaml::Converter::RendererUnavailableError (class)">RendererUnavailableError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pandoc failed to generate DOCX</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_ok'>ok</span>
+      <span class='id identifier rubyid_success'>success</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+    <span class='kw'>else</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/RendererUnavailableError.html" title="Yaml::Converter::RendererUnavailableError (class)">RendererUnavailableError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DOCX requires pandoc; install pandoc or use .md/.html/.pdf</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_tmp_md'>tmp_md</span> <span class='op'>=</span> <span class='id identifier rubyid_output_path'>output_path</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.md</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='comma'>,</span> <span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:use_pandoc</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_require_relative'>require_relative</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>converter/renderer/pandoc_shell</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_ok'>ok</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Renderer.html" title="Yaml::Converter::Renderer (module)">Renderer</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Converter/Renderer/PandocShell.html" title="Yaml::Converter::Renderer::PandocShell (module)">PandocShell</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render'><span class='object_link'><a href="Converter/Renderer/PandocShell.html#render-class_method" title="Yaml::Converter::Renderer::PandocShell.render (method)">render</a></span></span><span class='lparen'>(</span><span class='label'>md_path:</span> <span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='comma'>,</span> <span class='label'>out_path:</span> <span class='id identifier rubyid_output_path'>output_path</span><span class='comma'>,</span> <span class='label'>pandoc_path:</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:pandoc_path</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>args:</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:pandoc_args</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp_md'>tmp_md</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/PandocNotFoundError.html" title="Yaml::Converter::PandocNotFoundError (class)">PandocNotFoundError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pandoc not found in PATH</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_ok'>ok</span>
+      <span class='id identifier rubyid_success'>success</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="Converter/RendererUnavailableError.html" title="Yaml::Converter::RendererUnavailableError (class)">RendererUnavailableError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Renderer for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ext'>ext</span><span class='embexpr_end'>}</span><span class='tstring_content'> not implemented. Pass use_pandoc: true or use .md/.html/.pdf.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_markdown-class_method">
+  
+    .<strong>to_markdown</strong>(yaml_string, options: {})  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Convert a YAML string into Markdown with optional validation &amp; notes extraction.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>Simple conversion</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Yaml.html" title="Yaml (module)">Yaml</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Yaml::Converter (module)">Converter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_markdown'>to_markdown</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo: 1 #note: first</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yaml_string</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Raw YAML content (with optional inline <code>#note:</code> annotations or validation marker line)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt><span class='object_link'><a href="Converter/Config.html#DEFAULTS-constant" title="Yaml::Converter::Config::DEFAULTS (constant)">Config::DEFAULTS</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>User overrides for configuration (see <span class='object_link'><a href="Converter/Config.html#DEFAULTS-constant" title="Yaml::Converter::Config::DEFAULTS (constant)">Yaml::Converter::Config::DEFAULTS</a></span>)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options:</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:validate</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>true</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to attempt YAML parsing and inject validation status.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:max_line_length</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>70</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Maximum line length before truncation.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:truncate</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>true</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Whether to truncate overly long lines.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:margin_notes</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>:auto</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>How to handle notes (:auto, :inline, :ignore).</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:current_date</span>
+          <span class="type">(<tt>Date</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>Date.today</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Deterministic date injection for specs.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Markdown document including fenced YAML and extracted notes.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_markdown'>to_markdown</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Config.html" title="Yaml::Converter::Config (module)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_resolve'><span class='object_link'><a href="Converter/Config.html#resolve-class_method" title="Yaml::Converter::Config.resolve (method)">resolve</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_emitter'>emitter</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/MarkdownEmitter.html" title="Yaml::Converter::MarkdownEmitter (class)">MarkdownEmitter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Converter/MarkdownEmitter.html#initialize-instance_method" title="Yaml::Converter::MarkdownEmitter#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:validate</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_validation'>validation</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate_string'><span class='object_link'><a href="Converter/Validation.html#validate_string-class_method" title="Yaml::Converter::Validation.validate_string (method)">validate_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_validation'>validation</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_validation'>validation</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='symbol'>:ok</span> <span class='op'>:</span> <span class='symbol'>:fail</span>
+    <span class='id identifier rubyid_emitter'>emitter</span><span class='period'>.</span><span class='id identifier rubyid_set_validation_status'>set_validation_status</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_emitter'>emitter</span><span class='period'>.</span><span class='id identifier rubyid_emit'>emit</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_markdown_streaming-class_method">
+  
+    .<strong>to_markdown_streaming</strong>(input_path, io, options: {})  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Stream a YAML file to Markdown into an IO target.<br />
+Automatically injects validation status if enabled.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>input_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>io</span>
+      
+      
+        <span class='type'>(<tt>#&lt;&lt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_markdown_streaming'>to_markdown_streaming</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='comma'>,</span> <span class='id identifier rubyid_io'>io</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Config.html" title="Yaml::Converter::Config (module)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_resolve'><span class='object_link'><a href="Converter/Config.html#resolve-class_method" title="Yaml::Converter::Config.resolve (method)">resolve</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_emitter'>emitter</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/StreamingEmitter.html" title="Yaml::Converter::StreamingEmitter (class)">StreamingEmitter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Converter/StreamingEmitter.html#initialize-instance_method" title="Yaml::Converter::StreamingEmitter#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_io'>io</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:validate</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_validation'>validation</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate_file'><span class='object_link'><a href="Converter/Validation.html#validate_file-class_method" title="Yaml::Converter::Validation.validate_file (method)">validate_file</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_validation'>validation</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_validation'>validation</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='symbol'>:ok</span> <span class='op'>:</span> <span class='symbol'>:fail</span>
+    <span class='id identifier rubyid_emitter'>emitter</span><span class='period'>.</span><span class='id identifier rubyid_set_validation_status'>set_validation_status</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_emitter'>emitter</span><span class='period'>.</span><span class='id identifier rubyid_emit_file'>emit_file</span><span class='lparen'>(</span><span class='id identifier rubyid_input_path'>input_path</span><span class='rparen'>)</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="validate-class_method">
+  
+    .<strong>validate</strong>(yaml_string)  &#x21d2; <tt>Hash{Symbol=&gt;Object}</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Validate a YAML string returning a structured status.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../Yaml.html" title="Yaml (module)">Yaml</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Yaml::Converter (module)">Converter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate'>validate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo: bar</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'>#=&gt; { status: :ok, error: nil }</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>yaml_string</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash{Symbol=&gt;Object}</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><table>
+  <tbody>
+    <tr>
+      <td>Hash with :status (:ok</td>
+      <td>:fail) and :error (Exception or nil)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter.rb', line 73</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_validate'>validate</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Converter/Validation.html" title="Yaml::Converter::Validation (module)">Validation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate_string'><span class='object_link'><a href="Converter/Validation.html#validate_string-class_method" title="Yaml::Converter::Validation.validate_string (method)">validate_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_yaml_string'>yaml_string</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Nov  9 00:22:03 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.7).
+</div>
+
+    </div>
+  </body>
+</html>

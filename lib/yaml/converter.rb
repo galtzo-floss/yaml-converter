@@ -161,6 +161,7 @@ module Yaml
           </html>
         HTML
         File.write(output_path, html)
+        success.call
       when ".pdf"
         if opts[:use_pandoc]
           tmp_md = output_path + ".md"
