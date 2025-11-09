@@ -24,6 +24,9 @@ module Yaml
         pdf_two_column_notes: false,
         current_date: Date.today, # allows injection for deterministic tests
         emit_footer: true,
+        # Streaming options (Phase 3 feature now implemented):
+        streaming: false, # force streaming mode even for small files
+        streaming_threshold_bytes: 5_000_000, # auto-enable streaming for large files when not forced
       }.freeze
 
       ENV_MAP = {
@@ -38,9 +41,11 @@ module Yaml
         pdf_yaml_font_size: "YAML_CONVERTER_PDF_YAML_FONT_SIZE",
         pdf_two_column_notes: "YAML_CONVERTER_PDF_TWO_COLUMN_NOTES",
         emit_footer: "YAML_CONVERTER_EMIT_FOOTER",
+        streaming: "YAML_CONVERTER_STREAMING",
+        streaming_threshold_bytes: "YAML_CONVERTER_STREAMING_THRESHOLD_BYTES",
       }.freeze
 
-      BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes emit_footer].freeze
+      BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes emit_footer streaming].freeze
 
       class << self
         # Merge caller options with environment overrides and defaults.
@@ -68,6 +73,9 @@ module Yaml
         def normalize(opts)
           opts[:margin_notes] = opts[:margin_notes].to_sym if opts[:margin_notes].is_a?(String)
           opts[:html_theme] = opts[:html_theme].to_sym if opts[:html_theme].is_a?(String)
+          if opts[:streaming_threshold_bytes].is_a?(String)
+            opts[:streaming_threshold_bytes] = opts[:streaming_threshold_bytes].to_i
+          end
           opts
         end
 
@@ -78,7 +86,7 @@ module Yaml
         def coerce_env_value(key, value)
           if BOOLEAN_KEYS.include?(key)
             %w[1 true yes on].include?(value.to_s.downcase)
-          elsif key == :max_line_length
+          elsif key == :max_line_length || key == :streaming_threshold_bytes
             value.to_i
           else
             value

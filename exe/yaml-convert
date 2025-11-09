@@ -16,6 +16,8 @@ options = {
   out_ext: nil,
   out_dir: nil,
   concurrency: nil,
+  streaming: nil,
+  streaming_threshold_bytes: nil,
 }
 
 parser = OptionParser.new do |opts|
@@ -27,6 +29,8 @@ parser = OptionParser.new do |opts|
   opts.on("--margin-notes MODE", "Set margin notes mode (auto|inline|ignore)") { |v| options[:margin_notes] = v.to_sym }
   opts.on("--use-pandoc", "Use pandoc for non-md/html output formats") { options[:use_pandoc] = true }
   opts.on("--pandoc-args STRING", "Extra args for pandoc (split on spaces)") { |v| options[:pandoc_args] = v.split(/\s+/) }
+  opts.on("--streaming", "Force streaming mode for markdown output") { options[:streaming] = true }
+  opts.on("--streaming-threshold BYTES", Integer, "Auto-enable streaming when input file >= BYTES") { |v| options[:streaming_threshold_bytes] = v }
 
   # Batch mode
   opts.on("--glob PATTERN", "Batch convert all YAML files matching the glob pattern") { |v| options[:glob] = v }

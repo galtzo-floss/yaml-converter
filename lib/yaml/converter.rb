@@ -8,6 +8,7 @@ require_relative "converter/version"
 require_relative "converter/config"
 require_relative "converter/validation"
 require_relative "converter/markdown_emitter"
+require_relative "converter/streaming_emitter"
 
 module Yaml
   module Converter
@@ -39,9 +40,28 @@ module Yaml
       emitter = MarkdownEmitter.new(opts)
       if opts[:validate]
         validation = Validation.validate_string(yaml_string)
-        emitter.set_validation_status(validation[:status])
+        status = (validation && validation[:status] == :ok) ? :ok : :fail
+        emitter.set_validation_status(status)
       end
       emitter.emit(yaml_string.lines).join("\n")
+    end
+
+    # Stream a YAML file to Markdown into an IO target.
+    # Automatically injects validation status if enabled.
+    # @param input_path [String]
+    # @param io [#<<]
+    # @param options [Hash]
+    # @return [void]
+    def to_markdown_streaming(input_path, io, options: {})
+      opts = Config.resolve(options)
+      emitter = StreamingEmitter.new(opts, io)
+      if opts[:validate]
+        validation = Validation.validate_file(input_path)
+        status = (validation && validation[:status] == :ok) ? :ok : :fail
+        emitter.set_validation_status(status)
+      end
+      emitter.emit_file(input_path)
+      nil
     end
 
     # Validate a YAML string returning a structured status.
@@ -66,6 +86,8 @@ module Yaml
     # @option options [Array<String>] :pandoc_args (["-N", "--toc"]) Extra pandoc CLI args.
     # @option options [String,nil] :pandoc_path (nil) Explicit pandoc binary path (auto-detected if nil).
     # @option options [Boolean] :pdf_two_column_notes (false) Layout notes beside YAML in PDF.
+    # @option options [Boolean] :streaming (false) Force streaming mode for markdown conversion.
+    # @option options [Integer] :streaming_threshold_bytes (5_000_000) Auto-enable streaming over this size when not forced.
     # @return [Hash] { status: Symbol, output_path: String, validation: Hash }
     # @raise [InvalidArgumentsError] if input is missing or an invalid extension is requested.
     # @raise [PandocNotFoundError] when pandoc rendering requested & missing.
@@ -81,18 +103,37 @@ module Yaml
       end
 
       opts = Config.resolve(options)
-      yaml_string = File.read(input_path)
+      yaml_string = nil
 
       if File.exist?(output_path) && ENV["KETTLE_TEST_SILENT"] != "true"
         warn("Overwriting existing file: #{output_path}")
       end
 
+      auto_stream = !opts[:streaming] && File.size?(input_path) && File.size(input_path) >= opts[:streaming_threshold_bytes]
+
+      if ext == ".md" || ext == ""
+        # Direct markdown output path: stream to file for large inputs
+        File.open(output_path, "w") do |io|
+          if opts[:streaming] || auto_stream
+            to_markdown_streaming(input_path, io, options: opts)
+          else
+            yaml_string = File.read(input_path)
+            io.write(to_markdown(yaml_string, options: opts))
+          end
+        end
+        validation_result = (if opts[:validate]
+                               yaml_string ? Validation.validate_string(yaml_string) : Validation.validate_file(input_path)
+                             else
+                               {status: :ok, error: nil}
+        end)
+        return {status: :ok, output_path: output_path, validation: validation_result}
+      end
+
+      # For non-markdown outputs, we still produce an intermediate markdown string.
+      yaml_string = File.read(input_path) if yaml_string.nil?
       markdown = to_markdown(yaml_string, options: opts)
 
       case ext
-      when ".md", ""
-        File.write(output_path, markdown)
-        {status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}
       when ".html"
         require "kramdown"
         body_html = Kramdown::Document.new(markdown, input: "GFM").to_html

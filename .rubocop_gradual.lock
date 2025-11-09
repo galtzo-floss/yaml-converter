@@ -2,9 +2,10 @@
   "exe/yaml-convert:203079901": [
     [59, 10, 34, "Style/SafeNavigation: Use safe navigation (`&.`) instead of checking if an object exists before calling the method.", 3135175708]
   ],
-  "lib/yaml/converter.rb:174532823": [
-    [126, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982],
-    [132, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982]
+  "lib/yaml/converter.rb:372198577": [
+    [128, 9, 3, "Layout/EndAlignment: `end` at 128, 8 is not aligned with `if` at 124, 29.", 193405706],
+    [167, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982],
+    [173, 11, 140, "Style/IdenticalConditionalBranches: Move `{status: :ok, output_path: output_path, validation: (opts[:validate] ? Validation.validate_string(yaml_string) : {status: :ok, error: nil})}` out of the conditional.", 394356982]
   ],
   "spec/yaml/converter/renderer/pandoc_shell_spec.rb:231507547": [
     [26, 5, 13, "RSpec/StubbedMock: Prefer `allow` over `expect` when configuring a response.", 2024371388]
@@ -16,6 +17,9 @@
   ],
   "spec/yaml/html_renderer_spec.rb:2719870233": [
     [5, 16, 30, "RSpec/DescribeClass: The first argument to describe should be the class or module being tested.", 758299981]
+  ],
+  "spec/yaml/streaming_spec.rb:4157644415": [
+    [5, 16, 22, "RSpec/DescribeClass: The first argument to describe should be the class or module being tested.", 2983490081]
   ],
   "spec/yaml/validation_spec.rb:2617750190": [
     [3, 1, 42, "RSpec/SpecFilePathFormat: Spec path should end with `yaml/converter/validation*_spec.rb`.", 1185126307]

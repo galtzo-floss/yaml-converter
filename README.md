@@ -265,6 +265,32 @@ Or per-call:
 Yaml::Converter.to_markdown(yaml_str, options: {emit_footer: false})
 ```
 
+### Streaming (large files)
+
+For very large YAML files, enable streaming to keep memory usage low. Streaming processes the input line-by-line and writes Markdown incrementally while preserving identical output to non-streaming mode.
+
+How it works:
+- Same parsing and state machine logic as non-streaming
+- Injects validation status if `validate` is enabled
+- Closes YAML fences correctly even at EOF
+- Appends standard footer when enabled
+
+Enable streaming:
+- API: pass `streaming: true` in `options` to `Yaml::Converter.convert`
+- CLI: add `--streaming` when producing `.md`
+- ENV: `YAML_CONVERTER_STREAMING=1`
+
+Auto streaming by size:
+- Set a threshold in bytes; files at or above this size stream automatically.
+- Default threshold: `5_000_000` (≈5 MB)
+- API: `streaming_threshold_bytes: 10_000_000`
+- CLI: `--streaming-threshold 10000000`
+- ENV: `YAML_CONVERTER_STREAMING_THRESHOLD_BYTES=10000000`
+
+Notes:
+- Streaming is applied only to direct `.md` outputs. Other formats still render via an intermediate Markdown string.
+- The output is intended to be byte-for-byte equivalent to the non-streaming path.
+
 ## 🔧 Basic Usage
 
 ### Library API
