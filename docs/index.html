@@ -175,7 +175,7 @@
     <tr>
       <td>Source</td>
       <td>
-<a href="https://gitlab.com/galtzo-floss/yaml-converter/"><img src="https://img.shields.io/badge/GitLab-FBA326?style=for-the-badge&amp;logo=Gitlab&amp;logoColor=orange" alt="Source on GitLab.com"></a> <a href="https://codeberg.org/galtzo-floss/yaml-converter"><img src="https://img.shields.io/badge/CodeBerg-4893CC?style=for-the-badge&amp;logo=CodeBerg&amp;logoColor=blue" alt="Source on CodeBerg.org"></a> <a href="https://github.com/galtzo-floss/yaml-converter"><img src="https://img.shields.io/badge/GitHub-238636?style=for-the-badge&amp;logo=Github&amp;logoColor=green" alt="Source on Github.com"></a> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://img.shields.io/badge/KLOC-4.278-FFDD67.svg?style=for-the-badge&amp;logo=YouTube&amp;logoColor=blue" alt="The best SHA: dQw4w9WgXcQ!"></a>
+<a href="https://gitlab.com/galtzo-floss/yaml-converter/"><img src="https://img.shields.io/badge/GitLab-FBA326?style=for-the-badge&amp;logo=Gitlab&amp;logoColor=orange" alt="Source on GitLab.com"></a> <a href="https://codeberg.org/galtzo-floss/yaml-converter"><img src="https://img.shields.io/badge/CodeBerg-4893CC?style=for-the-badge&amp;logo=CodeBerg&amp;logoColor=blue" alt="Source on CodeBerg.org"></a> <a href="https://github.com/galtzo-floss/yaml-converter"><img src="https://img.shields.io/badge/GitHub-238636?style=for-the-badge&amp;logo=Github&amp;logoColor=green" alt="Source on Github.com"></a> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="https://img.shields.io/badge/KLOC-0.423-FFDD67.svg?style=for-the-badge&amp;logo=YouTube&amp;logoColor=blue" alt="The best SHA: dQw4w9WgXcQ!"></a>
 </td>
     </tr>
     <tr>
@@ -234,7 +234,7 @@
 <h3 id="federated-dvcs">Federated DVCS</h3>
 
 <details>
-  <summary>Find this repo on federated forges (Coming soon!)</summary>
+  <summary>Find this repo on federated forges</summary>
 
   <table>
     <thead>
@@ -489,14 +489,14 @@ Produced by yaml-converter
 Yaml::Converter.convert(
   input_path: &quot;big.yaml&quot;,
   output_path: &quot;big.md&quot;,
-  options: { streaming: true, validate: true }
+  options: {streaming: true, validate: true},
 )
 
 # Auto-stream based on file size threshold (bytes)
 Yaml::Converter.convert(
   input_path: &quot;maybe_big.yaml&quot;,
   output_path: &quot;maybe_big.md&quot;,
-  options: { streaming_threshold_bytes: 10_000_000 } # 10 MB (default is 5 MB)
+  options: {streaming_threshold_bytes: 10_000_000}, # 10 MB (default is 5 MB)
 )
 </code></pre>
 
@@ -535,7 +535,7 @@ File.open(&quot;big.md&quot;, &quot;w&quot;) do |io|
   Yaml::Converter.to_markdown_streaming(
     &quot;big.yaml&quot;,
     io,
-    options: { validate: true } # same options as non-streaming
+    options: {validate: true}, # same options as non-streaming
   )
 end
 </code></pre>
@@ -818,7 +818,7 @@ Please consider sponsoring me or the project.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Nov  9 01:50:21 2025 by
+  Generated on Sun Nov  9 02:07:33 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>

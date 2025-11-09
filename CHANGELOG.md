@@ -20,8 +20,6 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
-- Initial release
-
 ### Changed
 
 ### Deprecated
@@ -32,6 +30,19 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Security
 
+## [0.1.0] - 2025-11-09
+
+- TAG: [v0.1.0][0.1.0t]
+- COVERAGE: 92.43% -- 391/423 lines in 10 files
+- BRANCH COVERAGE: 68.18% -- 105/154 branches in 10 files
+- 76.67% documented
+
+### Added
+
+- Initial release
+
+### Security
+
 [Unreleased]: https://github.com/galtzo-floss/yaml-converter/compare/v0.1.0...HEAD
-[0.1.0t]: https://github.com/galtzo-floss/yaml-converter/releases/tag/v0.1.0
 [0.1.0]: https://github.com/galtzo-floss/yaml-converter/compare/232ad133b6259aabb39993b476f727d91d0a5f0c...v0.1.0
+[0.1.0t]: https://github.com/galtzo-floss/yaml-converter/releases/tag/v0.1.0
