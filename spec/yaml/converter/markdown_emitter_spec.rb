@@ -29,4 +29,17 @@ RSpec.describe Yaml::Converter::MarkdownEmitter do
     expect(combined.scan("```yaml").count).to eq(combined.scan(/^```$/).count)
     expect(combined.scan("```yaml").count).to be >= 1
   end
+
+  it "extracts multiple inline #note: occurrences across lines" do
+    emitter = described_class.new(Yaml::Converter::Config.resolve({}))
+    lines = [
+      "foo: 1 #note: first\n",
+      "bar: 2 #note: second\n",
+    ]
+    out = emitter.emit(lines)
+    combined = out.join("\n")
+    expect(combined).to include("> NOTE: first")
+    expect(combined).to include("> NOTE: second")
+    expect(combined.scan("```yaml").count).to eq(combined.scan(/^```$/).count)
+  end
 end

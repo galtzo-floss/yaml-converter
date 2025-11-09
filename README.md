@@ -213,6 +213,53 @@ Exit Codes:
 - 5 renderer/pandoc not available
 - 9 unexpected internal error
 
+### Pandoc Integration (Optional)
+
+To enable PDF (and other formats like docx, rst, man) conversions, install Pandoc:
+
+macOS (Homebrew):
+```bash
+brew install pandoc
+```
+
+Debian/Ubuntu:
+```bash
+sudo apt-get update && sudo apt-get install -y pandoc
+```
+
+Fedora:
+```bash
+dnf install pandoc
+```
+
+Verify installation:
+```bash
+which pandoc
+pandoc --version
+```
+
+Use the CLI with pandoc:
+```bash
+bundle exec ruby exe/yaml-convert blueprint.yaml output.pdf --use-pandoc
+```
+If pandoc is not installed, the command will exit with code 5 and a helpful message.
+
+Programmatic usage with pandoc fallback:
+```ruby
+Yaml::Converter.convert(
+  input_path: 'blueprint.yaml',
+  output_path: 'blueprint.pdf',
+  options: { use_pandoc: true }
+)
+```
+
+Customize pandoc arguments:
+```bash
+bundle exec ruby exe/yaml-convert blueprint.yaml output.pdf --use-pandoc --pandoc-args "-N --toc --highlight-style pygments"
+```
+
+Security note: Arguments are passed positionally (array form) to avoid shell injection pitfalls.
+
 ### Supported Formats (Phase 1)
 - Markdown (.md)
 - HTML (.html)
