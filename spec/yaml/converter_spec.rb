@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open3'
+
 RSpec.describe Yaml::Converter do
   let(:project_root) { File.expand_path("../..", __dir__) }
   let(:exe_path) { File.join(project_root, "exe", "yaml-convert") }
@@ -185,10 +187,8 @@ RSpec.describe Yaml::Converter do
         f.write("foo: bar")
         f.flush
         out = Tempfile.create(["out", ".md"]) { |tf| tf.path }
-        output = capture(:stdout) do
-          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
-        end
-        expect($?.exitstatus).to be(0)
+        output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
+        expect(status.exitstatus).to be(0)
         expect(output).to include("Converted:")
         expect(File.read(out)).to include("foo: bar")
       end
@@ -199,10 +199,8 @@ RSpec.describe Yaml::Converter do
         f.write("foo: bar")
         f.flush
         out = Tempfile.create(["out", ".html"]) { |tf| tf.path }
-        output = capture(:stdout) do
-          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
-        end
-        expect($?.exitstatus).to be(0)
+        output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, f.path, out)
+        expect(status.exitstatus).to be(0)
         expect(output).to include("Converted:")
         expect(File.read(out)).to include("<html>")
       end
@@ -214,10 +212,8 @@ RSpec.describe Yaml::Converter do
         File.write(a, "foo: 1\n")
         b = File.join(dir, "b.yaml")
         File.write(b, "bar: 2\n")
-        output = capture(:stdout) do
-          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
-        end
-        expect($?.exitstatus).to be(0)
+        output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
+        expect(status.exitstatus).to be(0)
         expect(output).to include("Batch complete:")
         expect(File.read(a.sub(/\.yaml$/, ".md"))).to include("foo: 1")
         expect(File.read(b.sub(/\.yaml$/, ".md"))).to include("bar: 2")
@@ -226,11 +222,9 @@ RSpec.describe Yaml::Converter do
 
     it "handles --glob with no matches" do
       Dir.mktmpdir do |dir|
-        output = capture(:stderr) do
-          system({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
-        end
-        expect($?.exitstatus).to eq(2)
-        expect(output).to include("No files matched glob:")
+        _stdout, stderr, status = Open3.capture3({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
+        expect(status.exitstatus).to eq(2)
+        expect(stderr).to include("No files matched glob:")
       end
     end
   end
