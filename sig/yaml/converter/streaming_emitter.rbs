@@ -1,0 +1,13 @@
+module Yaml
+  module Converter
+    class StreamingEmitter
+      START_YAML: String
+      END_YAML: String
+
+      def initialize: (Yaml::Converter::options options, untyped io) -> void
+      def set_validation_status: (Symbol) -> void
+      def emit_file: (String input_path) -> void
+    end
+  end
+end
+

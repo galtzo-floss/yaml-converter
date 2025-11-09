@@ -29,10 +29,14 @@ module Yaml
       pdf_body_font_size: Integer,
       pdf_yaml_font_size: Integer,
       pdf_two_column_notes: bool,
-      current_date: untyped
+      current_date: untyped,
+      emit_footer: bool,
+      streaming: bool,
+      streaming_threshold_bytes: Integer
     }
 
     def self.to_markdown: (String yaml_string, ?options: options) -> String
+    def self.to_markdown_streaming: (String input_path, untyped io, ?options: options) -> void
     def self.validate: (String yaml_string) -> { status: Symbol, error: Exception? }
     def self.convert: (input_path: String, output_path: String, ?options: options) -> { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }
   end
