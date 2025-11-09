@@ -1,5 +1,5 @@
 # Ignore built gem artifacts and package dir
-pkg/*.gem
+pkg/
 *.gem
 # Also ignore yardoc cache
 .yardoc/

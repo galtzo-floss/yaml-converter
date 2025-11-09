@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Peter H. Boling"]
   spec.email = ["peter.boling@gmail.com"]
 
-  spec.summary = "Convert annotated YAML blueprints into readable Markdown, HTML, PDF, or DOCX with validation status and notes extraction."
-  spec.description = "yaml-converter parses YAML files (with inline #note: annotations and validation markers) and emits polished Markdown, HTML, and PDF/DOCX (via pandoc) outputs including a validation status line, fenced YAML blocks, and extracted notes."
+  spec.summary = "🥨 Convert annotated YAML blueprints into readable Markdown, HTML, PDF, or DOCX with validation status and notes extraction."
+  spec.description = "🥨 yaml-converter parses YAML files (with inline #note: annotations and validation markers) and emits polished Markdown, HTML, and PDF/DOCX (via pandoc) outputs including a validation status line, fenced YAML blocks, and extracted notes."
   spec.homepage = "https://github.com/galtzo-floss/yaml-converter"
   spec.licenses = ["MIT"]
   spec.required_ruby_version = ">= 3.2.0"
