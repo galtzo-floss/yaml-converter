@@ -116,7 +116,7 @@ GEM
     logger (1.7.0)
     matrix (0.4.3)
     mutex_m (0.3.0)
-    nokogiri (1.18.10-x86_64-linux-gnu)
+    nokogiri (1.19.1-x86_64-linux-gnu)
       racc (~> 1.4)
     ostruct (0.6.3)
     parallel (1.27.0)
