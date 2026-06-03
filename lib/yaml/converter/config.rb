@@ -26,7 +26,7 @@ module Yaml
         emit_footer: true,
         # Streaming options (Phase 3 feature now implemented):
         streaming: false, # force streaming mode even for small files
-        streaming_threshold_bytes: 5_000_000, # auto-enable streaming for large files when not forced
+        streaming_threshold_bytes: 5_000_000 # auto-enable streaming for large files when not forced
       }.freeze
 
       ENV_MAP = {
@@ -42,7 +42,7 @@ module Yaml
         pdf_two_column_notes: "YAML_CONVERTER_PDF_TWO_COLUMN_NOTES",
         emit_footer: "YAML_CONVERTER_EMIT_FOOTER",
         streaming: "YAML_CONVERTER_STREAMING",
-        streaming_threshold_bytes: "YAML_CONVERTER_STREAMING_THRESHOLD_BYTES",
+        streaming_threshold_bytes: "YAML_CONVERTER_STREAMING_THRESHOLD_BYTES"
       }.freeze
 
       BOOLEAN_KEYS = %i[truncate validate use_pandoc pdf_two_column_notes emit_footer streaming].freeze

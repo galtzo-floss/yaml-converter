@@ -170,7 +170,7 @@ RSpec.describe Yaml::Converter do
         "YAML_CONVERTER_MAX_LINE_LEN" => "80",
         "YAML_CONVERTER_TRUNCATE" => "false",
         "YAML_CONVERTER_VALIDATE" => "0",
-        "YAML_CONVERTER_USE_PANDOC" => "1",
+        "YAML_CONVERTER_USE_PANDOC" => "1"
       )
       expect(ENV["YAML_CONVERTER_MAX_LINE_LEN"]).to eq("80")
       cfg = Yaml::Converter::Config.resolve({})

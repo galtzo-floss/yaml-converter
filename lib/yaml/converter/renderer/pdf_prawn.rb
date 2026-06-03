@@ -66,7 +66,7 @@ module Yaml
             pdf.number_pages("Page <page> of <total>", at: [pdf.bounds.right - 100, 0])
           end
           true
-        rescue StandardError => e
+        rescue => e
           warn("prawn pdf failed: #{e.class}: #{e.message}")
           false
         end

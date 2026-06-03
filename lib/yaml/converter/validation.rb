@@ -41,10 +41,10 @@ module Yaml
           yaml_string,
           permitted_classes: [],
           permitted_symbols: [],
-          aliases: true,
+          aliases: true
         )
         {status: :ok, error: nil}
-      rescue StandardError => e
+      rescue => e
         {status: :fail, error: e}
       end
 

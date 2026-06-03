@@ -1,0 +1,6 @@
+{
+  "spec/yaml/converter_spec.rb:1293576549": [
+    [31, 7, 43, "Env/Assign: Mock the return value of an ENV variable instead of assigning to ENV directly.", 1987157512],
+    [35, 7, 39, "Env/Assign: Mock the return value of an ENV variable instead of assigning to ENV directly.", 235933106]
+  ]
+}

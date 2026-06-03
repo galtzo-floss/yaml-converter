@@ -7,7 +7,7 @@ RSpec.describe Yaml::Converter::Parser do
     tokens = parser.tokenize([
       "# Title\n",
       "foo: 1 #note: first\n",
-      "bar: 2\n",
+      "bar: 2\n"
     ])
     expect(tokens.map(&:type)).to include(:title, :yaml_line, :note)
   end

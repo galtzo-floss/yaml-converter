@@ -17,7 +17,7 @@ options = {
   out_dir: nil,
   concurrency: nil,
   streaming: nil,
-  streaming_threshold_bytes: nil,
+  streaming_threshold_bytes: nil
 }
 
 parser = OptionParser.new do |opts|
@@ -85,7 +85,7 @@ if options[:glob]
     rescue Yaml::Converter::InvalidArgumentsError, Yaml::Converter::PandocNotFoundError, Yaml::Converter::RendererUnavailableError => e
       failures += 1
       warn("Failed: #{input}: #{e.message}")
-    rescue StandardError => e
+    rescue => e
       failures += 1
       warn("Unexpected error converting #{input}: #{e.class}: #{e.message}")
     end
@@ -116,7 +116,7 @@ rescue Yaml::Converter::PandocNotFoundError => e
 rescue Yaml::Converter::RendererUnavailableError => e
   warn(e.message)
   exit(5)
-rescue StandardError => e
+rescue => e
   warn("Unexpected error: #{e.class}: #{e.message}")
   exit(9)
 end

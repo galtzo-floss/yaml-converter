@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    yaml-converter (0.1.0)
+    yaml-converter (0.2.0)
       kramdown (>= 2.4, < 3)
       kramdown-parser-gfm (~> 1.1)
       prawn (>= 2.5, < 3)

@@ -229,14 +229,14 @@ require "yaml/converter"
 Yaml::Converter.convert(
   input_path: "big.yaml",
   output_path: "big.md",
-  options: {streaming: true, validate: true},
+  options: {streaming: true, validate: true}
 )
 
 # Auto-stream based on file size threshold (bytes)
 Yaml::Converter.convert(
   input_path: "maybe_big.yaml",
   output_path: "maybe_big.md",
-  options: {streaming_threshold_bytes: 10_000_000}, # 10 MB (default is 5 MB)
+  options: {streaming_threshold_bytes: 10_000_000} # 10 MB (default is 5 MB)
 )
 ```
 
@@ -278,7 +278,7 @@ File.open("big.md", "w") do |io|
   Yaml::Converter.to_markdown_streaming(
     "big.yaml",
     io,
-    options: {validate: true}, # same options as non-streaming
+    options: {validate: true} # same options as non-streaming
   )
 end
 ```
@@ -305,7 +305,7 @@ Convert directly to a file (extension decides behavior):
 Yaml::Converter.convert(
   input_path: "spec/fixtures/example.yaml",
   output_path: "doc/example.html",
-  options: {validate: true},
+  options: {validate: true}
 )
 ```
 
@@ -322,14 +322,14 @@ Native PDF vs pandoc PDF:
 Yaml::Converter.convert(
   input_path: "blueprint.yaml",
   output_path: "blueprint.pdf",
-  options: {use_pandoc: false, pdf_two_column_notes: true},
+  options: {use_pandoc: false, pdf_two_column_notes: true}
 )
 
 # PDF via pandoc (requires pandoc in PATH)
 Yaml::Converter.convert(
   input_path: "blueprint.yaml",
   output_path: "blueprint.pdf",
-  options: {use_pandoc: true, pandoc_args: ["-N", "--toc"]},
+  options: {use_pandoc: true, pandoc_args: ["-N", "--toc"]}
 )
 ```
 
@@ -339,7 +339,7 @@ DOCX via pandoc:
 Yaml::Converter.convert(
   input_path: "blueprint.yaml",
   output_path: "blueprint.docx",
-  options: {},
+  options: {}
 )
 ```
 

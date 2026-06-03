@@ -11,7 +11,7 @@ RSpec.describe Yaml::Converter::StateMachine do
     tokens = parser.tokenize([
       "# Title\n",
       "foo: 1 #note: first\n",
-      "bar: 2\n",
+      "bar: 2\n"
     ])
     out = sm.apply(tokens)
     expect(out).to include("```yaml")

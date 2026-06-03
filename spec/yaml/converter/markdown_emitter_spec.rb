@@ -20,7 +20,7 @@ RSpec.describe Yaml::Converter::MarkdownEmitter do
   it "extracts inline #note: and emits it outside YAML block" do
     emitter = described_class.new(Yaml::Converter::Config.resolve({}))
     lines = [
-      "key: value #note: important detail\n",
+      "key: value #note: important detail\n"
     ]
     out = emitter.emit(lines)
     combined = out.join("\n")
@@ -34,7 +34,7 @@ RSpec.describe Yaml::Converter::MarkdownEmitter do
     emitter = described_class.new(Yaml::Converter::Config.resolve({}))
     lines = [
       "foo: 1 #note: first\n",
-      "bar: 2 #note: second\n",
+      "bar: 2 #note: second\n"
     ]
     out = emitter.emit(lines)
     combined = out.join("\n")
