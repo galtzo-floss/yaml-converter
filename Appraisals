@@ -51,7 +51,6 @@ end
 
 appraise "head" do
   eval_gemfile "modular/x_std_libs.gemfile"
-  gem "benchmark", "~> 0.4", ">= 0.4.1"
 end
 
 appraise "current" do
