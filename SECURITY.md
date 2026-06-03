@@ -3,8 +3,8 @@
 ## Supported Versions
 
 | Version  | Supported |
-| -------- | --------- |
-| 0.latest | ✅        |
+|----------|-----------|
+| 0.latest | ✅         |
 
 ## Security contact information
 

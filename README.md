@@ -736,7 +736,7 @@ Thanks for RTFM. ☺️
 | Package | yaml-converter |
 | Description | 🥨 yaml-converter parses YAML files (with inline #note: annotations and validation markers) and emits polished Markdown, HTML, and PDF/DOCX (via pandoc) outputs including a validation status line, fenced YAML blocks, and extracted notes. |
 | Homepage | https://github.com/galtzo-floss/yaml-converter |
-| Source | https://github.com/galtzo-floss/yaml-converter/tree/v0.1.0 |
+| Source | https://github.com/galtzo-floss/yaml-converter/tree/v0.2.0 |
 | License | `MIT` |
 | Funding | https://github.com/sponsors/pboling, https://issuehunt.io/u/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/galtzo-floss, https://patreon.com/galtzo, https://polar.sh/pboling, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/yaml-converter, https://www.buymeacoffee.com/pboling |
 <!-- kettle-jem:metadata:end -->
