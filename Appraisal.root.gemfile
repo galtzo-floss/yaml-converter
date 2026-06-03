@@ -7,6 +7,9 @@
 # kettle-jem:unfreeze
 
 source "https://gem.coop"
+source "https://rubygems.org" do
+  gem "hexapdf", ">= 1.8", "< 2"
+end
 
 # Appraisal Root Gemfile is for running appraisal to generate the Appraisal Gemfiles
 #   in gemfiles/*gemfile.

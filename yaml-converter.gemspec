@@ -95,9 +95,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Utilities
+  spec.add_dependency("hexapdf", ">= 1.8", "< 2")           # Native PDF rendering (Phase 2)
   spec.add_dependency("kramdown", ">= 2.4", "< 3")          # HTML rendering
   spec.add_dependency("kramdown-parser-gfm", "~> 1.1")      # GitHub-flavored Markdown rendering to HTML
-  spec.add_dependency("prawn", ">= 2.5", "< 3")             # Native PDF rendering (Phase 2)
   spec.add_dependency("version_gem", "~> 1.1", ">= 1.1.9")  # ruby >= 2.2.0
 
   # NOTE: It is preferable to list development dependencies in the gemspec due to increased

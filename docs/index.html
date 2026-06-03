@@ -90,7 +90,7 @@ I've summarized my thoughts in [this blog post](https://dev.to/galtzo/hostile-ta
   <li>Injects a validation status line with date (deterministic via current_date option)</li>
   <li>Extracts inline <code>#note:</code> annotations into readable blockquotes (or PDF note sections)</li>
   <li>Truncates overly long YAML lines (configurable)</li>
-  <li>Emits Markdown, HTML, PDF (native Prawn), DOCX/PDF/other via pandoc</li>
+  <li>Emits Markdown, HTML, PDF (native HexaPDF), DOCX/PDF/other via pandoc</li>
 </ul>
 
 <p>Ideal for design documents stored as YAML, making them consumable in multiple formats.</p>
@@ -364,7 +364,7 @@ Inject <code>current_date:</code> in <code>options</code> or stub time for tests
 <ul>
   <li>Markdown (.md)</li>
   <li>HTML (.html) via kramdown</li>
-  <li>PDF (.pdf) native (Prawn) or via pandoc when <code>use_pandoc: true</code>
+  <li>PDF (.pdf) native (HexaPDF) or via pandoc when <code>use_pandoc: true</code>
 </li>
   <li>DOCX (.docx) via pandoc (auto-detects pandoc path)</li>
   <li>Other pandoc-supported formats (set output extension + <code>--use-pandoc</code>)</li>
@@ -416,6 +416,7 @@ Produced by yaml-converter
 <p>For very large YAML files, enable streaming to keep memory usage low. Streaming processes the input line-by-line and writes Markdown incrementally while preserving identical output to non-streaming mode.</p>
 
 <p>How it works:</p>
+
 <ul>
   <li>Same parsing and state machine logic as non-streaming</li>
   <li>Injects validation status if <code>validate</code> is enabled</li>
@@ -424,6 +425,7 @@ Produced by yaml-converter
 </ul>
 
 <p>When streaming is used:</p>
+
 <ul>
   <li>Streaming is applied only to direct <code>.md</code> outputs. Other formats still render via an intermediate Markdown string.</li>
   <li>The output is intended to be byte-for-byte equivalent to the non-streaming path (see tests).</li>
@@ -489,6 +491,7 @@ end
 </code></pre>
 
 <p>Notes:</p>
+
 <ul>
   <li>For <code>.html</code>, <code>.pdf</code>, <code>.docx</code> (and other pandoc-driven formats), the implementation first produces a full Markdown string, so streaming is not applied to those outputs.</li>
   <li>If the destination file already exists, you’ll see: “Overwriting existing file” (suppress with <code>KETTLE_TEST_SILENT=true</code>).</li>
@@ -521,7 +524,7 @@ puts markdown
 
 <p>Native PDF vs pandoc PDF:</p>
 
-<pre class="code language-ruby"><code class="language-ruby"># Native PDF using Prawn
+<pre class="code language-ruby"><code class="language-ruby"># Native PDF using HexaPDF
 Yaml::Converter.convert(
   input_path: &quot;blueprint.yaml&quot;,
   output_path: &quot;blueprint.pdf&quot;,
@@ -605,8 +608,10 @@ and <a href="https://tidelift.com/subscription/pkg/rubygems-yaml-converter?utm_s
 <p>NOTE: <a href="https://github.com/galtzo-floss/yaml-converter/blob/main/exe/kettle-readme-backers">kettle-readme-backers</a> updates this list every day, automatically.</p>
 
 <!-- OPENCOLLECTIVE-INDIVIDUALS:START -->
-<p>No backers yet. Be the first!<br>
-<!-- OPENCOLLECTIVE-INDIVIDUALS:END --></p>
+
+<p>No backers yet. Be the first!</p>
+
+<!-- OPENCOLLECTIVE-INDIVIDUALS:END -->
 
 <h3 id="open-collective-for-organizations">Open Collective for Organizations</h3>
 
@@ -615,8 +620,10 @@ and <a href="https://tidelift.com/subscription/pkg/rubygems-yaml-converter?utm_s
 <p>NOTE: <a href="https://github.com/galtzo-floss/yaml-converter/blob/main/exe/kettle-readme-backers">kettle-readme-backers</a> updates this list every day, automatically.</p>
 
 <!-- OPENCOLLECTIVE-ORGANIZATIONS:START -->
-<p>No sponsors yet. Be the first!<br>
-<!-- OPENCOLLECTIVE-ORGANIZATIONS:END --></p>
+
+<p>No sponsors yet. Be the first!</p>
+
+<!-- OPENCOLLECTIVE-ORGANIZATIONS:END -->
 
 <h3 id="another-way-to-support-open-source">Another way to support open-source</h3>
 
@@ -756,19 +763,47 @@ Please consider sponsoring me or the project.</p>
 <p>Thanks for RTFM. ☺️</p>
 
 <!-- kettle-jem:metadata:start -->
-<p>| Field | Value |<br>
-|—|—|<br>
-| Package | yaml-converter |<br>
-| Description | 🥨 yaml-converter parses YAML files (with inline #note: annotations and validation markers) and emits polished Markdown, HTML, and PDF/DOCX (via pandoc) outputs including a validation status line, fenced YAML blocks, and extracted notes. |<br>
-| Homepage | https://github.com/galtzo-floss/yaml-converter |<br>
-| Source | https://github.com/galtzo-floss/yaml-converter/tree/v0.1.0 |<br>
-| License | <code>MIT</code> |<br>
-| Funding | https://github.com/sponsors/pboling, https://issuehunt.io/u/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/galtzo-floss, https://patreon.com/galtzo, https://polar.sh/pboling, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/yaml-converter, https://www.buymeacoffee.com/pboling |<br>
-<!-- kettle-jem:metadata:end --></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Package</td>
+      <td>yaml-converter</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>🥨 yaml-converter parses YAML files (with inline #note: annotations and validation markers) and emits polished Markdown, HTML, and PDF/DOCX (via pandoc) outputs including a validation status line, fenced YAML blocks, and extracted notes.</td>
+    </tr>
+    <tr>
+      <td>Homepage</td>
+      <td>https://github.com/galtzo-floss/yaml-converter</td>
+    </tr>
+    <tr>
+      <td>Source</td>
+      <td>https://github.com/galtzo-floss/yaml-converter/tree/v0.2.0</td>
+    </tr>
+    <tr>
+      <td>License</td>
+      <td><code>MIT</code></td>
+    </tr>
+    <tr>
+      <td>Funding</td>
+      <td>https://github.com/sponsors/pboling, https://issuehunt.io/u/pboling, https://ko-fi.com/pboling, https://liberapay.com/pboling/donate, https://opencollective.com/galtzo-floss, https://patreon.com/galtzo, https://polar.sh/pboling, https://thanks.dev/u/gh/pboling, https://tidelift.com/funding/github/rubygems/yaml-converter, https://www.buymeacoffee.com/pboling</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- kettle-jem:metadata:end -->
 </div></div>
 
       <div id="footer">
-  Generated on Tue Jun  2 19:03:08 2026 by
+  Generated on Wed Jun  3 01:04:37 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.44 (ruby-4.0.5).
 </div>

@@ -171,8 +171,8 @@ module Yaml
           File.delete(tmp_md) if File.exist?(tmp_md)
           raise PandocNotFoundError, "pandoc not found in PATH" unless ok
         else
-          require_relative "converter/renderer/pdf_prawn"
-          ok = Renderer::PdfPrawn.render(markdown: markdown, out_path: output_path, options: opts)
+          require_relative "converter/renderer/pdf_hexapdf"
+          ok = Renderer::PdfHexapdf.render(markdown: markdown, out_path: output_path, options: opts)
           raise RendererUnavailableError, "PDF rendering failed" unless ok
         end
         success.call

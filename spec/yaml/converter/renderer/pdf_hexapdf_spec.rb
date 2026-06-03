@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "yaml/converter/renderer/pdf_prawn"
+require "yaml/converter/renderer/pdf_hexapdf"
 
-RSpec.describe Yaml::Converter::Renderer::PdfPrawn do
+RSpec.describe Yaml::Converter::Renderer::PdfHexapdf do
   it "generates a simple PDF from markdown" do
     markdown = <<~MD
       # Title
