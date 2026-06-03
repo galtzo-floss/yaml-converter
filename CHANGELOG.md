@@ -22,8 +22,6 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
-- Switched native PDF rendering from Prawn to HexaPDF.
-
 ### Deprecated
 
 ### Removed
@@ -32,12 +30,12 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Security
 
-## [0.2.0] - 2026-06-02
+## [0.2.0] - 2026-06-03
 
 - TAG: [v0.2.0][0.2.0t]
-- COVERAGE: 92.43% -- 391/423 lines in 10 files
-- BRANCH COVERAGE: 68.18% -- 105/154 branches in 10 files
-- 73.33% documented
+- COVERAGE: 92.51% -- 432/467 lines in 10 files
+- BRANCH COVERAGE: 68.42% -- 117/171 branches in 10 files
+- 65.82% documented
 
 ### Added
 
@@ -47,6 +45,7 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
+- (BREAKING) Switched native PDF rendering from Prawn to HexaPDF.
 - Rebuilt the README with the current `kettle-jem` layout while preserving the
   project synopsis and alternatives.
 - Updated generated development, test, documentation, and style dependencies
