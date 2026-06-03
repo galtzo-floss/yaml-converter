@@ -1,0 +1,8 @@
+module Yaml
+  module Converter
+    module Version
+      VERSION: String
+    end
+    VERSION: String
+  end
+end

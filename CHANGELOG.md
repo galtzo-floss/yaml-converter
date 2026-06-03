@@ -20,11 +20,24 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Added
 
+- Added the current `kettle-jem` template harness, including StructuredMerge
+  config, local setup scripts, generated CI workflows, and Ruby 4.0.5 `mise`
+  tooling.
+
 ### Changed
+
+- Rebuilt the README with the current `kettle-jem` layout while preserving the
+  project synopsis and alternatives.
+- Updated generated development, test, documentation, and style dependencies
+  through the current template stack.
+- Updated README alternatives to mention the Python `yaml2rst` and `yaml2doc`
+  tools.
 
 ### Deprecated
 
 ### Removed
+
+- Removed obsolete generated binstubs and legacy Ruby 2.x/3.1 modular Gemfiles.
 
 ### Fixed
 
