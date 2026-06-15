@@ -20,7 +20,15 @@ module Yaml
       #   @return [String] Payload string for this token
       # @!attribute [rw] meta
       #   @return [Hash,nil] Optional metadata bag (currently unused)
-      Token = Struct.new(:type, :text, :meta, keyword_init: true)
+      Token = Class.new do
+        attr_accessor :type, :text, :meta
+
+        def initialize(type:, text:, meta: nil)
+          @type = type
+          @text = text
+          @meta = meta
+        end
+      end
 
       # Comment line prefix indicating a validation status line will be injected
       VALIDATION_PREFIX = "# YAML validation:"

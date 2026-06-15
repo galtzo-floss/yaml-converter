@@ -1,7 +1,5 @@
 module Yaml
   module Converter
-    VERSION: String
-
     class Error < ::StandardError
     end
 

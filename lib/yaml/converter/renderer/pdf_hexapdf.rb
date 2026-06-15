@@ -54,19 +54,19 @@ module Yaml
           false
         end
 
-        ContentBox = Struct.new(:page, :margin, :left, :right, :top, :bottom, :cursor, keyword_init: true) do
+        ContentBox = Class.new do
+          attr_accessor :page, :margin, :left, :right, :top, :bottom, :cursor
+
           def initialize(page:, margin:)
             width = page.box.width
             height = page.box.height
-            super(
-              page: page,
-              margin: margin,
-              left: margin[3],
-              right: width - margin[1],
-              top: height - margin[0],
-              bottom: margin[2],
-              cursor: height - margin[0]
-            )
+            @page = page
+            @margin = margin
+            @left = margin[3]
+            @right = width - margin[1]
+            @top = height - margin[0]
+            @bottom = margin[2]
+            @cursor = height - margin[0]
           end
 
           def width

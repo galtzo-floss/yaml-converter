@@ -122,17 +122,7 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
 <div class="tags">
   
 
-</div><h2>Defined Under Namespace</h2>
-<p class="children">
-  
-    
-  
-    
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span>
-    
-  
-</p>
-
+</div>
   
     <h2>
       Constant Summary
@@ -140,6 +130,29 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
     </h2>
 
     <dl class="constants">
+      
+        <dt id="Token-constant" class="">Token =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Lightweight token structure used by the parser/state machine pipeline.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:meta</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>type:</span><span class='comma'>,</span> <span class='label'>text:</span><span class='comma'>,</span> <span class='label'>meta:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span>
+    <span class='ivar'>@text</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
+    <span class='ivar'>@meta</span> <span class='op'>=</span> <span class='id identifier rubyid_meta'>meta</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre></dd>
       
         <dt id="VALIDATION_PREFIX-constant" class="">VALIDATION_PREFIX =
           <div class="docstring">
@@ -176,6 +189,89 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
 
 
 
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#meta-instance_method" title="#meta (instance method)">#<strong>meta</strong>  &#x21d2; Hash<sup>?</sup> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Optional metadata bag (currently unused).</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#text-instance_method" title="#text (instance method)">#<strong>text</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Payload string for this token.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type-instance_method" title="#type (instance method)">#<strong>type</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>One of :blank, :title, :validation, :separator, :dash_heading, :yaml_line, :note.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
@@ -289,12 +385,12 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
       <pre class="lines">
 
 
-31
-32
-33</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span>
@@ -306,6 +402,224 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
   
 </div>
 
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="meta=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="meta-instance_method">
+  
+    #<strong>meta</strong>  &#x21d2; <tt>Hash</tt><sup>?</sup> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns Optional metadata bag (currently unused).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional metadata bag (currently unused)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 23</span>
+
+<span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span> <span class='op'>=</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:meta</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>type:</span><span class='comma'>,</span> <span class='label'>text:</span><span class='comma'>,</span> <span class='label'>meta:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span>
+    <span class='ivar'>@text</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
+    <span class='ivar'>@meta</span> <span class='op'>=</span> <span class='id identifier rubyid_meta'>meta</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="text=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="text-instance_method">
+  
+    #<strong>text</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns Payload string for this token.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Payload string for this token</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 23</span>
+
+<span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span> <span class='op'>=</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:meta</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>type:</span><span class='comma'>,</span> <span class='label'>text:</span><span class='comma'>,</span> <span class='label'>meta:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span>
+    <span class='ivar'>@text</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
+    <span class='ivar'>@meta</span> <span class='op'>=</span> <span class='id identifier rubyid_meta'>meta</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="type=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="type-instance_method">
+  
+    #<strong>type</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns One of :blank, :title, :validation, :separator, :dash_heading, :yaml_line, :note.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>One of :blank, :title, :validation, :separator, :dash_heading, :yaml_line, :note</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 23</span>
+
+<span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span> <span class='op'>=</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:meta</span>
+
+  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>type:</span><span class='comma'>,</span> <span class='label'>text:</span><span class='comma'>,</span> <span class='label'>meta:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='ivar'>@type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span>
+    <span class='ivar'>@text</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
+    <span class='ivar'>@meta</span> <span class='op'>=</span> <span class='id identifier rubyid_meta'>meta</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -314,7 +628,7 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
       <div class="method_details first">
   <h3 class="signature first" id="tokenize-instance_method">
   
-    #<strong>tokenize</strong>(lines)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span>&gt;</tt> 
+    #<strong>tokenize</strong>(lines)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span>&gt;</tt> 
   
 
   
@@ -354,7 +668,7 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span>&gt;</tt>)</span>
       
       
       
@@ -372,14 +686,6 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
       <pre class="lines">
 
 
-39
-40
-41
-42
-43
-44
-45
-46
 47
 48
 49
@@ -411,47 +717,55 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/parser.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tokenize'>tokenize</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_raw'>raw</span><span class='op'>|</span>
     <span class='id identifier rubyid_line'>line</span> <span class='op'>=</span> <span class='id identifier rubyid_raw'>raw</span><span class='period'>.</span><span class='id identifier rubyid_rstrip'>rstrip</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:blank</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:blank</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
       <span class='kw'>next</span>
     <span class='kw'>end</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'># </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_line'>line</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span>
       <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#VALIDATION_PREFIX-constant" title="Yaml::Converter::Parser::VALIDATION_PREFIX (constant)">VALIDATION_PREFIX</a></span></span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:validation</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='int'>2</span><span class='op'>..</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:validation</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='int'>2</span><span class='op'>..</span><span class='rbracket'>]</span><span class='rparen'>)</span>
       <span class='kw'>else</span>
         <span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='int'>2</span><span class='op'>..</span><span class='rbracket'>]</span>
-        <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:title</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:title</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
       <span class='kw'>end</span>
       <span class='kw'>next</span>
     <span class='kw'>end</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>---</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:separator</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:separator</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
       <span class='kw'>next</span>
     <span class='kw'>end</span>
 
     <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:dash_heading</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:dash_heading</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
 
     <span class='id identifier rubyid_note_idx'>note_idx</span> <span class='op'>=</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#NOTE_MARK-constant" title="Yaml::Converter::Parser::NOTE_MARK (constant)">NOTE_MARK</a></span></span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_note_idx'>note_idx</span>
       <span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_note_idx'>note_idx</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_rstrip'>rstrip</span>
       <span class='id identifier rubyid_note'>note</span> <span class='op'>=</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_note_idx'>note_idx</span> <span class='op'>+</span> <span class='const'><span class='object_link'><a href="#NOTE_MARK-constant" title="Yaml::Converter::Parser::NOTE_MARK (constant)">NOTE_MARK</a></span></span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span><span class='op'>..</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
-      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:yaml_line</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_base'>base</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:note</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_note'>note</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:yaml_line</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_base'>base</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:note</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_note'>note</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
-      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Parser/Token.html" title="Yaml::Converter::Parser::Token (class)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:yaml_line</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_tokens'>tokens</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="#Token-constant" title="Yaml::Converter::Parser::Token (constant)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Yaml::Converter::Parser#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:yaml_line</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='id identifier rubyid_line'>line</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_tokens'>tokens</span>
@@ -466,7 +780,7 @@ consumable by the {Yaml::Converter::StateMachine}.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Jun  2 19:03:08 2026 by
+  Generated on Mon Jun 15 02:40:18 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.44 (ruby-4.0.5).
 </div>

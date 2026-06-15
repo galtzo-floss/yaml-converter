@@ -28,6 +28,9 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Fixed generated OpenCollective funding links so README, FUNDING, and
+  generated docs point at `galtzo-floss` instead of an empty slug.
+
 ### Security
 
 ## [0.2.0] - 2026-06-03
