@@ -28,10 +28,19 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+### Security
+
+## [0.2.1] - 2026-06-15
+
+- TAG: [v0.2.1][0.2.1t]
+- COVERAGE: 92.69% -- 444/479 lines in 10 files
+- BRANCH COVERAGE: 68.42% -- 117/171 branches in 10 files
+- 63.77% documented
+
+### Fixed
+
 - Fixed generated OpenCollective funding links so README, FUNDING, and
   generated docs point at `galtzo-floss` instead of an empty slug.
-
-### Security
 
 ## [0.2.0] - 2026-06-03
 
@@ -73,7 +82,9 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Security
 
-[Unreleased]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.0...v0.2.1
+[0.2.1t]: https://github.com/galtzo-floss/yaml-converter/releases/tag/v0.2.1
 [0.2.0]: https://github.com/galtzo-floss/yaml-converter/compare/v0.1.0...v0.2.0
 [0.2.0t]: https://github.com/galtzo-floss/yaml-converter/releases/tag/v0.2.0
 [0.1.0]: https://github.com/galtzo-floss/yaml-converter/compare/232ad133b6259aabb39993b476f727d91d0a5f0c...v0.1.0
