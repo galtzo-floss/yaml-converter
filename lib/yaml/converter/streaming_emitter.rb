@@ -126,7 +126,7 @@ module Yaml
       def emit_footer
         write_line("---- ")
         write_line("")
-        write_line("Produced by [yaml-converter](https://github.com/kettle-rb/yaml-converter)")
+        write_line("Produced by [yaml-converter](https://github.com/kettle-dev/yaml-converter)")
       end
 
       def write_line(s)

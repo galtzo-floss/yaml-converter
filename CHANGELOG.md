@@ -32,6 +32,9 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Updated generated footer links to point at the migrated `kettle-dev`
+  GitHub organization.
+
 ### Security
 
 ## [0.2.1] - 2026-06-15
