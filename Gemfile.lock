@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    yaml-converter (0.2.1)
+    yaml-converter (0.2.2)
       hexapdf (>= 1.8, < 2)
       kramdown (>= 2.4, < 3)
       kramdown-parser-gfm (~> 1.1)
