@@ -8,10 +8,6 @@
 
 source "https://gem.coop"
 
-source "https://rubygems.org" do
-  gem "hexapdf", ">= 1.8", "< 2"
-end
-
 git_source(:codeberg) { |repo_name| "https://codeberg.org/#{repo_name}" }
 git_source(:gitlab) { |repo_name| "https://gitlab.com/#{repo_name}" }
 
