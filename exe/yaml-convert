@@ -4,6 +4,7 @@
 require "optparse"
 require "fileutils"
 require "yaml/converter"
+require "yaml/converter/version"
 
 options = {
   max_line_length: nil,
@@ -38,7 +39,7 @@ parser = OptionParser.new do |opts|
   opts.on("--out-dir DIR", "Output directory for batch mode (defaults next to input)") { |v| options[:out_dir] = v }
   opts.on("--concurrency N", Integer, "Batch concurrency (currently not used; reserved)") { |v| options[:concurrency] = v }
 
-  opts.on("--version", "Show version") {
+  opts.on("-v", "--version", "Show version") {
     puts Yaml::Converter::VERSION
     exit(0)
   }
@@ -55,6 +56,9 @@ rescue OptionParser::InvalidOption => e
   puts parser
   exit(2)
 end
+
+script_basename = File.basename(__FILE__)
+puts "== #{script_basename} v#{Yaml::Converter::VERSION} =="
 
 # Batch mode if --glob is provided
 if options[:glob]
