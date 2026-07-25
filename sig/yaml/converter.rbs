@@ -37,5 +37,44 @@ module Yaml
     def self.to_markdown_streaming: (String input_path, untyped io, ?options: options) -> void
     def self.validate: (String yaml_string) -> { status: Symbol, error: Exception? }
     def self.convert: (input_path: String, output_path: String, ?options: options) -> { status: Symbol, output_path: String, validation: { status: Symbol, error: Exception? } }
+    module Config
+      DEFAULTS: { max_line_length: Integer, truncate: bool, margin_notes: Symbol, validate: bool, use_pandoc: bool, pandoc_args: Array[String], pandoc_path: String? , html_theme: Symbol, pdf_page_size: String, pdf_margin: Array[Integer], pdf_title_font_size: Integer, pdf_body_font_size: Integer, pdf_yaml_font_size: Integer, pdf_two_column_notes: bool, current_date: untyped, emit_footer: bool, streaming: bool, streaming_threshold_bytes: Integer }
+      ENV_MAP: { max_line_length: String, truncate: String, margin_notes: String, validate: String, use_pandoc: String, pdf_page_size: String, pdf_title_font_size: String, pdf_body_font_size: String, pdf_yaml_font_size: String, pdf_two_column_notes: String, emit_footer: String, streaming: String, streaming_threshold_bytes: String }
+      BOOLEAN_KEYS: Array[Symbol]
+
+      def self.resolve: (?Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def self.normalize: (Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def self.coerce_env_value: (Symbol, String) -> untyped
+    end
+
+    class MarkdownEmitter
+      START_YAML: String
+      END_YAML: String
+      VALIDATED_STR: String
+      NOTE_STR: String
+
+      def initialize: (Yaml::Converter::options options) -> void
+      def set_validation_status: (Symbol) -> void
+      def emit: (Array[String]) -> Array[String]
+    end
+
+    class StreamingEmitter
+      START_YAML: String
+      END_YAML: String
+
+      def initialize: (Yaml::Converter::options options, untyped io) -> void
+      def set_validation_status: (Symbol) -> void
+      def emit_file: (String input_path) -> void
+    end
+
+    module Validation
+      def self.validate_string: (String) -> { status: Symbol, error: Exception? }
+      def self.validate_file: (String) -> { status: Symbol, error: Exception? }
+    end
+
+    module Version
+      VERSION: String
+    end
+    VERSION: String
   end
 end
