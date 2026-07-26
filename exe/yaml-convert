@@ -18,7 +18,8 @@ options = {
   out_dir: nil,
   concurrency: nil,
   streaming: nil,
-  streaming_threshold_bytes: nil
+  streaming_threshold_bytes: nil,
+  verbose: false
 }
 
 parser = OptionParser.new do |opts|
@@ -32,6 +33,7 @@ parser = OptionParser.new do |opts|
   opts.on("--pandoc-args STRING", "Extra args for pandoc (split on spaces)") { |v| options[:pandoc_args] = v.split(/\s+/) }
   opts.on("--streaming", "Force streaming mode for markdown output") { options[:streaming] = true }
   opts.on("--streaming-threshold BYTES", Integer, "Auto-enable streaming when input file >= BYTES") { |v| options[:streaming_threshold_bytes] = v }
+  opts.on("--verbose", "Show startup header") { options[:verbose] = true }
 
   # Batch mode
   opts.on("--glob PATTERN", "Batch convert all YAML files matching the glob pattern") { |v| options[:glob] = v }
@@ -58,7 +60,7 @@ rescue OptionParser::InvalidOption => e
 end
 
 script_basename = File.basename(__FILE__)
-puts "== #{script_basename} v#{Yaml::Converter::VERSION} =="
+puts "== #{script_basename} v#{Yaml::Converter::VERSION} ==" if options[:verbose]
 
 # Batch mode if --glob is provided
 if options[:glob]

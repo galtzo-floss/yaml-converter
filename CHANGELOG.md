@@ -22,8 +22,12 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
-- The `yaml-convert` executable now supports `-v` / `--version` and prints a
-  standard startup header on normal runs.
+- The `yaml-convert` executable startup header is now shown only when
+  `--verbose` is passed; `-v` and `--version` still print just the executable
+  version and exit.
+
+- The `yaml-convert` executable supports `-v` / `--version` for version-only
+  output.
 
 - kettle-jem-template-20260716-001 - Shim gemspec manifests now include
   `LICENSE.md` instead of nonexistent `LICENSE.txt`.
