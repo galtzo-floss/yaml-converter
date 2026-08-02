@@ -4,11 +4,11 @@
 require "version_gem"
 
 # This library
-require_relative "converter/version"
 require_relative "converter/config"
 require_relative "converter/validation"
 require_relative "converter/markdown_emitter"
 require_relative "converter/streaming_emitter"
+require_relative "converter/version"
 
 module Yaml
   module Converter
