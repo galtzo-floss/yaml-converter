@@ -22,14 +22,6 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
-- [kc] kettle-jem/prepare: updated 8 project files:
-  - dependencies (8)
-
-- [kc] kettle-jem/template: updated 4 project files:
-  - code and tests (1)
-  - dependencies (2)
-  - other (1)
-
 ### Deprecated
 
 ### Removed
@@ -37,6 +29,23 @@ Please file a bug if you notice a violation of semantic versioning.
 ### Fixed
 
 ### Security
+
+## [0.2.6] - 2026-09-11
+
+- TAG: [v0.2.6][0.2.6t]
+- COVERAGE: 92.69% -- 444/479 lines in 10 files
+- BRANCH COVERAGE: 68.42% -- 117/171 branches in 10 files
+- 66.67% documented
+
+### Changed
+
+- [kc] kettle-jem/prepare: updated 8 project files:
+  - dependencies (8)
+
+- [kc] kettle-jem/template: updated 4 project files:
+  - code and tests (1)
+  - dependencies (2)
+  - other (1)
 
 ## [0.2.5] - 2026-08-09
 
@@ -225,7 +234,9 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Security
 
-[Unreleased]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.5...HEAD
+[Unreleased]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.6...HEAD
+[0.2.6]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.5...v0.2.6
+[0.2.6t]: https://github.com/galtzo-floss/yaml-converter/releases/tag/v0.2.6
 [0.2.5]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.4...v0.2.5
 [0.2.5t]: https://github.com/galtzo-floss/yaml-converter/releases/tag/v0.2.5
 [0.2.4]: https://github.com/galtzo-floss/yaml-converter/compare/v0.2.3...v0.2.4
