@@ -72,32 +72,7 @@ if options[:glob]
     exit 2
   end
 
-  glob_files = lambda do |glob|
-    ancestor = glob
-    suffix = []
-
-    until File.directory?(ancestor)
-      parent = File.dirname(ancestor)
-      break nil if parent == ancestor
-
-      suffix.unshift(File.basename(ancestor))
-      ancestor = parent
-    end
-
-    next Dir.glob(glob) unless File.directory?(ancestor)
-
-    ancestor = File.realpath(ancestor)
-    relative_pattern = suffix.join("/")
-    matches = Dir.glob(relative_pattern, base: ancestor)
-    expanded = matches.map { |path| File.expand_path(path, ancestor) }
-    if ENV["YAML_CONVERTER_DEBUG_GLOB"] == "true"
-      warn "Glob debug: base=#{ancestor.inspect} pattern=#{relative_pattern.inspect} matches=#{matches.inspect} expanded=#{expanded.inspect}"
-    end
-    expanded
-  end
-
-  # Glob relative to a resolved directory to avoid Windows long/short path alias mismatches.
-  files = glob_files.call(pattern).select { |p| File.file?(p) }
+  files = Dir.glob(pattern).select { |p| File.file?(p) }
   if files.empty?
     warn "No files matched glob: #{pattern}"
     exit 2
