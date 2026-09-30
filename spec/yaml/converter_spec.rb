@@ -223,7 +223,7 @@ RSpec.describe Yaml::Converter do
         env = {"KETTLE_TEST_SILENT" => "false"}
         if Gem.win_platform?
           # Exercise Ruby's documented single-quoted glob handling through the real Windows shell.
-          command = %("#{RbConfig.ruby}" "#{exe_path}" --glob '#{pattern}' --out-ext md)
+          command = %(ruby "#{exe_path}" --glob '#{pattern}' --out-ext md)
           output, status = Open3.capture2e(env, "cmd.exe", "/c", command)
         else
           output, status = Open3.capture2e(env, RbConfig.ruby, exe_path, "--glob", pattern, "--out-ext", "md")
