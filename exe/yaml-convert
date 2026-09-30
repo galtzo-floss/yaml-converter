@@ -72,26 +72,27 @@ if options[:glob]
     exit 2
   end
 
-  canonical_glob_pattern = lambda do |glob|
+  glob_files = lambda do |glob|
     ancestor = glob
     suffix = []
 
     until File.directory?(ancestor)
       parent = File.dirname(ancestor)
-      break glob if parent == ancestor
+      break nil if parent == ancestor
 
       suffix.unshift(File.basename(ancestor))
       ancestor = parent
     end
 
-    next glob unless File.directory?(ancestor)
+    next Dir.glob(glob) unless File.directory?(ancestor)
 
-    suffix.reduce(File.realpath(ancestor)) { |path, component| File.join(path, component) }
+    ancestor = File.realpath(ancestor)
+    relative_pattern = suffix.join("/")
+    Dir.glob(relative_pattern, base: ancestor).map { |path| File.expand_path(path, ancestor) }
   end
 
-  # Windows temp paths may use 8.3 aliases; resolving the existing ancestor
-  # first avoids Ruby globbing only part of a directory addressed by an alias.
-  files = Dir.glob(canonical_glob_pattern.call(pattern)).select { |p| File.file?(p) }
+  # Glob relative to a resolved directory to avoid Windows long/short path alias mismatches.
+  files = glob_files.call(pattern).select { |p| File.file?(p) }
   if files.empty?
     warn "No files matched glob: #{pattern}"
     exit 2

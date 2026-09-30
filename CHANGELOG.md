@@ -38,6 +38,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 - Canonicalize existing paths before batch globbing to handle Windows temporary-directory aliases.
 
+- Batch globbing now resolves files relative to an existing directory, avoiding Windows long-path and short-path alias mismatches.
+
 ### Security
 
 ## [0.2.7] - 2026-09-30
