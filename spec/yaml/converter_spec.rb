@@ -214,9 +214,12 @@ RSpec.describe Yaml::Converter do
         File.write(b, "bar: 2\n")
         output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", File.join(dir, "*.yaml"), "--out-ext", "md")
         expect(status.exitstatus).to be(0)
-        expect(output).to include("Batch complete:")
+        expect(output).to include("Batch complete: 2 succeeded, 0 failed")
+        expect(output.lines.count { |line| line.start_with?("Converted:") }).to eq(2)
         expect(File.read(a.sub(/\.yaml$/, ".md"))).to include("foo: 1")
-        expect(File.read(b.sub(/\.yaml$/, ".md"))).to include("bar: 2")
+        output_path = b.sub(/\.yaml$/, ".md")
+        expect(File).to exist(output_path), "CLI output:\n#{output}"
+        expect(File.read(output_path)).to include("bar: 2")
       end
     end
 
