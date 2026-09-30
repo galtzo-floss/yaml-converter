@@ -220,10 +220,15 @@ RSpec.describe Yaml::Converter do
         pattern = File.join(directory, "*.yaml")
         expect(Dir.glob(pattern).map { |path| File.basename(path) }).to contain_exactly("a.yaml", "b.yaml")
         expect(Dir.glob("*.yaml", base: directory).map { |path| File.basename(path) }).to contain_exactly("a.yaml", "b.yaml")
-        # Windows Ruby expands unquoted wildcard arguments before the script receives them.
-        glob_argument = Gem.win_platform? ? "'#{pattern}'" : pattern
-        output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", glob_argument, "--out-ext", "md")
-        expect(status.exitstatus).to be(0)
+        env = {"KETTLE_TEST_SILENT" => "false"}
+        if Gem.win_platform?
+          # Exercise Ruby's documented single-quoted glob handling through the real Windows shell.
+          command = %("#{RbConfig.ruby}" "#{exe_path}" --glob '#{pattern}' --out-ext md)
+          output, status = Open3.capture2e(env, "cmd.exe", "/c", command)
+        else
+          output, status = Open3.capture2e(env, RbConfig.ruby, exe_path, "--glob", pattern, "--out-ext", "md")
+        end
+        expect(status.exitstatus).to eq(0), "CLI output:\n#{output}"
         expect(output).to include("Batch complete: 2 succeeded, 0 failed")
         expect(output.lines.count { |line| line.start_with?("Converted:") }).to eq(2)
         expect(File.read(File.join(directory, "a.md"))).to include("foo: 1")
