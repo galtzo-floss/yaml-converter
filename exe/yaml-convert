@@ -88,7 +88,12 @@ if options[:glob]
 
     ancestor = File.realpath(ancestor)
     relative_pattern = suffix.join("/")
-    Dir.glob(relative_pattern, base: ancestor).map { |path| File.expand_path(path, ancestor) }
+    matches = Dir.glob(relative_pattern, base: ancestor)
+    expanded = matches.map { |path| File.expand_path(path, ancestor) }
+    if ENV["YAML_CONVERTER_DEBUG_GLOB"] == "true"
+      warn "Glob debug: base=#{ancestor.inspect} pattern=#{relative_pattern.inspect} matches=#{matches.inspect} expanded=#{expanded.inspect}"
+    end
+    expanded
   end
 
   # Glob relative to a resolved directory to avoid Windows long/short path alias mismatches.

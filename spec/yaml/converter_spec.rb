@@ -220,7 +220,7 @@ RSpec.describe Yaml::Converter do
         pattern = File.join(directory, "*.yaml")
         expect(Dir.glob(pattern).map { |path| File.basename(path) }).to contain_exactly("a.yaml", "b.yaml")
         expect(Dir.glob("*.yaml", base: directory).map { |path| File.basename(path) }).to contain_exactly("a.yaml", "b.yaml")
-        output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false"}, RbConfig.ruby, exe_path, "--glob", pattern, "--out-ext", "md")
+        output, status = Open3.capture2e({"KETTLE_TEST_SILENT" => "false", "YAML_CONVERTER_DEBUG_GLOB" => "true"}, RbConfig.ruby, exe_path, "--glob", pattern, "--out-ext", "md")
         expect(status.exitstatus).to be(0)
         expect(output).to include("Batch complete: 2 succeeded, 0 failed")
         expect(output.lines.count { |line| line.start_with?("Converted:") }).to eq(2)
