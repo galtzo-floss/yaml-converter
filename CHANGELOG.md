@@ -36,6 +36,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Canonicalize existing paths before batch globbing to handle Windows temporary-directory aliases.
+
 ### Security
 
 ## [0.2.7] - 2026-09-30
