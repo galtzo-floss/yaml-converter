@@ -14,6 +14,24 @@ template_state:
     - gemfiles/modular/templating.gemfile
     - gemfiles/modular/x_std_libs.gemfile
     kettle-jem/template:
+    - ".github/workflows/coverage.yml"
+    - ".github/workflows/current.yml"
+    - ".github/workflows/dep-heads.yml"
+    - ".github/workflows/heads.yml"
+    - ".github/workflows/jruby-10.0.yml"
+    - ".github/workflows/jruby.yml"
+    - ".github/workflows/locked_deps.yml"
+    - ".github/workflows/opencollective.yml"
+    - ".github/workflows/ruby-3.2.yml"
+    - ".github/workflows/ruby-3.3.yml"
+    - ".github/workflows/ruby-3.4.yml"
+    - ".github/workflows/style.yml"
+    - ".github/workflows/templating.yml"
+    - ".github/workflows/truffle.yml"
+    - ".github/workflows/truffleruby-24.2.yml"
+    - ".github/workflows/truffleruby-25.0.yml"
+    - ".github/workflows/truffleruby-33.0.yml"
+    - ".github/workflows/unlocked_deps.yml"
     - ".simplecov"
     - Rakefile
   checksums:
@@ -599,7 +617,7 @@ files:
   CHANGELOG.md:
     recipe: template_source_application_CHANGELOG_md
     action: write
-    dest_sha256: bad44d53a792d0486cb9dccd5f50941b0f43f31e0df93393a17de7ca94ab0bcc
+    dest_sha256: 2795e6dbb26ab960934aed3dc5e87aaad7c8ddd45183affaa67447b347485629
     input_fingerprint: 858243022bb10b082f69650f0db61ca40931672bb13f1ba3287aa2a493dff3dc
     template_sources:
     - CHANGELOG.md.example
