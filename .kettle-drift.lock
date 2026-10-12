@@ -1,4 +1,13 @@
 {
+  "- other (1)\n- workflows (4)": [
+    {
+      "file": "CHANGELOG.md",
+      "lines": [
+        30,
+        57
+      ]
+    }
+  ],
   "- ruby: \"ruby\"\nappraisal: \"current\"": [
     {
       "file": ".github/workflows/current.yml",
