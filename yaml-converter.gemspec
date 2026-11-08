@@ -55,6 +55,7 @@ Gem::Specification.new do |spec|
   enumerate_package_glob = lambda do |glob|
     Dir.glob(glob, File::FNM_DOTMATCH).filter_map do |path|
       next unless File.file?(path) && ![".", ".."].include?(File.basename(path))
+      next if path.match?(%r{\.(?:bundle|so|dylib|dll|o|a)\z})
 
       relative_package_path.call(path)
     end
@@ -77,7 +78,7 @@ Gem::Specification.new do |spec|
     *enumerate_package_files.call("lib"),
     # Executables and executable support scripts
     *enumerate_package_files.call("exe")
-  ].grep_v(%r{\.(?:bundle|so|dylib|dll|o|a)\z})
+  ]
   spec.rdoc_options += [
     "--title",
     "#{spec.name} - #{spec.summary}",
