@@ -623,7 +623,7 @@ DEPENDENCIES
   rubocop-ruby3_2 (~> 3.0, >= 3.0.8)
   ruby-progressbar (~> 1.13)
   standard (~> 1.57, >= 1.57.0)
-  stone_checksums (~> 1.0, >= 1.0.9)
+  stone_checksums (~> 1.0, >= 1.0.10)
   stringio (>= 3.2.0)
   turbo_tests2 (~> 4.0, >= 4.0.0)
   webrick (~> 1.9)
