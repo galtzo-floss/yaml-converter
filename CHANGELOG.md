@@ -22,44 +22,36 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Changed
 
-- [kc] kettle-jem/prepare: updated 18 project files:
-  - configuration (1)
-  - dependencies (17)
-
-- [kc] kettle-jem/template: updated 29 project files:
-  - code and tests (2)
-  - dependencies (5)
-  - documentation (1)
-  - other (4)
-  - workflows (17)
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
 
-- Preserve YAML and notes across PDF pages using HexaPDF Composer, including two-column layouts.
-
 ### Security
 
-## [0.2.8] - 2026-10-12
+## [0.2.8] - 2026-11-08
 
 - TAG: [v0.2.8][0.2.8t]
-- COVERAGE: 92.69% -- 444/479 lines in 10 files
-- BRANCH COVERAGE: 68.42% -- 117/171 branches in 10 files
-- 66.67% documented
+- COVERAGE: 92.49% -- 419/453 lines in 10 files
+- BRANCH COVERAGE: 67.28% -- 109/162 branches in 10 files
+- 73.44% documented
 
 ### Changed
 
-- [kc] kettle-jem/prepare: updated 13 project files:
-  - configuration (1)
-  - dependencies (12)
-- [kc] kettle-jem/template: updated 14 project files:
-  - code and tests (2)
-  - documentation (2)
-  - other (2)
-  - workflows (8)
+- [kc] kettle-jem/prepare: updated 31 project files:
+  - configuration (2)
+  - dependencies (29)
+- [kc] kettle-jem/template: updated 43 project files:
+  - code and tests (4)
+  - dependencies (5)
+  - documentation (3)
+  - other (6)
+  - workflows (25)
+
+### Fixed
+
+- Preserve YAML and notes across PDF pages using HexaPDF Composer, including two-column layouts.
 
 ## [0.2.7] - 2026-10-01
 

@@ -117,7 +117,7 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#average_char_width-class_method" title="average_char_width (class method)">.<strong>average_char_width</strong>(size, font)  &#x21d2; Object </a>
+      <a href="#draw_columns-class_method" title="draw_columns (class method)">.<strong>draw_columns</strong>(composer, yaml_section, notes, size:, margin:, options: {})  &#x21d2; Object </a>
     
 
     
@@ -131,7 +131,7 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>Compose each column independently and overlay its pages on the title document.</p>
 </div></span>
   
 </li>
@@ -140,53 +140,7 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#draw_lines-class_method" title="draw_lines (class method)">.<strong>draw_lines</strong>(canvas, lines, content:, left: content.left, cursor: content.cursor, width: content.width, size: 11, font: &quot;Helvetica&quot;, style: nil)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#draw_page_number-class_method" title="draw_page_number (class method)">.<strong>draw_page_number</strong>(canvas, page:)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#draw_two_column_layout-class_method" title="draw_two_column_layout (class method)">.<strong>draw_two_column_layout</strong>(canvas, yaml_section:, notes:, content:, options: {})  &#x21d2; Object </a>
+      <a href="#draw_lines-class_method" title="draw_lines (class method)">.<strong>draw_lines</strong>(composer, lines, **style)  &#x21d2; Object </a>
     
 
     
@@ -255,29 +209,6 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#font_variant-class_method" title="font_variant (class method)">.<strong>font_variant</strong>(style)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#header_lines-class_method" title="header_lines (class method)">.<strong>header_lines</strong>(markdown)  &#x21d2; Array&lt;String&gt; </a>
     
 
@@ -293,29 +224,6 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
 
   
     <span class="summary_desc"><div class='inline'><p>Extract leading <code># Title lines</code>.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#line_height-class_method" title="line_height (class method)">.<strong>line_height</strong>(size)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -390,29 +298,6 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#wrapped_lines-class_method" title="wrapped_lines (class method)">.<strong>wrapped_lines</strong>(line, width:, size:, font:)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
     </ul>
     
   
@@ -424,29 +309,97 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="average_char_width-class_method">
+  <h3 class="signature first" id="draw_columns-class_method">
   
-    .<strong>average_char_width</strong>(size, font)  &#x21d2; <tt>Object</tt> 
-  
-
+    .<strong>draw_columns</strong>(composer, yaml_section, notes, size:, margin:, options: {})  &#x21d2; <tt>Object</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Compose each column independently and overlay its pages on the title document.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-139
-140
-141</pre>
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 58</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_average_char_width'>average_char_width</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='id identifier rubyid_font'>font</span><span class='rparen'>)</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_font'>font</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Courier</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='float'>0.6</span> <span class='op'>:</span> <span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='float'>0.5</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_draw_columns'>draw_columns</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='comma'>,</span> <span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='id identifier rubyid_notes'>notes</span><span class='comma'>,</span> <span class='label'>size:</span><span class='comma'>,</span> <span class='label'>margin:</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span>
+  <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_box'>box</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span>
+  <span class='id identifier rubyid_column_width'>column_width</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='int'>16</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='float'>2.0</span>
+  <span class='id identifier rubyid_start_page'>start_page</span> <span class='op'>=</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>-</span> <span class='int'>1</span>
+  <span class='id identifier rubyid_first_top'>first_top</span> <span class='op'>=</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_box'>box</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_y'>y</span>
+  <span class='id identifier rubyid_columns'>columns</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_column_width'>column_width</span><span class='comma'>,</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='lbrace'>{</span><span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Courier</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_yaml_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>9</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_notes'>notes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_note'>note</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NOTE: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_note'>note</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_column_width'>column_width</span> <span class='op'>+</span> <span class='int'>16</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='lbrace'>{</span><span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_body_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>11</span><span class='comma'>,</span> <span class='label'>font_variant:</span> <span class='symbol'>:italic</span><span class='rbrace'>}</span><span class='rbracket'>]</span>
+  <span class='rbracket'>]</span>
+  <span class='id identifier rubyid_columns'>columns</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='id identifier rubyid_column_margin'>column_margin</span><span class='comma'>,</span> <span class='id identifier rubyid_style'>style</span><span class='op'>|</span>
+    <span class='id identifier rubyid_column'>column</span> <span class='op'>=</span> <span class='const'>HexaPDF</span><span class='op'>::</span><span class='const'>Composer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>skip_page_creation:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_page_style'>page_style</span><span class='lparen'>(</span><span class='symbol'>:continuation</span><span class='comma'>,</span> <span class='label'>page_size:</span> <span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_page_style'>page_style</span><span class='op'>|</span>
+      <span class='id identifier rubyid_page_style'>page_style</span><span class='period'>.</span><span class='id identifier rubyid_frame'>frame</span> <span class='op'>=</span> <span class='id identifier rubyid_page_style'>page_style</span><span class='period'>.</span><span class='id identifier rubyid_create_frame'>create_frame</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span><span class='comma'>,</span> <span class='id identifier rubyid_column_margin'>column_margin</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_page_style'>page_style</span><span class='lparen'>(</span><span class='symbol'>:first</span><span class='comma'>,</span> <span class='label'>page_size:</span> <span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='label'>next_style:</span> <span class='symbol'>:continuation</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_page_style'>page_style</span><span class='op'>|</span>
+      <span class='id identifier rubyid_page_style'>page_style</span><span class='period'>.</span><span class='id identifier rubyid_frame'>frame</span> <span class='op'>=</span> <span class='id identifier rubyid_page_style'>page_style</span><span class='period'>.</span><span class='id identifier rubyid_create_frame'>create_frame</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_first_top'>first_top</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_column_margin'>column_margin</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_new_page'>new_page</span><span class='lparen'>(</span><span class='symbol'>:first</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_column'>column</span><span class='comma'>,</span> <span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_style'>style</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_dispatch_message'>dispatch_message</span><span class='lparen'>(</span><span class='symbol'>:complete_objects</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_validate'>validate</span>
+    <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_column_page'>column_page</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+      <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_new_page'>new_page</span> <span class='kw'>while</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_start_page'>start_page</span> <span class='op'>+</span> <span class='id identifier rubyid_index'>index</span>
+      <span class='id identifier rubyid_target'>target</span> <span class='op'>=</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_pages'>pages</span><span class='lbracket'>[</span><span class='id identifier rubyid_start_page'>start_page</span> <span class='op'>+</span> <span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_form'>form</span> <span class='op'>=</span> <span class='id identifier rubyid_column'>column</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_column_page'>column_page</span><span class='period'>.</span><span class='id identifier rubyid_to_form_xobject'>to_form_xobject</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_xobject'>xobject</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_import'>import</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>at:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -456,7 +409,7 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <div class="method_details ">
   <h3 class="signature " id="draw_lines-class_method">
   
-    .<strong>draw_lines</strong>(canvas, lines, content:, left: content.left, cursor: content.cursor, width: content.width, size: 11, font: &quot;Helvetica&quot;, style: nil)  &#x21d2; <tt>Object</tt> 
+    .<strong>draw_lines</strong>(composer, lines, **style)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -468,125 +421,25 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <pre class="lines">
 
 
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130</pre>
+91
+92
+93
+94
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 112</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 91</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='label'>content:</span><span class='comma'>,</span> <span class='label'>left:</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='label'>cursor:</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_cursor'>cursor</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='int'>11</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>style:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_variant'>variant</span> <span class='op'>=</span> <span class='id identifier rubyid_font_variant'>font_variant</span><span class='lparen'>(</span><span class='id identifier rubyid_style'>style</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_variant'>variant</span>
-    <span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_font'>font</span><span class='lparen'>(</span><span class='id identifier rubyid_font'>font</span><span class='comma'>,</span> <span class='label'>variant:</span> <span class='id identifier rubyid_variant'>variant</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_font'>font</span><span class='lparen'>(</span><span class='id identifier rubyid_font'>font</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='comma'>,</span> <span class='id identifier rubyid_lines'>lines</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_style'>style</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_variant'>variant</span> <span class='op'>=</span> <span class='id identifier rubyid_style'>style</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:font_variant</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_style'>style</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_fonts'>fonts</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_style'>style</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>variant:</span> <span class='id identifier rubyid_variant'>variant</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_variant'>variant</span>
+  <span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+    <span class='id identifier rubyid_indent'>indent</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_style'>style</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Courier</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_line'>line</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A *</span><span class='regexp_end'>/</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>*</span> <span class='id identifier rubyid_style'>style</span><span class='lbracket'>[</span><span class='symbol'>:font_size</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='float'>0.6</span> <span class='op'>:</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='label'>text_indent:</span> <span class='id identifier rubyid_indent'>indent</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_style'>style</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_cursor'>cursor</span>
-  <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_lines'>lines</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
-    <span class='id identifier rubyid_wrapped_lines'>wrapped_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='id identifier rubyid_font'>font</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_wrapped'>wrapped</span><span class='op'>|</span>
-      <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_bottom'>bottom</span>
-
-      <span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_wrapped'>wrapped</span><span class='comma'>,</span> <span class='label'>at:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='id identifier rubyid_y'>y</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_y'>y</span> <span class='op'>-=</span> <span class='id identifier rubyid_line_height'>line_height</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='id identifier rubyid_y'>y</span> <span class='kw'>if</span> <span class='id identifier rubyid_left'>left</span> <span class='op'>==</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>==</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span>
-  <span class='id identifier rubyid_y'>y</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="draw_page_number-class_method">
-  
-    .<strong>draw_page_number</strong>(canvas, page:)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-154
-155
-156
-157</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 154</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_draw_page_number'>draw_page_number</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='label'>page:</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_font'>font</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>size:</span> <span class='int'>9</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Page 1 of 1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>at:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_box'>box</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='int'>136</span><span class='comma'>,</span> <span class='int'>36</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="draw_two_column_layout-class_method">
-  
-    .<strong>draw_two_column_layout</strong>(canvas, yaml_section:, notes:, content:, options: {})  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 100</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_draw_two_column_layout'>draw_two_column_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='label'>yaml_section:</span><span class='comma'>,</span> <span class='label'>notes:</span><span class='comma'>,</span> <span class='label'>content:</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_gap'>gap</span> <span class='op'>=</span> <span class='int'>16</span>
-  <span class='id identifier rubyid_column_width'>column_width</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_gap'>gap</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='float'>2.0</span>
-  <span class='id identifier rubyid_left'>left</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span>
-  <span class='id identifier rubyid_right'>right</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span> <span class='op'>+</span> <span class='id identifier rubyid_column_width'>column_width</span> <span class='op'>+</span> <span class='id identifier rubyid_gap'>gap</span>
-  <span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_cursor'>cursor</span>
-
-  <span class='id identifier rubyid_yaml_bottom'>yaml_bottom</span> <span class='op'>=</span> <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>left:</span> <span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='label'>cursor:</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='id identifier rubyid_column_width'>column_width</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_yaml_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>9</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Courier</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_notes_bottom'>notes_bottom</span> <span class='op'>=</span> <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_notes'>notes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_note'>note</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NOTE: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_note'>note</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>left:</span> <span class='id identifier rubyid_right'>right</span><span class='comma'>,</span> <span class='label'>cursor:</span> <span class='id identifier rubyid_cursor'>cursor</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='id identifier rubyid_column_width'>column_width</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_body_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>11</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>style:</span> <span class='symbol'>:italic</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_cursor'>cursor</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_yaml_bottom'>yaml_bottom</span><span class='comma'>,</span> <span class='id identifier rubyid_notes_bottom'>notes_bottom</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -646,12 +499,12 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <pre class="lines">
 
 
-189
-190
-191</pre>
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extract_notes'>extract_notes</span><span class='lparen'>(</span><span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_markdown'>markdown</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_grep'>grep</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^&gt; NOTE:</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_l'>l</span><span class='op'>|</span> <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^&gt; NOTE:\s*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span> <span class='rbrace'>}</span>
@@ -714,25 +567,25 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <pre class="lines">
 
 
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184</pre>
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fenced_yaml'>fenced_yaml</span><span class='lparen'>(</span><span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_inside'>inside</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -749,42 +602,6 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
     <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_lines'>lines</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="font_variant-class_method">
-  
-    .<strong>font_variant</strong>(style)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-143
-144
-145
-146
-147
-148</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 143</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_font_variant'>font_variant</span><span class='lparen'>(</span><span class='id identifier rubyid_style'>style</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='symbol'>:bold</span> <span class='kw'>if</span> <span class='id identifier rubyid_style'>style</span> <span class='op'>==</span> <span class='symbol'>:bold</span>
-  <span class='kw'>return</span> <span class='symbol'>:italic</span> <span class='kw'>if</span> <span class='id identifier rubyid_style'>style</span> <span class='op'>==</span> <span class='symbol'>:italic</span>
-
-  <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -844,45 +661,15 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <pre class="lines">
 
 
-162
-163
-164</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_header_lines'>header_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_markdown'>markdown</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_take_while'>take_while</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_l'>l</span><span class='op'>|</span> <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_start_with?'>start_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'># </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_l'>l</span><span class='op'>|</span> <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^# </span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="line_height-class_method">
-  
-    .<strong>line_height</strong>(size)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-150
-151
-152</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 150</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_line_height'>line_height</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_size'>size</span> <span class='op'>*</span> <span class='float'>1.25</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -904,15 +691,15 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <pre class="lines">
 
 
-93
-94
-95
-96
-97
-98</pre>
+111
+112
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_margin'>normalize_margin</span><span class='lparen'>(</span><span class='id identifier rubyid_margin'>margin</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_margin'>margin</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_i</span><span class='rparen'>)</span>
@@ -940,19 +727,19 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
       <pre class="lines">
 
 
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91</pre>
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_size'>page_size</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
@@ -1189,65 +976,29 @@ Basic layout: title lines, YAML block in monospace, notes as italic paragraphs.<
   <span class='id identifier rubyid_yaml_section'>yaml_section</span> <span class='op'>=</span> <span class='id identifier rubyid_fenced_yaml'>fenced_yaml</span><span class='lparen'>(</span><span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_title_lines'>title_lines</span> <span class='op'>=</span> <span class='id identifier rubyid_header_lines'>header_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_markdown'>markdown</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_document'>document</span> <span class='op'>=</span> <span class='const'>HexaPDF</span><span class='op'>::</span><span class='const'>Document</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-  <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_page_size'>page_size</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_page_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LETTER</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_margin'>margin</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_margin'>normalize_margin</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_margin</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='int'>36</span><span class='comma'>,</span> <span class='int'>36</span><span class='comma'>,</span> <span class='int'>36</span><span class='comma'>,</span> <span class='int'>36</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='const'>ContentBox</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>page:</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='label'>margin:</span> <span class='id identifier rubyid_margin'>margin</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_canvas'>canvas</span> <span class='op'>=</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_canvas'>canvas</span>
-
-  <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_title_lines'>title_lines</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_title_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>14</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>style:</span> <span class='symbol'>:bold</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_move_down'>move_down</span><span class='lparen'>(</span><span class='int'>10</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_title_lines'>title_lines</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+  <span class='comment'># Reserve room for the footer even when the requested bottom margin is smaller.
+</span>  <span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_margin'>margin</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='int'>50</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+  <span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='id identifier rubyid_page_size'>page_size</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_page_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LETTER</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_composer'>composer</span> <span class='op'>=</span> <span class='const'>HexaPDF</span><span class='op'>::</span><span class='const'>Composer</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>page_size:</span> <span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='label'>margin:</span> <span class='id identifier rubyid_margin'>margin</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='comma'>,</span> <span class='id identifier rubyid_title_lines'>title_lines</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_title_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>14</span><span class='comma'>,</span> <span class='label'>font_variant:</span> <span class='symbol'>:bold</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_two_column_notes</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_notes'>notes</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
-    <span class='id identifier rubyid_draw_two_column_layout'>draw_two_column_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='label'>yaml_section:</span> <span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='label'>notes:</span> <span class='id identifier rubyid_notes'>notes</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_draw_columns'>draw_columns</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='comma'>,</span> <span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='id identifier rubyid_notes'>notes</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='label'>margin:</span> <span class='id identifier rubyid_margin'>margin</span><span class='comma'>,</span> <span class='label'>options:</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_yaml_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>9</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Courier</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_move_down'>move_down</span><span class='lparen'>(</span><span class='int'>10</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='id identifier rubyid_notes'>notes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_note'>note</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NOTE: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_note'>note</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_body_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>11</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>style:</span> <span class='symbol'>:italic</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='comma'>,</span> <span class='id identifier rubyid_yaml_section'>yaml_section</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Courier</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_yaml_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>9</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_draw_lines'>draw_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_composer'>composer</span><span class='comma'>,</span> <span class='id identifier rubyid_notes'>notes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_note'>note</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NOTE: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_note'>note</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:pdf_body_font_size</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>11</span><span class='comma'>,</span> <span class='label'>font_variant:</span> <span class='symbol'>:italic</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_draw_page_number'>draw_page_number</span><span class='lparen'>(</span><span class='id identifier rubyid_canvas'>canvas</span><span class='comma'>,</span> <span class='label'>page:</span> <span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_out_path'>out_path</span><span class='comma'>,</span> <span class='label'>optimize:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pages'>pages</span> <span class='op'>=</span> <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_document'>document</span><span class='period'>.</span><span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+  <span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+    <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_canvas'>canvas</span><span class='period'>.</span><span class='id identifier rubyid_font'>font</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Helvetica</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>size:</span> <span class='int'>9</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Page </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span> <span class='op'>+</span> <span class='int'>1</span><span class='embexpr_end'>}</span><span class='tstring_content'> of </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pages'>pages</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>at:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_box'>box</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='int'>136</span><span class='comma'>,</span> <span class='int'>24</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_composer'>composer</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='id identifier rubyid_out_path'>out_path</span><span class='comma'>,</span> <span class='label'>optimize:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>true</span>
 <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
   <span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hexapdf pdf failed: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>false</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="wrapped_lines-class_method">
-  
-    .<strong>wrapped_lines</strong>(line, width:, size:, font:)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-132
-133
-134
-135
-136
-137</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/yaml/converter/renderer/pdf_hexapdf.rb', line 132</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_wrapped_lines'>wrapped_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_line'>line</span><span class='comma'>,</span> <span class='label'>width:</span><span class='comma'>,</span> <span class='label'>size:</span><span class='comma'>,</span> <span class='label'>font:</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_max_chars'>max_chars</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span> <span class='op'>/</span> <span class='id identifier rubyid_average_char_width'>average_char_width</span><span class='lparen'>(</span><span class='id identifier rubyid_size'>size</span><span class='comma'>,</span> <span class='id identifier rubyid_font'>font</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_floor'>floor</span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
-  <span class='kw'>return</span> <span class='lbracket'>[</span><span class='id identifier rubyid_line'>line</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_max_chars'>max_chars</span>
-
-  <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.{1,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_max_chars'>max_chars</span><span class='embexpr_end'>}</span><span class='tstring_content'>}</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
