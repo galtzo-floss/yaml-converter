@@ -77,7 +77,7 @@ Gem::Specification.new do |spec|
     *enumerate_package_files.call("lib"),
     # Executables and executable support scripts
     *enumerate_package_files.call("exe")
-  ]
+  ].grep_v(%r{\.(?:bundle|so|dylib|dll|o|a)\z})
   spec.rdoc_options += [
     "--title",
     "#{spec.name} - #{spec.summary}",
