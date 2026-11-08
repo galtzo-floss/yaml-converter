@@ -29,55 +29,73 @@ module Yaml
           yaml_section = fenced_yaml(markdown)
           title_lines = header_lines(markdown)
 
-          document = HexaPDF::Document.new
-          page = document.pages.add(page_size(options[:pdf_page_size] || "LETTER"))
           margin = normalize_margin(options[:pdf_margin] || [36, 36, 36, 36])
-          content = ContentBox.new(page: page, margin: margin)
-          canvas = page.canvas
-
-          draw_lines(canvas, title_lines, content: content, size: options[:pdf_title_font_size] || 14, font: "Helvetica", style: :bold)
-          content.move_down(10) if title_lines.any?
+          # Reserve room for the footer even when the requested bottom margin is smaller.
+          margin[2] = [margin[2], 50].max
+          size = page_size(options[:pdf_page_size] || "LETTER")
+          composer = HexaPDF::Composer.new(page_size: size, margin: margin)
+          draw_lines(composer, title_lines, font: "Helvetica", font_size: options[:pdf_title_font_size] || 14, font_variant: :bold)
 
           if options[:pdf_two_column_notes] && notes.any?
-            draw_two_column_layout(canvas, yaml_section: yaml_section, notes: notes, content: content, options: options)
+            draw_columns(composer, yaml_section, notes, size: size, margin: margin, options: options)
           else
-            draw_lines(canvas, yaml_section, content: content, size: options[:pdf_yaml_font_size] || 9, font: "Courier")
-            content.move_down(10)
-            draw_lines(canvas, notes.map { |note| "NOTE: #{note}" }, content: content, size: options[:pdf_body_font_size] || 11, font: "Helvetica", style: :italic)
+            draw_lines(composer, yaml_section, font: "Courier", font_size: options[:pdf_yaml_font_size] || 9)
+            draw_lines(composer, notes.map { |note| "NOTE: #{note}" }, font: "Helvetica", font_size: options[:pdf_body_font_size] || 11, font_variant: :italic)
           end
 
-          draw_page_number(canvas, page: page)
-          document.write(out_path, optimize: true)
+          pages = composer.document.pages.to_a
+          pages.each_with_index do |page, index|
+            page.canvas.font("Helvetica", size: 9).text("Page #{index + 1} of #{pages.length}", at: [page.box.width - 136, 24])
+          end
+          composer.write(out_path, optimize: true)
           true
         rescue => e
           warn("hexapdf pdf failed: #{e.class}: #{e.message}")
           false
         end
 
-        ContentBox = Class.new do
-          attr_accessor :page, :margin, :left, :right, :top, :bottom, :cursor
-
-          def initialize(page:, margin:)
-            width = page.box.width
-            height = page.box.height
-            @page = page
-            @margin = margin
-            @left = margin[3]
-            @right = width - margin[1]
-            @top = height - margin[0]
-            @bottom = margin[2]
-            @cursor = height - margin[0]
-          end
-
-          def width
-            right - left
-          end
-
-          def move_down(amount)
-            self.cursor -= amount
+        # Compose each column independently and overlay its pages on the title document.
+        def draw_columns(composer, yaml_section, notes, size:, margin:, options: {})
+          page = composer.page
+          width = page.box.width
+          column_width = (width - margin[1] - margin[3] - 16) / 2.0
+          start_page = composer.document.pages.count - 1
+          first_top = page.box.height - composer.y
+          columns = [
+            [yaml_section, [margin[0], width - margin[3] - column_width, margin[2], margin[3]],
+              {font: "Courier", font_size: options[:pdf_yaml_font_size] || 9}],
+            [notes.map { |note| "NOTE: #{note}" }, [margin[0], margin[1], margin[2], margin[3] + column_width + 16],
+              {font: "Helvetica", font_size: options[:pdf_body_font_size] || 11, font_variant: :italic}]
+          ]
+          columns.each do |lines, column_margin, style|
+            column = HexaPDF::Composer.new(skip_page_creation: true)
+            column.page_style(:continuation, page_size: size) do |canvas, page_style|
+              page_style.frame = page_style.create_frame(canvas.context, column_margin)
+            end
+            column.page_style(:first, page_size: size, next_style: :continuation) do |canvas, page_style|
+              page_style.frame = page_style.create_frame(canvas.context, [first_top, *column_margin[1..]])
+            end
+            column.new_page(:first)
+            draw_lines(column, lines, **style)
+            column.document.dispatch_message(:complete_objects)
+            column.document.validate
+            column.document.pages.each_with_index do |column_page, index|
+              composer.new_page while composer.document.pages.count <= start_page + index
+              target = composer.document.pages[start_page + index]
+              form = column.document.add(column_page.to_form_xobject)
+              target.canvas.xobject(composer.document.import(form), at: [0, 0])
+            end
           end
         end
-        private_constant :ContentBox
+
+        def draw_lines(composer, lines, **style)
+          variant = style.delete(:font_variant)
+          style[:font] = composer.document.fonts.add(style[:font], variant: variant) if variant
+          lines.each do |line|
+            indent = (style[:font] == "Courier") ? line[/\A */].length * style[:font_size] * 0.6 : 0
+            composer.text(line.empty? ? " " : line, text_indent: indent, **style)
+          end
+        end
 
         def page_size(name)
           case name.to_s.upcase
@@ -95,65 +113,6 @@ module Yaml
           return [36, 36, 36, 36] unless values.size == 4
 
           values
-        end
-
-        def draw_two_column_layout(canvas, yaml_section:, notes:, content:, options: {})
-          gap = 16
-          column_width = (content.width - gap) / 2.0
-          left = content.left
-          right = content.left + column_width + gap
-          cursor = content.cursor
-
-          yaml_bottom = draw_lines(canvas, yaml_section, content: content, left: left, cursor: cursor, width: column_width, size: options[:pdf_yaml_font_size] || 9, font: "Courier")
-          notes_bottom = draw_lines(canvas, notes.map { |note| "NOTE: #{note}" }, content: content, left: right, cursor: cursor, width: column_width, size: options[:pdf_body_font_size] || 11, font: "Helvetica", style: :italic)
-          content.cursor = [yaml_bottom, notes_bottom].min
-        end
-
-        def draw_lines(canvas, lines, content:, left: content.left, cursor: content.cursor, width: content.width, size: 11, font: "Helvetica", style: nil)
-          variant = font_variant(style)
-          if variant
-            canvas.font(font, variant: variant, size: size)
-          else
-            canvas.font(font, size: size)
-          end
-          y = cursor
-          Array(lines).each do |line|
-            wrapped_lines(line.to_s, width: width, size: size, font: font).each do |wrapped|
-              break if y <= content.bottom
-
-              canvas.text(wrapped, at: [left, y])
-              y -= line_height(size)
-            end
-          end
-          content.cursor = y if left == content.left && width == content.width
-          y
-        end
-
-        def wrapped_lines(line, width:, size:, font:)
-          max_chars = [(width / average_char_width(size, font)).floor, 1].max
-          return [line] if line.length <= max_chars
-
-          line.scan(/.{1,#{max_chars}}/)
-        end
-
-        def average_char_width(size, font)
-          (font == "Courier") ? size * 0.6 : size * 0.5
-        end
-
-        def font_variant(style)
-          return :bold if style == :bold
-          return :italic if style == :italic
-
-          nil
-        end
-
-        def line_height(size)
-          size * 1.25
-        end
-
-        def draw_page_number(canvas, page:)
-          canvas.font("Helvetica", size: 9)
-          canvas.text("Page 1 of 1", at: [page.box.width - 136, 36])
         end
 
         # Extract leading `# Title lines`.

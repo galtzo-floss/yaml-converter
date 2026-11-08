@@ -37,6 +37,8 @@ Please file a bug if you notice a violation of semantic versioning.
 
 ### Fixed
 
+- Preserve YAML and notes across PDF pages using HexaPDF Composer, including two-column layouts.
+
 ### Security
 
 ## [0.2.8] - 2026-10-12
