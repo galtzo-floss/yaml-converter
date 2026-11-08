@@ -55,5 +55,4 @@ RSpec.describe Yaml::Converter::Renderer::PdfHexapdf do
       end
     end
   end
-
 end
