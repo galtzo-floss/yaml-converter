@@ -77,11 +77,7 @@ Gem::Specification.new do |spec|
     *enumerate_package_files.call("lib"),
     # Executables and executable support scripts
     *enumerate_package_files.call("exe")
-  ]
-  # kettle-jem:freeze
-  # Keep locally built native binaries out of release packages.
-  spec.files.reject! { |path| path.end_with?(".bundle", ".so", ".dylib", ".dll", ".o", ".a") }
-  # kettle-jem:unfreeze
+  ].grep_v(%r{\.(?:bundle|so|dylib|dll|o|a)\z})
   spec.rdoc_options += [
     "--title",
     "#{spec.name} - #{spec.summary}",
@@ -96,6 +92,11 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   # Listed files are the relative paths from bindir above.
   spec.executables = ["yaml-convert"]
+
+  # kettle-jem:freeze
+  # Keep locally built native binaries out of release packages.
+  spec.files.reject! { |path| path.end_with?(".bundle", ".so", ".dylib", ".dll", ".o", ".a") }
+  # kettle-jem:unfreeze
 
   # kettle-jem:freeze
   # To retain chunks of comments & code during yaml-converter templating:
