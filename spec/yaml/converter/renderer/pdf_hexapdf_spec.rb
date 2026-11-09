@@ -40,6 +40,10 @@ RSpec.describe Yaml::Converter::Renderer::PdfHexapdf do
 
   [false, true].each do |two_columns|
     it "preserves overflowing YAML and notes with two-column layout #{two_columns}" do
+      # HexaPDF's parser needs StringScanner#scan_byte (strscan >= 3.1.1), which
+      # TruffleRuby 24.2 does not ship. Rendering is still covered elsewhere.
+      skip "HexaPDF parsing needs StringScanner#scan_byte" unless StringScanner.method_defined?(:scan_byte)
+
       yaml = (1..180).map { |n| "key#{n}: value#{n}" }.join("\n")
       notes = (1..120).map { |n| "> NOTE: note#{n}" }.join("\n")
       markdown = "# Title\n\n```yaml\n#{yaml}\n```\n\n#{notes}\n"
