@@ -14,6 +14,8 @@ template_state:
     - gemfiles/modular/templating.gemfile
     - yaml-converter.gemspec
     kettle-jem/template:
+    - ".github/workflows/truffleruby-24.2.yml"
+    - ".github/workflows/truffleruby-25.0.yml"
     - ".simplecov"
     - Rakefile
     - gemfiles/modular/coverage_local.gemfile
@@ -438,20 +440,6 @@ files:
     input_fingerprint: 8a0038e4cb7bc58a7db949320ea283ef24ef501f3fecc24e21695709079542b5
     template_sources:
     - ".github/workflows/truffle.yml.example"
-  ".github/workflows/truffleruby-24.2.yml":
-    recipe: template_source_application_github_workflows_truffleruby_24_2_yml
-    action: write
-    dest_sha256: '0299738c696954f9cdea612fe1c633dc5af5a138297328a758349eff8ebd2e2f'
-    input_fingerprint: '09c332414a8cfd0f1ab36fe937a21accc63766bd0a548a67a3bdf8e34f8fb7a6'
-    template_sources:
-    - ".github/workflows/truffleruby-24.2.yml.example"
-  ".github/workflows/truffleruby-25.0.yml":
-    recipe: template_source_application_github_workflows_truffleruby_25_0_yml
-    action: write
-    dest_sha256: 5c8cd15c28a56c4bd744632e963cb6ddbab67492a4e27b949500900694e76761
-    input_fingerprint: 337a5d9d1d991c16151e72f5c3dabee604eaa383bcf57a541a38c644539ecf1a
-    template_sources:
-    - ".github/workflows/truffleruby-25.0.yml.example"
   ".github/workflows/truffleruby-33.0.yml":
     recipe: template_source_application_github_workflows_truffleruby_33_0_yml
     action: write
